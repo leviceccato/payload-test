@@ -8,6 +8,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
 import { Nav } from './globals/Nav'
 
 const filename = fileURLToPath(import.meta.url)
@@ -42,5 +43,5 @@ export default buildConfig({
     }),
   ],
   globals: [Nav],
-  collections: [Users, Media],
+  collections: [Users, Media, Pages],
 })
