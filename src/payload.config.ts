@@ -30,7 +30,8 @@ export default buildConfig({
   globals: [Nav],
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URI || '',
+      authToken: process.env.TURSO_AUTH_TOKEN ?? '',
+      url: process.env.TURSO_DATABASE_URL ?? '',
     },
   }),
   sharp,
