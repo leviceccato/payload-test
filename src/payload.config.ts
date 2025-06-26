@@ -9,7 +9,7 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
-import { Nav } from './globals/Nav'
+import { Header } from './globals/Header'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -32,16 +32,24 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    livePreview: {
+      url: ({ collectionConfig, data }) => {
+        if (!collectionConfig?.slug) {
+          return `/${data.id}`
+        }
+        return `/${collectionConfig.slug}/${data.id}`
+      },
+      collections: [Pages.slug],
+    },
   },
   plugins: [
     vercelBlobStorage({
-      enabled: process.env.ENABLE_BLOB_STORAGE === 'true',
       token: process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
         media: true,
       },
     }),
   ],
-  globals: [Nav],
+  globals: [Header],
   collections: [Users, Media, Pages],
 })

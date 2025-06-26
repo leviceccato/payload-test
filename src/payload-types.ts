@@ -87,10 +87,10 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {
-    nav: Nav;
+    header: Header;
   };
   globalsSelect: {
-    nav: NavSelect<false> | NavSelect<true>;
+    header: HeaderSelect<false> | HeaderSelect<true>;
   };
   locale: null;
   user: User & {
@@ -160,10 +160,11 @@ export interface Media {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: number;
-  field?: string | null;
+  id: string;
+  title?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -182,7 +183,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'pages';
-        value: number | Page;
+        value: string | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -264,9 +265,11 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  field?: T;
+  id?: T;
+  title?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -302,28 +305,20 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "nav".
+ * via the `definition` "header".
  */
-export interface Nav {
+export interface Header {
   id: number;
-  items: {
-    page: number | User;
-    id?: string | null;
-  }[];
+  logo?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "nav_select".
+ * via the `definition` "header_select".
  */
-export interface NavSelect<T extends boolean = true> {
-  items?:
-    | T
-    | {
-        page?: T;
-        id?: T;
-      };
+export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
