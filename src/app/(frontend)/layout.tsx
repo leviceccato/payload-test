@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import './styles.css'
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from '@/components/Link'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -28,9 +28,11 @@ export default async function RootLayout(props: { children: ReactNode }) {
                 <Image src={header.logo.url} alt={header.logo.alt} fill />
               </div>
             )}
-            <Link href="/">Home</Link>
+            <Link href="/" className="text-xl">
+              Home
+            </Link>
           </header>
-          <ul>
+          <ul className="flex gap-4">
             {pages.docs.map((page) => (
               <li key={page.id}>
                 <Link href={`/pages/${page.slug}`}>{page.title}</Link>

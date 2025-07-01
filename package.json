@@ -20,6 +20,7 @@
     "@payloadcms/storage-vercel-blob": "^3.43.0",
     "@payloadcms/ui": "3.43.0",
     "@tailwindcss/postcss": "^4.1.10",
+    "@tailwindcss/typography": "^0.5.16",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
     "libsql": "^0.5.13",

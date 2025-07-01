@@ -1,6 +1,10 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  lexicalEditor,
+  BlocksFeature,
+  EXPERIMENTAL_TableFeature,
+} from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig, type TaskConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -18,7 +22,23 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET ?? '',
-  editor: lexicalEditor(),
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      EXPERIMENTAL_TableFeature(),
+      BlocksFeature({
+        blocks: [
+          {
+            slug: 'CustomBlock',
+            admin: {
+              disableBlockName: true,
+            },
+            fields: [],
+          },
+        ],
+      }),
+    ],
+  }),
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -52,110 +72,6 @@ export default buildConfig({
       },
     }),
   ],
-  jobs: {
-    tasks: [
-      {
-        slug: 'processRelease',
-        inputSchema: [
-          {
-            name: 'releaseId',
-            type: 'text',
-            required: true,
-          },
-        ],
-        outputSchema: [],
-        handler: async ({ input, req }) => {
-          const release = await req.payload.findByID({
-            collection: Releases.slug,
-            id: input.releaseId,
-          })
-
-          await req.payload.update({
-            collection: Pages.slug,
-            where: {
-              id: { in: release.documentsToPublish },
-            },
-            data: {
-              _status: 'published',
-            },
-          })
-
-          await req.payload.delete({
-            collection: Releases.slug,
-            id: release.id,
-          })
-
-          return {
-            output: {},
-          }
-        },
-      },
-      {
-        slug: 'processScheduledReleases',
-        inputSchema: [],
-        outputSchema: [
-          // {
-          //   name: 'totalFound',
-          //   type: 'number',
-          // },
-          // {
-          //   name: 'processed',
-          //   type: 'number',
-          // },
-          // {
-          //   name: 'errors',
-          //   type: 'number',
-          // },
-          {
-            name: 'processedAt',
-            type: 'text',
-          },
-        ],
-        handler: async ({ job, req }) => {
-          const releaseResult = await req.payload.find({
-            collection: Releases.slug,
-            where: {
-              and: [
-                {
-                  releaseDateAndTime: {
-                    less_than_equal: new Date(),
-                  },
-                },
-                {
-                  releaseDateAndTime: {
-                    exists: true,
-                  },
-                },
-              ],
-            },
-          })
-
-          for (const release of releaseResult.docs) {
-            await req.payload.update({
-              collection: Pages.slug,
-              where: {
-                id: { in: release.documentsToPublish },
-              },
-              data: {
-                _status: 'published',
-              },
-            })
-
-            await req.payload.delete({
-              collection: Releases.slug,
-              id: release.id,
-            })
-          }
-
-          return {
-            output: {
-              processedAt: new Date().toISOString(),
-            },
-          }
-        },
-      },
-    ],
-  },
   globals: [Header],
   collections: [Users, Media, Pages, Releases],
 })

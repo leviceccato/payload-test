@@ -34,5 +34,35 @@ export const Pages = {
           'Optionally assign this page to a release. Releases allow you to schedule the publishing of pages in bulk',
       },
     },
+    {
+      name: 'content',
+      type: 'blocks',
+      blocks: [
+        {
+          slug: 'Heading',
+          admin: {
+            disableBlockName: true,
+          },
+          fields: [
+            {
+              name: 'heading',
+              type: 'text',
+            },
+          ],
+        },
+        {
+          slug: 'Rich Text',
+          admin: {
+            disableBlockName: true,
+          },
+          fields: [
+            {
+              name: 'richText',
+              type: 'richText',
+            },
+          ],
+        },
+      ],
+    },
   ],
 } as const satisfies CollectionConfig
