@@ -52,7 +52,6 @@ export const Deploy: UIFieldClientComponent = (props: UIFieldClientProps) => {
       if (!deployResponse.ok) {
         throw new Error('Failed to deploy to Vercel', { cause: deployResponse })
       }
-      console.log('RES', deployResponse)
     } catch (error) {
       toast.error('Failed to deploy release', {
         description: error instanceof Error ? error.message : 'Unknown error',

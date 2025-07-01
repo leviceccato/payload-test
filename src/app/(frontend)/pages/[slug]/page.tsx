@@ -59,7 +59,6 @@ export default async function Page(props: {
               <RichText
                 data={block.richText}
                 converters={({ defaultConverters }) => {
-                  console.log(defaultConverters)
                   return {
                     ...defaultConverters,
                     blocks: {
