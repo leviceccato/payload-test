@@ -4,6 +4,7 @@ import config from '@/payload.config'
 import { notFound } from 'next/navigation'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import Head from 'next/head'
+import { draftMode } from 'next/headers'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config })
@@ -15,9 +16,13 @@ export async function generateMetadata(props: {
   params: Promise<{ slug: string }>
 }) {
   const params = await props.params
+  const draft = await draftMode()
+
   const payload = await getPayload({ config })
   const result = await payload.find({
     collection: Pages.slug,
+    limit: 1,
+    draft: draft.isEnabled,
     where: {
       slug: {
         equals: params.slug,
@@ -31,10 +36,13 @@ export default async function Page(props: {
   params: Promise<{ slug: string }>
 }) {
   const params = await props.params
-  const payload = await getPayload({ config })
+  const draft = await draftMode()
 
+  const payload = await getPayload({ config })
   const result = await payload.find({
     collection: Pages.slug,
+    limit: 1,
+    draft: draft.isEnabled,
     where: {
       slug: {
         equals: params.slug,
