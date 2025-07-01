@@ -33,7 +33,7 @@ export default async function RootLayout(props: { children: ReactNode }) {
           <ul>
             {pages.docs.map((page) => (
               <li key={page.id}>
-                <Link href={`/pages/${page.id}`}>{page.id}</Link>
+                <Link href={`/pages/${page.slug}`}>{page.title}</Link>
               </li>
             ))}
           </ul>
