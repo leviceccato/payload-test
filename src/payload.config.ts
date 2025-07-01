@@ -57,9 +57,9 @@ export default buildConfig({
     livePreview: {
       url: ({ collectionConfig, data }) => {
         if (!collectionConfig?.slug) {
-          return `/${data.id}`
+          return `/${data.slug}`
         }
-        return `/${collectionConfig.slug}/${data.id}`
+        return `/${collectionConfig.slug}/${data.slug}`
       },
       collections: [Pages.slug],
     },

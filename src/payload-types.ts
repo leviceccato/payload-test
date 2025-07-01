@@ -169,6 +169,7 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
+  test?: string | null;
   /**
    * Optionally assign this page to a release. Releases allow you to schedule the publishing of pages in bulk
    */
@@ -224,7 +225,7 @@ export interface Release {
   releaseDateAndTime?: string | null;
   releaseDateAndTime_tz?: SupportedTimezones;
   /**
-   * Select documents to publish before this release. If you just want to release already published content, leave this empty. An error will occur if you try to add documents to multiple releases.
+   * Select documents to publish before this release. If you just want to release already published content, leave this empty. An error will occur if you try to add a document to multiple releases.
    */
   documentsToPublish?: (number | Page)[] | null;
   updatedAt: string;
@@ -335,6 +336,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  test?: T;
   release?: T;
   content?:
     | T

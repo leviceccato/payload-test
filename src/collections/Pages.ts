@@ -1,9 +1,13 @@
 import type { CollectionConfig } from 'payload'
 
+const slug = 'pages'
+
 export const Pages = {
-  slug: 'pages',
+  slug,
   admin: {
     useAsTitle: 'title',
+    preview: (doc, options) =>
+      `${options.req.protocol}//${options.req.host}/${slug}/${doc.slug}`,
   },
   versions: {
     drafts: {
@@ -22,6 +26,10 @@ export const Pages = {
       required: true,
       unique: true,
       index: true,
+    },
+    {
+      name: 'test',
+      type: 'text',
     },
     {
       name: 'release',

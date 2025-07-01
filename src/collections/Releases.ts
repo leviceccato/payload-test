@@ -42,7 +42,7 @@ export const Releases = {
       admin: {
         appearance: 'drawer',
         description:
-          'Select documents to publish before this release. If you just want to release already published content, leave this empty. An error will occur if you try to add documents to multiple releases.',
+          'Select documents to publish before this release. If you just want to release already published content, leave this empty. An error will occur if you try to add a document to multiple releases.',
       },
     },
   ],

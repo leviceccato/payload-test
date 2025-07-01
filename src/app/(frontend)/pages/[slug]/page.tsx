@@ -50,6 +50,7 @@ export default async function Page(props: {
 
   return (
     <div>
+      <h1>{doc.test}</h1>
       {doc.content?.map((block) => (
         <div key={block.id} className="prose lg:prose-xl">
           {block.blockType === 'Heading' ? (
