@@ -34,10 +34,6 @@ export const Pages = {
       index: true,
     },
     {
-      name: 'test',
-      type: 'text',
-    },
-    {
       name: 'release',
       type: 'join',
       collection: 'releases',
