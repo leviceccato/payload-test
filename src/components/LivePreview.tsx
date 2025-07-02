@@ -6,10 +6,5 @@ import { useRouter } from 'next/navigation'
 export default function LivePreview() {
   const router = useRouter()
 
-  return (
-    <RefreshRouteOnSave
-      refresh={router.refresh}
-      serverURL={window.location.origin}
-    />
-  )
+  return <RefreshRouteOnSave refresh={router.refresh} serverURL="/" />
 }
