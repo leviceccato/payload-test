@@ -2,9 +2,19 @@
 
 import { RefreshRouteOnSave } from '@payloadcms/live-preview-react'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function LivePreview() {
   const router = useRouter()
+  const [serverURL, setServerURL] = useState('')
 
-  return <RefreshRouteOnSave refresh={router.refresh} serverURL="/" />
+  useEffect(() => {
+    setServerURL(window.location.origin)
+  }, [])
+
+  return (
+    serverURL && (
+      <RefreshRouteOnSave refresh={router.refresh} serverURL={serverURL} />
+    )
+  )
 }
