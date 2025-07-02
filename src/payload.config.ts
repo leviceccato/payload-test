@@ -53,15 +53,6 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    livePreview: {
-      url: ({ collectionConfig, data }) => {
-        if (!collectionConfig?.slug) {
-          return `/${data.slug}`
-        }
-        return `/${collectionConfig.slug}/${data.slug}`
-      },
-      collections: [Pages.slug],
-    },
   },
   plugins: [
     vercelBlobStorage({

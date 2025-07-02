@@ -6,6 +6,9 @@ export const Pages = {
   slug,
   admin: {
     useAsTitle: 'title',
+    livePreview: {
+      url: ({ data }) => `/${slug}/${data.slug}`,
+    },
     preview: (doc, options) => {
       const params = new URLSearchParams({
         path: `/${slug}/${doc.slug}`,
