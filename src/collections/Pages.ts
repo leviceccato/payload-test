@@ -7,7 +7,14 @@ export const Pages = {
   admin: {
     useAsTitle: 'title',
     livePreview: {
-      url: ({ data }) => `/${slug}/${data.slug}`,
+      url: ({ data }) => {
+        const params = new URLSearchParams({
+          path: `${slug}/${data.slug}`,
+          secret: process.env.PREVIEW_SECRET!,
+        })
+
+        return `/api/preview?${params.toString()}`
+      },
     },
     preview: (doc, options) => {
       const params = new URLSearchParams({
