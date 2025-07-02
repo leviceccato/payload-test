@@ -9,7 +9,7 @@ export default function LivePreview() {
   return (
     <RefreshRouteOnSave
       refresh={router.refresh}
-      serverURL={process.env.NEXT_PUBLIC_SITE_URL!}
+      serverURL={window.location.origin}
     />
   )
 }
