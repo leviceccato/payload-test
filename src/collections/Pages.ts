@@ -1,12 +1,14 @@
 import type { CollectionConfig } from 'payload'
 
+const slug = 'pages'
+
 export const Pages = {
-  slug: 'pages',
+  slug,
   admin: {
     useAsTitle: 'title',
     preview: (doc, options) => {
       const params = new URLSearchParams({
-        path: `/pages/${doc.slug}`,
+        path: `/${slug}/${doc.slug}`,
         secret: process.env.PREVIEW_SECRET!,
       })
 
