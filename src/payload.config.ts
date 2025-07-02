@@ -1,5 +1,6 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { draftMode } from 'next/headers'
 import {
   lexicalEditor,
@@ -61,6 +62,10 @@ export default buildConfig({
       collections: {
         media: true,
       },
+    }),
+    redirectsPlugin({
+      collections: [Pages.slug],
+      redirectTypes: ['308', '307'],
     }),
   ],
   globals: [Header],
