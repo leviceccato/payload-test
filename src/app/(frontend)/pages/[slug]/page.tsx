@@ -8,7 +8,15 @@ import { draftMode } from 'next/headers'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config })
-  const pages = await payload.find({ collection: Pages.slug })
+  const pages = await payload.find({
+    collection: Pages.slug,
+    where: {
+      slug: {
+        exists: true,
+      },
+    },
+  })
+
   return pages.docs.map((doc) => ({ slug: doc.slug }))
 }
 
