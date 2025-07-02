@@ -11,11 +11,11 @@ export const Pages = {
     },
     preview: (doc, options) => {
       const params = new URLSearchParams({
-        path: `/${slug}/${doc.slug}`,
+        path: `${slug}/${doc.slug}`,
         secret: process.env.PREVIEW_SECRET!,
       })
 
-      return `${options.req.protocol}//${options.req.host}/preview?${params.toString()}`
+      return `${options.req.protocol}//${options.req.host}/api/preview?${params.toString()}`
     },
   },
   versions: {
