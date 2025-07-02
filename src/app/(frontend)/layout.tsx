@@ -4,6 +4,7 @@ import config from '@/payload.config'
 import './styles.css'
 import Image from 'next/image'
 import Link from '@/components/Link'
+import { draftMode } from 'next/headers'
 import LivePreview from '@/components/LivePreview'
 
 export const metadata = {
@@ -13,10 +14,11 @@ export const metadata = {
 
 export default async function RootLayout(props: { children: ReactNode }) {
   const payload = await getPayload({ config })
+  const draft = await draftMode()
 
   const [header, pages] = await Promise.all([
-    payload.findGlobal({ slug: 'header' }),
-    payload.find({ collection: 'pages' }),
+    payload.findGlobal({ slug: 'header', draft: draft.isEnabled }),
+    payload.find({ collection: 'pages', draft: draft.isEnabled }),
   ])
 
   return (
