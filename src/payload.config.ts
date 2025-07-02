@@ -70,10 +70,8 @@ export default buildConfig({
       path: '/preview',
       method: 'get',
       handler: async (request) => {
-        const url = new URL(request.url!)
-
-        const path = url.searchParams.get('path')
-        const secret = url.searchParams.get('secret')
+        const path = request.searchParams.get('path')
+        const secret = request.searchParams.get('secret')
 
         const notAllowedResponse = new Response(
           'You are not allowed to preview this page',
@@ -90,26 +88,9 @@ export default buildConfig({
           return new Response('Insufficient search params', { status: 404 })
         }
 
-        let userAuth: Awaited<ReturnType<typeof request.payload.auth>>
-
-        try {
-          userAuth = await request.payload.auth({
-            req: request,
-            headers: request.headers,
-          })
-        } catch (error) {
-          request.payload.logger.error(
-            { err: error },
-            'Error verifying token for live preview'
-          )
-          return notAllowedResponse
-        }
-
-        console.log('user', userAuth)
-
         const draft = await draftMode()
 
-        if (!userAuth.user) {
+        if (!request.user) {
           draft.disable()
           return notAllowedResponse
         }
