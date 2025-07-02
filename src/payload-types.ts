@@ -169,7 +169,6 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  test?: string | null;
   /**
    * Optionally assign this page to a release. Releases allow you to schedule the publishing of pages in bulk
    */
@@ -336,7 +335,6 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  test?: T;
   release?: T;
   content?:
     | T
