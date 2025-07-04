@@ -1,3 +1,4 @@
+import 'server-only'
 import {
   getPayload as getPayloadOriginal,
   type TransformCollectionWithSelect,
@@ -9,19 +10,19 @@ import config from '@/payload.config'
 import { draftMode as getDraftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
+type CollectionSlugsWithSlug = {
+  [TKey in CollectionSlug]: DataFromCollectionSlug<TKey> extends {
+    slug: string
+  }
+    ? TKey
+    : never
+}[CollectionSlug]
+
 export async function getPayload(): Promise<BasePayload> {
   return await getPayloadOriginal({ config })
 }
 
-export async function findSlugs<
-  TSlug extends {
-    [TKey in CollectionSlug]: DataFromCollectionSlug<TKey> extends {
-      slug: string
-    }
-      ? TKey
-      : never
-  }[CollectionSlug],
->(
+export async function findSlugs<TSlug extends CollectionSlugsWithSlug>(
   collection: TSlug,
   options?: {
     payload?: BasePayload
@@ -41,7 +42,7 @@ export async function findSlugs<
   return result.docs.map((doc) => ({ slug: doc.slug }))
 }
 
-export async function findBySlug<TSlug extends CollectionSlug>(
+export async function findBySlug<TSlug extends CollectionSlugsWithSlug>(
   collection: TSlug,
   slug: string,
   options?: {
