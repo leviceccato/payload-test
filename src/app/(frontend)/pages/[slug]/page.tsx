@@ -5,68 +5,30 @@ import { notFound } from 'next/navigation'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import Head from 'next/head'
 import { draftMode } from 'next/headers'
+import { findBySlug, findSlugs } from '@/utils/payload'
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config })
-  const pages = await payload.find({
-    collection: Pages.slug,
-    where: {
-      slug: {
-        exists: true,
-      },
-    },
-  })
-
-  return pages.docs.map((doc) => ({ slug: doc.slug }))
+  return findSlugs(Pages.slug)
 }
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>
 }) {
   const params = await props.params
-  const draft = await draftMode()
+  const page = await findBySlug(Pages.slug, params.slug)
 
-  const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: Pages.slug,
-    limit: 1,
-    draft: draft.isEnabled,
-    where: {
-      slug: {
-        equals: params.slug,
-      },
-    },
-  })
-  return { title: result.docs[0].title }
+  return { title: page.title }
 }
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>
 }) {
   const params = await props.params
-  const draft = await draftMode()
-
-  const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: Pages.slug,
-    limit: 1,
-    draft: draft.isEnabled,
-    where: {
-      slug: {
-        equals: params.slug,
-      },
-    },
-  })
-
-  const [doc] = result.docs
-
-  if (!doc) {
-    return notFound()
-  }
+  const page = await findBySlug(Pages.slug, params.slug)
 
   return (
     <div>
-      {doc.content?.map((block) => (
+      {page.content?.map((block) => (
         <div key={block.id} className="prose lg:prose-xl">
           {block.blockType === 'Heading' ? (
             <h2>{block.heading}</h2>
