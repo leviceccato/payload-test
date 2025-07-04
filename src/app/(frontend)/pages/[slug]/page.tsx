@@ -7,9 +7,7 @@ import type {
   GenerateMetadata,
 } from '@/utils/next'
 
-type Params = {
-  slug: string
-}
+type Params = ['slug']
 
 export const generateStaticParams: GenerateStaticParams<Params> = async () => {
   return findSlugs(Pages.slug)

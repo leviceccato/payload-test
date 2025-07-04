@@ -1,25 +1,28 @@
-import 'server-only'
 import type { Metadata } from 'next'
 import type { FC } from 'react'
+import type { ObjectFromKeys } from '@/utils/misc'
 
 type Params = {
   [key: string]: string | string[] | undefined
 }
 
-type PageProps<TParams extends Params = {}> = {
-  params: Promise<TParams>
+type PageProps<TParamKeys extends readonly string[] = []> = {
+  params: TParamKeys extends readonly []
+    ? Promise<{}>
+    : Promise<ObjectFromKeys<TParamKeys, string>>
   searchParams: Promise<Params>
 }
 
-export type NextPage<TParams extends Params = {}> = FC<PageProps<TParams>>
+export type NextPage<TParamKeys extends readonly string[] = []> = FC<
+  PageProps<TParamKeys>
+>
 
-export type GenerateMetadata<TParams extends Params = {}> = (
-  props: PageProps<TParams>
+export type GenerateMetadata<TParamKeys extends readonly string[] = []> = (
+  props: PageProps<TParamKeys>
 ) => Promise<Metadata>
 
-export type GenerateStaticParams<TParams extends Params> = () => Promise<
-  TParams[]
->
+export type GenerateStaticParams<TParamKeys extends readonly string[]> =
+  () => Promise<ObjectFromKeys<TParamKeys, string>[]>
 
 /**
  * Next.js provides search parameters in it's own format with no means of
