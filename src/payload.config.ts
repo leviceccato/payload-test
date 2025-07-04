@@ -1,7 +1,7 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-import { draftMode } from 'next/headers'
+import { draftMode as getDraftMode } from 'next/headers'
 import {
   lexicalEditor,
   BlocksFeature,
@@ -93,16 +93,16 @@ export default buildConfig({
           return new Response('Insufficient search params', { status: 404 })
         }
 
-        const draft = await draftMode()
+        const draftMode = await getDraftMode()
 
         if (!request.user) {
-          draft.disable()
+          draftMode.disable()
           return notAllowedResponse
         }
 
         // You can add additional checks here to see if the user is allowed to preview this page
 
-        draft.enable()
+        draftMode.enable()
 
         return Response.redirect(`${request.protocol}//${request.host}/${path}`)
       },
