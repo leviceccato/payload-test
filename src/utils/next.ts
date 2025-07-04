@@ -1,3 +1,4 @@
+import 'server-only'
 import type { Metadata } from 'next'
 import type { FC } from 'react'
 import type { ObjectFromKeys } from '@/utils/misc'
