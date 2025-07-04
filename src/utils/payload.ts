@@ -9,6 +9,7 @@ import {
 import config from '@/payload.config'
 import { draftMode as getDraftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
+import { cache } from 'react'
 
 type CollectionSlugsWithSlug = {
   [TKey in CollectionSlug]: DataFromCollectionSlug<TKey> extends {
@@ -42,7 +43,13 @@ export async function findSlugs<TSlug extends CollectionSlugsWithSlug>(
   return result.docs.map((doc) => ({ slug: doc.slug }))
 }
 
-export async function findBySlug<TSlug extends CollectionSlugsWithSlug>(
+/**
+ * We are caching this function because it is often called twice in a page.
+ * `cache` works across a single request.
+ */
+export const findBySlug = cache(async function <
+  TSlug extends CollectionSlugsWithSlug,
+>(
   collection: TSlug,
   slug: string,
   options?: {
@@ -69,4 +76,4 @@ export async function findBySlug<TSlug extends CollectionSlugsWithSlug>(
   }
 
   return doc
-}
+})
