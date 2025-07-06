@@ -15,14 +15,14 @@ import type { Config } from '@/payload-types'
 import { Users } from '@/collections/Users'
 import { Media } from '@/collections/Media'
 import { Pages } from '@/collections/Pages'
-import { Header } from '@/globals/Header'
+import { Settings } from '@/globals/Settings'
 import { Releases } from '@/collections/Releases'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  secret: process.env.PAYLOAD_SECRET ?? '',
+  secret: process.env.PAYLOAD_SECRET,
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
@@ -47,7 +47,7 @@ export default buildConfig({
   db: sqliteAdapter({
     client: {
       authToken: process.env.TURSO_AUTH_TOKEN,
-      url: process.env.TURSO_DATABASE_URL ?? '',
+      url: process.env.TURSO_DATABASE_URL,
     },
   }),
   admin: {
@@ -68,7 +68,7 @@ export default buildConfig({
       redirectTypes: ['308', '307'],
     }),
   ],
-  globals: [Header],
+  globals: [Settings],
   collections: [Users, Media, Pages, Releases],
   endpoints: [
     {

@@ -10,7 +10,7 @@ export const Pages = {
       url: ({ data }) => {
         const params = new URLSearchParams({
           path: `${slug}/${data.slug}`,
-          secret: process.env.PREVIEW_SECRET!,
+          secret: process.env.PREVIEW_SECRET,
         })
 
         return `/api/preview?${params.toString()}`
@@ -19,7 +19,7 @@ export const Pages = {
     preview: (doc, options) => {
       const params = new URLSearchParams({
         path: `${slug}/${doc.slug}`,
-        secret: process.env.PREVIEW_SECRET!,
+        secret: process.env.PREVIEW_SECRET,
       })
 
       return `${options.req.protocol}//${options.req.host}/api/preview?${params.toString()}`

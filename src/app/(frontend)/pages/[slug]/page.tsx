@@ -1,28 +1,30 @@
 import { Pages } from '@/collections/Pages'
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import { findBySlug, findSlugs } from '@/utils/payload'
+import { getDocBySlug, getParamsByCollection } from '@/utils/payload'
 import type {
   NextPage,
   GenerateStaticParams,
   GenerateMetadata,
 } from '@/utils/next'
 
-type Params = ['slug']
+type Params = {
+  slug: string
+}
 
 export const generateStaticParams: GenerateStaticParams<Params> = async () => {
-  return findSlugs(Pages.slug)
+  return getParamsByCollection(Pages.slug)
 }
 
 export const generateMetadata: GenerateMetadata<Params> = async (props) => {
   const params = await props.params
-  const page = await findBySlug(Pages.slug, params.slug)
+  const page = await getDocBySlug(Pages.slug, params.slug)
 
   return { title: page.title }
 }
 
 const Page: NextPage<Params> = async (props) => {
   const params = await props.params
-  const page = await findBySlug(Pages.slug, params.slug)
+  const page = await getDocBySlug(Pages.slug, params.slug)
 
   return (
     <div>

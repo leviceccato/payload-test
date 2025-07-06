@@ -1,25 +1,25 @@
 import type { ReactNode } from 'react'
-import { getPayload } from 'payload'
-import config from '@/payload.config'
-import './styles.css'
-import Image from 'next/image'
+import '@/app/(frontend)/styles.css'
 import Link from '@/components/Link'
-import { draftMode } from 'next/headers'
 import LivePreview from '@/components/LivePreview'
+import { getDocs, getGlobal } from '@/utils/payload'
+import { Pages } from '@/collections/Pages'
+import type { NextLayout, GenerateMetadata } from '@/utils/next'
+import { Settings } from '@/globals/Settings'
 
-export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+export const generateMetadata: GenerateMetadata = async () => {
+  const settings = await getGlobal(Settings.slug)
+
+  return {
+    title: {
+      default: settings.defaultTitle || 'Lyssna',
+      template: settings.titleTemplate || '%s | Lyssna',
+    },
+  }
 }
 
-export default async function RootLayout(props: { children: ReactNode }) {
-  const payload = await getPayload({ config })
-  const draft = await draftMode()
-
-  const [header, pages] = await Promise.all([
-    payload.findGlobal({ slug: 'header', draft: draft.isEnabled }),
-    payload.find({ collection: 'pages', draft: draft.isEnabled }),
-  ])
+const Layout: NextLayout = async (props) => {
+  const pages = await getDocs(Pages.slug)
 
   return (
     <html lang="en">
@@ -27,16 +27,6 @@ export default async function RootLayout(props: { children: ReactNode }) {
         <LivePreview />
         <div className="p-4 mx-auto max-w-screen-md">
           <header className="flex items-center gap-2 h-12">
-            {typeof header.logo !== 'number' && header.logo?.url && (
-              <div className="relative h-full aspect-square">
-                <Image
-                  src={header.logo.url}
-                  alt={header.logo.alt}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            )}
             <Link href="/" className="text-xl">
               Home
             </Link>
@@ -55,3 +45,5 @@ export default async function RootLayout(props: { children: ReactNode }) {
     </html>
   )
 }
+
+export default Layout

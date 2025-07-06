@@ -95,10 +95,10 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {
-    header: Header;
+    settings: Setting;
   };
   globalsSelect: {
-    header: HeaderSelect<false> | HeaderSelect<true>;
+    settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -446,20 +446,24 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header".
+ * via the `definition` "settings".
  */
-export interface Header {
+export interface Setting {
   id: number;
-  logo?: (number | null) | Media;
+  defaultTitle?: string | null;
+  titleTemplate?: string | null;
+  favicon?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header_select".
+ * via the `definition` "settings_select".
  */
-export interface HeaderSelect<T extends boolean = true> {
-  logo?: T;
+export interface SettingsSelect<T extends boolean = true> {
+  defaultTitle?: T;
+  titleTemplate?: T;
+  favicon?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

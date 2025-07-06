@@ -102,7 +102,7 @@ export const Releases = {
             })
           }
 
-          const deployResponse = await fetch(process.env.VERCEL_DEPLOY_HOOK!, {
+          const deployResponse = await fetch(process.env.VERCEL_DEPLOY_HOOK, {
             method: 'POST',
           })
           if (!deployResponse.ok) {
@@ -130,7 +130,7 @@ export const Releases = {
       method: 'post',
       handler: async (req) => {
         try {
-          const response = await fetch(process.env.VERCEL_DEPLOY_HOOK!, {
+          const response = await fetch(process.env.VERCEL_DEPLOY_HOOK, {
             method: 'POST',
           })
           if (!response.ok) {
