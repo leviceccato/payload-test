@@ -4,6 +4,6 @@ export type ObjectFromKeys<TKeys extends readonly string[], TValue> = {
 }
 
 // Make a type more readable in the overlay
-export type Prettify<TObject> = {
+export type PrettifyObject<TObject extends Record<PropertyKey, any>> = {
   [TKey in keyof TObject]: TObject[TKey]
 } & {}
