@@ -19,7 +19,6 @@ const envSchema = z.object({
   TURSO_AUTH_TOKEN: z.string().optional(),
   BLOB_READ_WRITE_TOKEN: z.string(),
   VERCEL_DEPLOY_HOOK: z.string().url(),
-  NEXT_PUBLIC_URL: z.string().url(),
   NEXT_PUBLIC_PROD_URL: z.string().url(),
 })
 
