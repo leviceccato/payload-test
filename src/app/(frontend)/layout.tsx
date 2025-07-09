@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import '@/app/(frontend)/styles.css'
 import Link from '@/components/Link'
 import LivePreview from '@/components/LivePreview'

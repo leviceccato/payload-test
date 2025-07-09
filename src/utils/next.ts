@@ -1,7 +1,6 @@
 import 'server-only'
 import type { Metadata } from 'next'
 import type { FC, ReactNode } from 'react'
-import type { ObjectFromKeys, Prettify } from '@/utils/misc'
 
 type Params = {
   [key: string]: string | string[] | undefined
@@ -28,7 +27,7 @@ export type GenerateMetadata<TParams extends Params = {}> = (
 ) => Promise<Metadata>
 
 export type GenerateStaticParams<TParams extends Params = {}> = () => Promise<
-  Prettify<TParams>[]
+  TParams[]
 >
 
 /**
