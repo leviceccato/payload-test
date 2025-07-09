@@ -22,7 +22,7 @@ const Icon: NextIcon = async () => {
   return new ImageResponse(
     (
       <img
-        src={`${process.env.NEXT_PUBLIC_URL}${favicon.url}`}
+        src={`${process.env.NEXT_PUBLIC_PROD_URL}${favicon.url}`}
         width={size.width}
         height={size.height}
       />
