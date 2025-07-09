@@ -1,5 +1,5 @@
 import 'server-only'
-import type { Metadata } from 'next'
+import type { Metadata, ResolvingMetadata } from 'next'
 import type { FC, ReactNode } from 'react'
 
 type Params = {
@@ -23,7 +23,7 @@ export type NextIcon<TParams extends Params = {}> = (props: {
 
 export type GenerateMetadata<TParams extends Params = {}> = (
   props: PageProps<TParams>,
-  parent: Promise<Metadata>
+  parent: ResolvingMetadata
 ) => Promise<Metadata>
 
 export type GenerateStaticParams<TParams extends Params = {}> = () => Promise<
