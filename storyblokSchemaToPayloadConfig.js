@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-import fetch from 'node-fetch'
 
 const STORYBLOK_SPACE_ID = process.env.STORYBLOK_SPACE_ID
 const STORYBLOK_TOKEN = process.env.STORYBLOK_TOKEN
@@ -8,7 +7,7 @@ const STORYBLOK_TOKEN = process.env.STORYBLOK_TOKEN
 const API_URL = `https://mapi.storyblok.com/v1/spaces/${STORYBLOK_SPACE_ID}/components`
 const COLLECTIONS_DIR = path.join('src', 'collections')
 const BLOCKS_DIR = path.join('src', 'blocks')
-
+console.log(STORYBLOK_SPACE_ID, STORYBLOK_TOKEN)
 async function fetchStoryblokSchema() {
   const res = await fetch(API_URL, {
     headers: { Authorization: STORYBLOK_TOKEN },
@@ -227,12 +226,12 @@ function componentToPayloadConfig(components, component, type) {
 
   return `import { ${importStatement} } from "payload"${blockImportsString}
 
-export const ${pascalName}: ${typeAnnotation} = {
+export const ${pascalName} = {
   slug: '${component.name.charAt(0).toLowerCase()}${component.name.slice(1)}',
   fields: [
     ${fieldsString}
   ]
-}
+} as const satisfies ${typeAnnotation}
 `
 }
 
