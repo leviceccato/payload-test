@@ -5,8 +5,14 @@ const STORYBLOK_SPACE_ID = process.env.STORYBLOK_SPACE_ID
 const STORYBLOK_TOKEN = process.env.STORYBLOK_TOKEN
 
 const API_URL = `https://mapi.storyblok.com/v1/spaces/${STORYBLOK_SPACE_ID}/components`
-const COLLECTIONS_DIR = path.join('src', 'collections')
-const BLOCKS_DIR = path.join('src', 'blocks')
+
+const COLLECTIONS_DIR = path.join('collections', '__generated__')
+const COLLECTIONS_DIR_WITH_SRC = path.join('src', COLLECTIONS_DIR)
+const COLLECTIONS_DIR_WITH_ALIAS = path.join('@', COLLECTIONS_DIR)
+
+const BLOCKS_DIR = path.join('blocks', '__generated__')
+const BLOCKS_DIR_WITH_SRC = path.join('src', BLOCKS_DIR)
+const BLOCKS_DIR_WITH_ALIAS = path.join('@', BLOCKS_DIR)
 
 async function fetchStoryblokSchema() {
   const res = await fetch(API_URL, {
@@ -221,7 +227,7 @@ function componentToPayloadConfig(components, component, type) {
 
   const blockImportsString =
     uniqueBlockImports.length > 0
-      ? `\n${uniqueBlockImports.map((i) => `import { ${i} } from "@/blocks/${i}"`).join('\n')}`
+      ? `\n${uniqueBlockImports.map((i) => `import { ${i} } from "${BLOCKS_DIR_WITH_ALIAS}/${i}"`).join('\n')}`
       : ''
 
   return `import { ${importStatement} } from "payload"${blockImportsString}
@@ -235,12 +241,32 @@ export const ${pascalName} = {
 `
 }
 
+function collectionsToIndex(collections) {
+  const pascalNames = collections.map((collection) =>
+    toPascalCase(collection.name)
+  )
+
+  const imports = pascalNames
+    .map((pascalName) => {
+      return `import { ${pascalName} } from "${COLLECTIONS_DIR_WITH_ALIAS}/${pascalName}"`
+    })
+    .join('\n')
+
+  const indexContent = `${imports}
+
+export const generatedCollections = [
+  ${pascalNames.join(',\n  ')}
+]
+`
+  return indexContent
+}
+
 async function main() {
-  if (!fs.existsSync(COLLECTIONS_DIR)) {
-    fs.mkdirSync(COLLECTIONS_DIR, { recursive: true })
+  if (!fs.existsSync(COLLECTIONS_DIR_WITH_SRC)) {
+    fs.mkdirSync(COLLECTIONS_DIR_WITH_SRC, { recursive: true })
   }
-  if (!fs.existsSync(BLOCKS_DIR)) {
-    fs.mkdirSync(BLOCKS_DIR, { recursive: true })
+  if (!fs.existsSync(BLOCKS_DIR_WITH_SRC)) {
+    fs.mkdirSync(BLOCKS_DIR_WITH_SRC, { recursive: true })
   }
   const components = await fetchStoryblokSchema()
   for (const component of components) {
@@ -249,15 +275,22 @@ async function main() {
     const fileName = `${toPascalCase(component.name)}.ts`
     if (component.is_nestable) {
       tsContent = componentToPayloadConfig(components, component, 'block')
-      filePath = path.join(BLOCKS_DIR, fileName)
+      filePath = path.join(BLOCKS_DIR_WITH_SRC, fileName)
     } else {
       tsContent = componentToPayloadConfig(components, component, 'collection')
-      filePath = path.join(COLLECTIONS_DIR, fileName)
+      filePath = path.join(COLLECTIONS_DIR_WITH_SRC, fileName)
     }
     fs.writeFileSync(filePath, tsContent)
   }
+  const collectionsIndexContent = collectionsToIndex(
+    components.filter((collection) => !collection.is_nestable)
+  )
+  fs.writeFileSync(
+    path.join(COLLECTIONS_DIR_WITH_SRC, '_index.ts'),
+    collectionsIndexContent
+  )
   console.log(
-    `Payload collections and blocks written to ${COLLECTIONS_DIR} and ${BLOCKS_DIR}`
+    `Payload collections and blocks written to ${COLLECTIONS_DIR_WITH_SRC} and ${BLOCKS_DIR_WITH_SRC}`
   )
 }
 
