@@ -84,7 +84,7 @@ function mapFieldType(components, component, field, key) {
     output.admin = output.admin ?? {}
     // Some Storyblok descriptions have newlines and quotes, clean these up
     output.admin.description = field.description
-      .replace(/\n/g, '')
+      .replace(/\n/g, ' ')
       .replace(/"/g, '\\"')
   }
 
