@@ -14,12 +14,67 @@ const BLOCKS_DIR = path.join('blocks', '__generated__')
 const BLOCKS_DIR_WITH_SRC = path.join('src', BLOCKS_DIR)
 const BLOCKS_DIR_WITH_ALIAS = path.join('@', BLOCKS_DIR)
 
+const GLOBALS_DIR = path.join('globals', '__generated__')
+const GLOBALS_DIR_WITH_SRC = path.join('src', GLOBALS_DIR)
+const GLOBALS_DIR_WITH_ALIAS = path.join('@', GLOBALS_DIR)
+
+const OVERRIDES = {
+  redirect: {
+    disabled: true,
+  },
+  errorPage: {
+    isGlobal: true,
+  },
+  notFoundPage: {
+    isGlobal: true,
+  },
+  customerMainPage: {
+    isGlobal: true,
+  },
+  blogMainPage: {
+    isGlobal: true,
+  },
+  guidesMainPage: {
+    isGlobal: true,
+  },
+  eventsMainPage: {
+    isGlobal: true,
+  },
+  integrationsMainPage: {
+    isGlobal: true,
+  },
+  pricingMainPage: {
+    isGlobal: true,
+  },
+  videosMainPage: {
+    isGlobal: true,
+  },
+  templatesMainPage: {
+    isGlobal: true,
+  },
+  reportsMainPage: {
+    isGlobal: true,
+  },
+  favicon: {
+    isGlobal: true,
+  },
+  language: {
+    disabled: true,
+  },
+}
+
 async function fetchStoryblokSchema() {
   const res = await fetch(API_URL, {
     headers: { Authorization: STORYBLOK_TOKEN },
   })
   if (!res.ok) throw new Error(await res.text())
   const data = await res.json()
+
+  console.log(
+    data.components
+      .filter((c) => c.name === 'page')
+      .map((c) => JSON.stringify(c, null, 2))
+  )
   return data.components
 }
 
@@ -32,8 +87,11 @@ function mapFieldType(components, component, field, key) {
   }
 
   if (field.description) {
+    output.admin = output.admin ?? {}
     // Some Storyblok descriptions have newlines and quotes, clean these up
-    output.label = field.description.replace(/\n/g, '').replace(/"/g, '\\"')
+    output.admin.description = field.description
+      .replace(/\n/g, '')
+      .replace(/"/g, '\\"')
   }
 
   switch (field.type) {
@@ -222,39 +280,43 @@ function componentToPayloadConfig(components, component, type) {
     .join(',')
 
   const uniqueBlockImports = [...new Set(allBlockImports)]
-  const importStatement = type === 'collection' ? 'CollectionConfig' : 'Block'
-  const typeAnnotation = type === 'collection' ? 'CollectionConfig' : 'Block'
+  const payloadType = {
+    collection: 'CollectionConfig',
+    block: 'Block',
+    global: 'GlobalConfig',
+  }[type]
+  if (!payloadType) {
+    throw new Error(`Unknown type: ${type}`)
+  }
 
   const blockImportsString =
     uniqueBlockImports.length > 0
       ? `\n${uniqueBlockImports.map((i) => `import { ${i} } from "${BLOCKS_DIR_WITH_ALIAS}/${i}"`).join('\n')}`
       : ''
 
-  return `import { ${importStatement} } from "payload"${blockImportsString}
+  return `import type { ${payloadType} } from "payload"${blockImportsString}
 
 export const ${pascalName} = {
   slug: '${component.name.charAt(0).toLowerCase()}${component.name.slice(1)}',
   fields: [
     ${fieldsString}
   ]
-} as const satisfies ${typeAnnotation}
+} as const satisfies ${payloadType}
 `
 }
 
-function collectionsToIndex(collections) {
-  const pascalNames = collections.map((collection) =>
-    toPascalCase(collection.name)
-  )
+function schemaToIndex(schema, dir, constName) {
+  const pascalNames = schema.map((collection) => toPascalCase(collection.name))
 
   const imports = pascalNames
     .map((pascalName) => {
-      return `import { ${pascalName} } from "${COLLECTIONS_DIR_WITH_ALIAS}/${pascalName}"`
+      return `import { ${pascalName} } from "${dir}/${pascalName}"`
     })
     .join('\n')
 
   const indexContent = `${imports}
 
-export const generatedCollections = [
+export const ${constName} = [
   ${pascalNames.join(',\n  ')}
 ]
 `
@@ -262,13 +324,24 @@ export const generatedCollections = [
 }
 
 async function main() {
+  fs.rmSync(COLLECTIONS_DIR_WITH_SRC, { recursive: true, force: true })
+  fs.rmSync(BLOCKS_DIR_WITH_SRC, { recursive: true, force: true })
+  fs.rmSync(GLOBALS_DIR_WITH_SRC, { recursive: true, force: true })
+
   if (!fs.existsSync(COLLECTIONS_DIR_WITH_SRC)) {
     fs.mkdirSync(COLLECTIONS_DIR_WITH_SRC, { recursive: true })
   }
   if (!fs.existsSync(BLOCKS_DIR_WITH_SRC)) {
     fs.mkdirSync(BLOCKS_DIR_WITH_SRC, { recursive: true })
   }
-  const components = await fetchStoryblokSchema()
+  if (!fs.existsSync(GLOBALS_DIR_WITH_SRC)) {
+    fs.mkdirSync(GLOBALS_DIR_WITH_SRC, { recursive: true })
+  }
+  const unfilteredComponents = await fetchStoryblokSchema()
+  const components = unfilteredComponents.filter((component) => {
+    return !OVERRIDES[component.name]?.disabled
+  })
+
   for (const component of components) {
     let tsContent = ''
     let filePath = ''
@@ -276,18 +349,38 @@ async function main() {
     if (component.is_nestable) {
       tsContent = componentToPayloadConfig(components, component, 'block')
       filePath = path.join(BLOCKS_DIR_WITH_SRC, fileName)
+    } else if (OVERRIDES[component.name]?.isGlobal) {
+      tsContent = componentToPayloadConfig(components, component, 'global')
+      filePath = path.join(GLOBALS_DIR_WITH_SRC, fileName)
     } else {
       tsContent = componentToPayloadConfig(components, component, 'collection')
       filePath = path.join(COLLECTIONS_DIR_WITH_SRC, fileName)
     }
     fs.writeFileSync(filePath, tsContent)
   }
-  const collectionsIndexContent = collectionsToIndex(
-    components.filter((collection) => !collection.is_nestable)
+  const collectionsIndexContent = schemaToIndex(
+    components.filter(
+      (component) =>
+        !component.is_nestable && !OVERRIDES[component.name]?.isGlobal
+    ),
+    COLLECTIONS_DIR_WITH_SRC,
+    'generatedCollections'
+  )
+  const globalsIndexContent = schemaToIndex(
+    components.filter(
+      (component) =>
+        !component.is_nestable && OVERRIDES[component.name]?.isGlobal
+    ),
+    GLOBALS_DIR_WITH_SRC,
+    'generatedGlobals'
   )
   fs.writeFileSync(
     path.join(COLLECTIONS_DIR_WITH_SRC, '_index.ts'),
     collectionsIndexContent
+  )
+  fs.writeFileSync(
+    path.join(GLOBALS_DIR_WITH_SRC, '_index.ts'),
+    globalsIndexContent
   )
   console.log(
     `Payload collections and blocks written to ${COLLECTIONS_DIR_WITH_SRC} and ${BLOCKS_DIR_WITH_SRC}`

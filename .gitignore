@@ -48,3 +48,4 @@ next-env.d.ts
 # Generated schema
 /src/collections/__generated__
 /src/blocks/__generated__
+/src/globals/__generated__
