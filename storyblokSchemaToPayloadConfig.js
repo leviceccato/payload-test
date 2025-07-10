@@ -115,13 +115,8 @@ function mapFieldType(components, component, field, key) {
         field.source === 'internal_stories' &&
         Array.isArray(field.filter_content_type)
       ) {
-        // console.log(` ${key}:`, field.filter_content_type)
-
         output.type = 'relationship'
-        output.relationTo =
-          field.filter_content_type.length === 1
-            ? field.filter_content_type[0]
-            : field.filter_content_type.at(-1)
+        output.relationTo = field.filter_content_type
 
         if (field.max_options && Number(field.max_options) > 1) {
           output.hasMany = true
