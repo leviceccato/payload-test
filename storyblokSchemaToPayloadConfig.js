@@ -275,9 +275,9 @@ function componentToPayloadConfig(components, component, type) {
       return `
     {
       ${comment ? `// ${comment}\n` : ''}${js}
-    }\n`
+    }`
     })
-    .join(',')
+    .join(',\n')
 
   const uniqueBlockImports = [...new Set(allBlockImports)]
   const payloadType = {
