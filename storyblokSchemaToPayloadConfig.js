@@ -69,12 +69,6 @@ async function fetchStoryblokSchema() {
   })
   if (!res.ok) throw new Error(await res.text())
   const data = await res.json()
-
-  console.log(
-    data.components
-      .filter((c) => c.name === 'page')
-      .map((c) => JSON.stringify(c, null, 2))
-  )
   return data.components
 }
 
