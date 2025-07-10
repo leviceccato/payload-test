@@ -252,7 +252,7 @@ export interface Article {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -269,7 +269,7 @@ export interface Article {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -280,14 +280,29 @@ export interface Article {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
-  globalTag?: (string | null) | GlobalTag;
-  category: string | ArticleCategory;
-  author: string | Author;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
+  globalTag?: {
+    relationTo: 'globalTag';
+    value: string | GlobalTag;
+  } | null;
+  category: {
+    relationTo: 'articleCategory';
+    value: string | ArticleCategory;
+  };
+  author: {
+    relationTo: 'author';
+    value: string | Author;
+  };
   heroArticle: {
     title: string;
     subtitle: string;
@@ -357,13 +372,19 @@ export interface Article {
             blockType: 'suggestedArticles';
           }
         | {
-            clientLogotypes: string | ClientLogotype;
+            clientLogotypes: {
+              relationTo: 'clientLogotype';
+              value: string | ClientLogotype;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalClientLogotypes';
           }
         | {
-            cta: string | CallToAction;
+            cta: {
+              relationTo: 'callToAction';
+              value: string | CallToAction;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalCTA';
@@ -434,13 +455,19 @@ export interface Article {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
                 }
             )[];
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             leftAsset?: (string | null) | Media;
             rightAsset?: (string | null) | Media;
             id?: string | null;
@@ -557,7 +584,10 @@ export interface Article {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -592,7 +622,10 @@ export interface Article {
             blockType: 'clientLogotypes';
           }
         | {
-            author?: (string | null) | Author;
+            author?: {
+              relationTo: 'author';
+              value: string | Author;
+            } | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'authorBioBox';
@@ -660,7 +693,10 @@ export interface NavigationBar {
             blockType: 'button';
           }
         | {
-            button: string | GlobalButton;
+            button: {
+              relationTo: 'globalButton';
+              value: string | GlobalButton;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalButtons';
@@ -669,7 +705,10 @@ export interface NavigationBar {
     | null;
   logotype: string | Media;
   searchHidden?: boolean | null;
-  menuItems?: (string | null) | NavigationBarMenuItem;
+  menuItems?: {
+    relationTo: 'navigationBarMenuItems';
+    value: string | NavigationBarMenuItem;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -881,7 +920,7 @@ export interface GlobalTag {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -898,7 +937,7 @@ export interface GlobalTag {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -909,11 +948,17 @@ export interface GlobalTag {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   globalTagTitle: string;
   /**
    * Any hero block must be on first place.
@@ -927,7 +972,10 @@ export interface GlobalTag {
         blockType: 'pagination';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
@@ -948,7 +996,10 @@ export interface GlobalTag {
         blockType: 'globalTagBody';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
@@ -978,7 +1029,10 @@ export interface GlobalTag {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -989,7 +1043,10 @@ export interface GlobalTag {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -1061,13 +1118,19 @@ export interface GlobalTag {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -1184,7 +1247,10 @@ export interface GlobalTag {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -1257,7 +1323,10 @@ export interface CallToAction {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -1278,7 +1347,10 @@ export interface CallToAction {
             shareLinkedin?: boolean | null;
             shareEmail?: boolean | null;
             copyLink?: boolean | null;
-            teamMember?: (string | null) | Author;
+            teamMember?: {
+              relationTo: 'author';
+              value: string | Author;
+            } | null;
             button: (
               | {
                   label: string;
@@ -1301,7 +1373,10 @@ export interface CallToAction {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -1336,7 +1411,10 @@ export interface CallToAction {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -1412,13 +1490,19 @@ export interface CallToAction {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
                 }
             )[];
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             leftAsset?: (string | null) | Media;
             rightAsset?: (string | null) | Media;
             id?: string | null;
@@ -1547,7 +1631,10 @@ export interface CallToAction {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -1589,7 +1676,10 @@ export interface CallToAction {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -1670,7 +1760,7 @@ export interface ClientLogotype {
     | {
         backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
         /**
-         * Minimal images count - 8Maximum images count - 18
+         * Minimal images count - 8 Maximum images count - 18
          */
         images: (string | Media)[];
         id?: string | null;
@@ -1703,7 +1793,7 @@ export interface Compare {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -1720,7 +1810,7 @@ export interface Compare {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -1728,11 +1818,17 @@ export interface Compare {
         blockType: 'ogImage';
       }[]
     | null;
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   title: string;
   description?: string | null;
   heroTitle: string;
@@ -1763,7 +1859,10 @@ export interface Compare {
             blockType: 'button';
           }
         | {
-            button: string | GlobalButton;
+            button: {
+              relationTo: 'globalButton';
+              value: string | GlobalButton;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalButtons';
@@ -1852,7 +1951,7 @@ export interface Customer {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -1869,7 +1968,7 @@ export interface Customer {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -1892,16 +1991,37 @@ export interface Customer {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
-  globalTag?: (string | null) | GlobalTag;
-  useCase: string | CustomerUseCase;
-  companySize: string | CustomerCompanySize;
-  customerRegion?: (string | null) | CustomerRegion;
-  customerIndustry: string | CustomerIndustry;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
+  globalTag?: {
+    relationTo: 'globalTag';
+    value: string | GlobalTag;
+  } | null;
+  useCase: {
+    relationTo: 'customerUseCase';
+    value: string | CustomerUseCase;
+  };
+  companySize: {
+    relationTo: 'customerCompanySize';
+    value: string | CustomerCompanySize;
+  };
+  customerRegion?: {
+    relationTo: 'customerRegion';
+    value: string | CustomerRegion;
+  } | null;
+  customerIndustry: {
+    relationTo: 'customerIndustry';
+    value: string | CustomerIndustry;
+  };
   summaryTitle: string;
   summaryBody: string;
   body: {
@@ -1921,7 +2041,10 @@ export interface Customer {
   };
   blocks: (
     | {
-        review?: (string | null) | GlobalReview;
+        review?: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        } | null;
         stats?:
           | {
               [k: string]: unknown;
@@ -1971,7 +2094,10 @@ export interface Customer {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
@@ -2006,7 +2132,10 @@ export interface Customer {
           [k: string]: unknown;
         } | null;
         logos?: (string | Media)[] | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         embed?: string | null;
         id?: string | null;
         blockName?: string | null;
@@ -2030,7 +2159,7 @@ export interface Customer {
     | {
         backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
         /**
-         * Minimal images count - 8Maximum images count - 18
+         * Minimal images count - 8 Maximum images count - 18
          */
         images: (string | Media)[];
         id?: string | null;
@@ -2103,13 +2232,19 @@ export interface Customer {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -2226,7 +2361,10 @@ export interface Customer {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -2467,55 +2605,82 @@ export interface Customer {
         blockType: 'form';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        infoAccordion: string | GlobalInfoAccordion;
+        infoAccordion: {
+          relationTo: 'globalInfoAccordions';
+          value: string | GlobalInfoAccordion;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoAccordion';
       }
     | {
-        infoCarousel: string | GlobalInfoCarousel;
+        infoCarousel: {
+          relationTo: 'globalInfoCarousels';
+          value: string | GlobalInfoCarousel;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoCarousel';
       }
     | {
-        infoGrid: string | GlobalInfoGrid;
+        infoGrid: {
+          relationTo: 'globalInfoGrids';
+          value: string | GlobalInfoGrid;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoGrid';
       }
     | {
-        infoTab: string | GlobalInfoTab;
+        infoTab: {
+          relationTo: 'globalInfoTabs';
+          value: string | GlobalInfoTab;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTabVariant';
       }
     | {
-        infoTextWithImage: string | GlobalInfoTextWithImage;
+        infoTextWithImage: {
+          relationTo: 'globalInfoTextWithImages';
+          value: string | GlobalInfoTextWithImage;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTextWithImage';
       }
     | {
-        infoWithCards: string | GlobalInfoWithCard;
+        infoWithCards: {
+          relationTo: 'globalInfoWithCards';
+          value: string | GlobalInfoWithCard;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoWithCardsSection';
       }
     | {
-        reviewBlock: string | GlobalReview;
+        reviewBlock: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalReviewsSection';
@@ -2545,7 +2710,10 @@ export interface Customer {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -2586,7 +2754,10 @@ export interface Customer {
             }[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'heroSubpages';
@@ -2662,7 +2833,10 @@ export interface Customer {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -2670,7 +2844,10 @@ export interface Customer {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'homeHero';
@@ -2825,7 +3002,24 @@ export interface Customer {
         /**
          * Maximum values - 3
          */
-        resources: (string | GuideMainInfo)[];
+        resources: (
+          | {
+              relationTo: 'article';
+              value: string | Article;
+            }
+          | {
+              relationTo: 'template';
+              value: string | Template;
+            }
+          | {
+              relationTo: 'video';
+              value: string | Video;
+            }
+          | {
+              relationTo: 'guideMainInfo';
+              value: string | GuideMainInfo;
+            }
+        )[];
         buttonLabel: string;
         guideLabel: string;
         articleLabel: string;
@@ -3052,7 +3246,10 @@ export interface Customer {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -3060,7 +3257,10 @@ export interface Customer {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         mobileImage?: (string | null) | Media;
         bannerBody?: string | null;
         bannerLabel?: string | null;
@@ -3142,7 +3342,10 @@ export interface Customer {
                 blockType: 'button';
               }
             | {
-                button: string | GlobalButton;
+                button: {
+                  relationTo: 'globalButton';
+                  value: string | GlobalButton;
+                };
                 id?: string | null;
                 blockName?: string | null;
                 blockType: 'globalButtons';
@@ -3203,7 +3406,10 @@ export interface Customer {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -3274,7 +3480,10 @@ export interface Customer {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -3285,7 +3494,10 @@ export interface Customer {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -3296,7 +3508,10 @@ export interface Customer {
         reviews: {
           text: string;
           tag?: string | null;
-          representative: string | TestimonialReviewer;
+          representative: {
+            relationTo: 'testimonial-reviewer';
+            value: string | TestimonialReviewer;
+          };
           image: string | Media;
           id?: string | null;
           blockName?: string | null;
@@ -3311,7 +3526,10 @@ export interface Customer {
         tag?: string | null;
         backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
         imagePosition: 'left' | 'right';
-        representative: string | TestimonialReviewer;
+        representative: {
+          relationTo: 'testimonial-reviewer';
+          value: string | TestimonialReviewer;
+        };
         image: string | Media;
         id?: string | null;
         blockName?: string | null;
@@ -3338,7 +3556,7 @@ export interface Customer {
               hoverColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04' | 'bg-red-04';
               link?: string | null;
               /**
-               * If the field is empty, the button will be navigated by a provided link in another field.The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
+               * If the field is empty, the button will be navigated by a provided link in another field.  The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
                */
               contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
               icon: string | Media;
@@ -3415,7 +3633,10 @@ export interface GlobalReview {
         reviews: {
           text: string;
           tag?: string | null;
-          representative: string | TestimonialReviewer;
+          representative: {
+            relationTo: 'testimonial-reviewer';
+            value: string | TestimonialReviewer;
+          };
           image: string | Media;
           id?: string | null;
           blockName?: string | null;
@@ -3430,7 +3651,10 @@ export interface GlobalReview {
         tag?: string | null;
         backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
         imagePosition: 'left' | 'right';
-        representative: string | TestimonialReviewer;
+        representative: {
+          relationTo: 'testimonial-reviewer';
+          value: string | TestimonialReviewer;
+        };
         image: string | Media;
         id?: string | null;
         blockName?: string | null;
@@ -3787,6 +4011,730 @@ export interface GlobalInfoWithCard {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "template".
+ */
+export interface Template {
+  id: string;
+  followAndIndex?: boolean | null;
+  title: string;
+  description: string;
+  ogImage?:
+    | {
+        title: string;
+        description: string;
+        /**
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
+         */
+        type:
+          | 'website'
+          | 'article'
+          | 'book'
+          | 'profile'
+          | 'music.song'
+          | 'music.album'
+          | 'music.playlist'
+          | 'music.radio_station'
+          | 'video.movie'
+          | 'video.episode'
+          | 'video.tv_show'
+          | 'video.other';
+        image: string | Media;
+        /**
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
+         */
+        tag?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'ogImage';
+      }[]
+    | null;
+  /**
+   * If field will be empty, page will be use default Navigation Bar.
+   */
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
+  /**
+   * If field will be empty, page will be use default Footer.
+   */
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
+  templateId: string;
+  globalTag?: {
+    relationTo: 'globalTag';
+    value: string | GlobalTag;
+  } | null;
+  useCase: {
+    relationTo: 'templateUseCase';
+    value: string | TemplateUseCase;
+  };
+  team: {
+    relationTo: 'templateTeam';
+    value: string | TemplateTeam;
+  };
+  methodology: {
+    relationTo: 'templateMethodology';
+    value: string | TemplateMethodology;
+  };
+  industry?: {
+    relationTo: 'templateIndustry';
+    value: string | TemplateIndustry;
+  } | null;
+  heroTemplate: {
+    title: string;
+    subtitle: string;
+    cover?: (string | null) | Media;
+    button?:
+      | (
+          | {
+              label: string;
+              /**
+               * When you add value for \"Scroll To\" field, link will be overwrite.
+               */
+              link: string;
+              buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
+              backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
+              /**
+               * If the field is filled, an analytics event will sent to the segment.
+               */
+              eventName?: string | null;
+              /**
+               * You need add the same value which you add to block field \"Ref to scroll to\".
+               */
+              scrollTo?: string | null;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'button';
+            }
+          | {
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'globalButtons';
+            }
+        )[]
+      | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'heroTemplate';
+  }[];
+  blocks?:
+    | (
+        | {
+            title: string;
+            subtitle: string;
+            cover?: (string | null) | Media;
+            button?:
+              | (
+                  | {
+                      label: string;
+                      /**
+                       * When you add value for \"Scroll To\" field, link will be overwrite.
+                       */
+                      link: string;
+                      buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
+                      backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
+                      /**
+                       * If the field is filled, an analytics event will sent to the segment.
+                       */
+                      eventName?: string | null;
+                      /**
+                       * You need add the same value which you add to block field \"Ref to scroll to\".
+                       */
+                      scrollTo?: string | null;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'button';
+                    }
+                  | {
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'globalButtons';
+                    }
+                )[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heroTemplate';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            backgroundColor?: ('bg-yellow-04' | 'bg-neutral-07') | null;
+            mobileCenter?: boolean | null;
+            version: 'center' | 'left' | 'left-margin';
+            /**
+             * You need add the same value which you add to button field
+             */
+            refForScrollTo?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textBlock';
+          }
+        | {
+            buttonLabel: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'suggestedTemplates';
+          }
+        | {
+            sideBar: (
+              | {
+                  title: string;
+                  authorBody?: string | null;
+                  shareTitle: string;
+                  copiedTitle: string;
+                  shareFacebook?: boolean | null;
+                  shareTwitter?: boolean | null;
+                  shareLinkedin?: boolean | null;
+                  shareEmail?: boolean | null;
+                  copyLink?: boolean | null;
+                  teamMember?: {
+                    relationTo: 'author';
+                    value: string | Author;
+                  } | null;
+                  button: (
+                    | {
+                        label: string;
+                        /**
+                         * When you add value for \"Scroll To\" field, link will be overwrite.
+                         */
+                        link: string;
+                        buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
+                        backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
+                        /**
+                         * If the field is filled, an analytics event will sent to the segment.
+                         */
+                        eventName?: string | null;
+                        /**
+                         * You need add the same value which you add to block field \"Ref to scroll to\".
+                         */
+                        scrollTo?: string | null;
+                        id?: string | null;
+                        blockName?: string | null;
+                        blockType: 'button';
+                      }
+                    | {
+                        button: {
+                          relationTo: 'globalButton';
+                          value: string | GlobalButton;
+                        };
+                        id?: string | null;
+                        blockName?: string | null;
+                        blockType: 'globalButtons';
+                      }
+                  )[];
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'templateCTA';
+                }
+              | {
+                  cta: {
+                    relationTo: 'callToAction';
+                    value: string | CallToAction;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'globalCTA';
+                }
+            )[];
+            templateBody: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'templateSection';
+          }
+        | {
+            text: string;
+            tag?: string | null;
+            backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
+            imagePosition: 'left' | 'right';
+            representative: {
+              relationTo: 'testimonial-reviewer';
+              value: string | TestimonialReviewer;
+            };
+            image: string | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'singleReview';
+          }
+        | {
+            clientLogotypes: {
+              relationTo: 'clientLogotype';
+              value: string | ClientLogotype;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'globalClientLogotypes';
+          }
+        | {
+            cta: {
+              relationTo: 'callToAction';
+              value: string | CallToAction;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'globalCTA';
+          }
+        | {
+            title: string;
+            subtitle: string;
+            /**
+             * You must select only image or Lottie JSON files.
+             */
+            asset: string | Media;
+            /**
+             * The field uses for html element and must be without white spaces.
+             */
+            formId?: string | null;
+            form?:
+              | (
+                  | {
+                      /**
+                       * The field uses for html element and must be without white spaces.
+                       */
+                      name: string;
+                      required?: boolean | null;
+                      autoComplete?: boolean | null;
+                      type: 'email' | 'date' | 'number' | 'tel' | 'text' | 'url';
+                      label?: string | null;
+                      placeholder: string;
+                      errorMessage: string;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'formInput';
+                    }
+                  | {
+                      /**
+                       * The field uses for html element and must be without white spaces.
+                       */
+                      name: string;
+                      required?: boolean | null;
+                      options: {
+                        name: string;
+                        value: string;
+                        id?: string | null;
+                        blockName?: string | null;
+                        blockType: 'dropdownOption';
+                      }[];
+                      label?: string | null;
+                      placeholder: string;
+                      errorMessage: string;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'formDropdown';
+                    }
+                  | {
+                      /**
+                       * The field uses for html element and must be without white spaces.
+                       */
+                      name: string;
+                      required?: boolean | null;
+                      label: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
+                        [k: string]: unknown;
+                      };
+                      errorMessage: string;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'formCheckbox';
+                    }
+                )[]
+              | null;
+            label: string;
+            /**
+             * The link overwriten with Form Input and Form ID fields
+             */
+            link?: string | null;
+            buttonPosition?: ('bottom' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ctaForm';
+          }
+        | {
+            marginTop: '80' | '40' | '0';
+            backgroundColor:
+              | 'bg-yellow-04'
+              | 'bg-neutral-07'
+              | 'bg-pink-01'
+              | 'yellow-pink-gradient'
+              | 'blue-pink-gradient';
+            /**
+             * Determines if this CTA should be within a contained block or bleed to the edges of the screen.
+             */
+            isContained?: boolean | null;
+            title?: string | null;
+            /**
+             * If this field is populated then anything in title will be overridden.
+             */
+            richTitle?:
+              | (
+                  | {
+                      content?: string | null;
+                      gradient?: ('blue' | 'pink') | null;
+                      gradientTopOffset?: number | null;
+                      gradientRightOffset?: number | null;
+                      gradientBottomOffset?: number | null;
+                      gradientLeftOffset?: number | null;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'richTitleGradientSegment';
+                    }
+                  | {
+                      content?: string | null;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'richTitleSegment';
+                    }
+                  | {
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'richTitleUsersSegment';
+                    }
+                )[]
+              | null;
+            subtitle?: string | null;
+            caption?: string | null;
+            buttons: (
+              | {
+                  label: string;
+                  /**
+                   * When you add value for \"Scroll To\" field, link will be overwrite.
+                   */
+                  link: string;
+                  buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
+                  backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
+                  /**
+                   * If the field is filled, an analytics event will sent to the segment.
+                   */
+                  eventName?: string | null;
+                  /**
+                   * You need add the same value which you add to block field \"Ref to scroll to\".
+                   */
+                  scrollTo?: string | null;
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'button';
+                }
+              | {
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'globalButtons';
+                }
+            )[];
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
+            leftAsset?: (string | null) | Media;
+            rightAsset?: (string | null) | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            button?:
+              | (
+                  | {
+                      label: string;
+                      /**
+                       * When you add value for \"Scroll To\" field, link will be overwrite.
+                       */
+                      link: string;
+                      buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
+                      backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
+                      /**
+                       * If the field is filled, an analytics event will sent to the segment.
+                       */
+                      eventName?: string | null;
+                      /**
+                       * You need add the same value which you add to block field \"Ref to scroll to\".
+                       */
+                      scrollTo?: string | null;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'button';
+                    }
+                  | {
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'globalButtons';
+                    }
+                )[]
+              | null;
+            /**
+             * The field control top and bottom margin for mobile version.
+             */
+            mobileMargin: '0' | '20';
+            /**
+             * If you fill this field, button on click will be scroll to element, where you will add the same value.
+             */
+            scrollToElement?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ctaSmall';
+          }
+        | {
+            reviewBlock: {
+              relationTo: 'globalReviews';
+              value: string | GlobalReview;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'globalReviewsSection';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templateUseCase".
+ */
+export interface TemplateUseCase {
+  id: string;
+  title?: string | null;
+  description?: string | null;
+  followAndIndex?: boolean | null;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templateTeam".
+ */
+export interface TemplateTeam {
+  id: string;
+  title?: string | null;
+  description?: string | null;
+  followAndIndex?: boolean | null;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templateMethodology".
+ */
+export interface TemplateMethodology {
+  id: string;
+  title?: string | null;
+  description?: string | null;
+  followAndIndex?: boolean | null;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templateIndustry".
+ */
+export interface TemplateIndustry {
+  id: string;
+  title?: string | null;
+  description?: string | null;
+  followAndIndex?: boolean | null;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "video".
+ */
+export interface Video {
+  id: string;
+  followAndIndex?: boolean | null;
+  title: string;
+  description?: string | null;
+  ogImage?:
+    | {
+        title: string;
+        description: string;
+        /**
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
+         */
+        type:
+          | 'website'
+          | 'article'
+          | 'book'
+          | 'profile'
+          | 'music.song'
+          | 'music.album'
+          | 'music.playlist'
+          | 'music.radio_station'
+          | 'video.movie'
+          | 'video.episode'
+          | 'video.tv_show'
+          | 'video.other';
+        image: string | Media;
+        /**
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
+         */
+        tag?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'ogImage';
+      }[]
+    | null;
+  /**
+   * If field will be empty, page will be use default Navigation Bar.
+   */
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
+  /**
+   * If field will be empty, page will be use default Navigation Bar.
+   */
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
+  cover: string | Media;
+  globalTag?: {
+    relationTo: 'globalTag';
+    value: string | GlobalTag;
+  } | null;
+  heroTemplate: {
+    title: string;
+    subtitle: string;
+    cover?: (string | null) | Media;
+    button?:
+      | (
+          | {
+              label: string;
+              /**
+               * When you add value for \"Scroll To\" field, link will be overwrite.
+               */
+              link: string;
+              buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
+              backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
+              /**
+               * If the field is filled, an analytics event will sent to the segment.
+               */
+              eventName?: string | null;
+              /**
+               * You need add the same value which you add to block field \"Ref to scroll to\".
+               */
+              scrollTo?: string | null;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'button';
+            }
+          | {
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'globalButtons';
+            }
+        )[]
+      | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'heroTemplate';
+  }[];
+  /**
+   * You can pass here any embedded code to a video. You don't need to change only url in field.
+   */
+  embedVideo: string;
+  durationMinutes?: number | null;
+  /**
+   * This is not total seconds. It's the seconds in addition to the minutes, e.g. 5 minutes and 40 seconds.
+   */
+  durationSeconds?: number | null;
+  transcript: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  shareTitle: string;
+  copiedTitle: string;
+  shareFacebook?: boolean | null;
+  shareTwitter?: boolean | null;
+  shareLinkedin?: boolean | null;
+  shareEmail?: boolean | null;
+  copyLink?: boolean | null;
+  cta: {
+    cta: {
+      relationTo: 'callToAction';
+      value: string | CallToAction;
+    };
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'globalCTA';
+  }[];
+  clientLogoTypes: {
+    clientLogotypes: {
+      relationTo: 'clientLogotype';
+      value: string | ClientLogotype;
+    };
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'globalClientLogotypes';
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "guideMainInfo".
  */
 export interface GuideMainInfo {
@@ -3819,7 +4767,10 @@ export interface GuideMainInfo {
    * Text will be used for the sidebar progress percentage.
    */
   completeTitle: string;
-  globalTag?: (string | null) | GlobalTag;
+  globalTag?: {
+    relationTo: 'globalTag';
+    value: string | GlobalTag;
+  } | null;
   cover: string | Media;
   shareLinkedin?: boolean | null;
   shareFacebook?: boolean | null;
@@ -3842,7 +4793,7 @@ export interface CustomersMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -3859,7 +4810,7 @@ export interface CustomersMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -3870,17 +4821,26 @@ export interface CustomersMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
   blocks: (
     | {
-        review?: (string | null) | GlobalReview;
+        review?: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        } | null;
         stats?:
           | {
               [k: string]: unknown;
@@ -3930,7 +4890,10 @@ export interface CustomersMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
@@ -3965,7 +4928,10 @@ export interface CustomersMainPage {
           [k: string]: unknown;
         } | null;
         logos?: (string | Media)[] | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         embed?: string | null;
         id?: string | null;
         blockName?: string | null;
@@ -3989,7 +4955,7 @@ export interface CustomersMainPage {
     | {
         backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
         /**
-         * Minimal images count - 8Maximum images count - 18
+         * Minimal images count - 8 Maximum images count - 18
          */
         images: (string | Media)[];
         id?: string | null;
@@ -4062,13 +5028,19 @@ export interface CustomersMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -4185,7 +5157,10 @@ export interface CustomersMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -4426,55 +5401,82 @@ export interface CustomersMainPage {
         blockType: 'form';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        infoAccordion: string | GlobalInfoAccordion;
+        infoAccordion: {
+          relationTo: 'globalInfoAccordions';
+          value: string | GlobalInfoAccordion;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoAccordion';
       }
     | {
-        infoCarousel: string | GlobalInfoCarousel;
+        infoCarousel: {
+          relationTo: 'globalInfoCarousels';
+          value: string | GlobalInfoCarousel;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoCarousel';
       }
     | {
-        infoGrid: string | GlobalInfoGrid;
+        infoGrid: {
+          relationTo: 'globalInfoGrids';
+          value: string | GlobalInfoGrid;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoGrid';
       }
     | {
-        infoTab: string | GlobalInfoTab;
+        infoTab: {
+          relationTo: 'globalInfoTabs';
+          value: string | GlobalInfoTab;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTabVariant';
       }
     | {
-        infoTextWithImage: string | GlobalInfoTextWithImage;
+        infoTextWithImage: {
+          relationTo: 'globalInfoTextWithImages';
+          value: string | GlobalInfoTextWithImage;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTextWithImage';
       }
     | {
-        infoWithCards: string | GlobalInfoWithCard;
+        infoWithCards: {
+          relationTo: 'globalInfoWithCards';
+          value: string | GlobalInfoWithCard;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoWithCardsSection';
       }
     | {
-        reviewBlock: string | GlobalReview;
+        reviewBlock: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalReviewsSection';
@@ -4504,7 +5506,10 @@ export interface CustomersMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -4545,7 +5550,10 @@ export interface CustomersMainPage {
             }[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'heroSubpages';
@@ -4621,7 +5629,10 @@ export interface CustomersMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -4629,7 +5640,10 @@ export interface CustomersMainPage {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'homeHero';
@@ -4784,7 +5798,24 @@ export interface CustomersMainPage {
         /**
          * Maximum values - 3
          */
-        resources: (string | GuideMainInfo)[];
+        resources: (
+          | {
+              relationTo: 'article';
+              value: string | Article;
+            }
+          | {
+              relationTo: 'template';
+              value: string | Template;
+            }
+          | {
+              relationTo: 'video';
+              value: string | Video;
+            }
+          | {
+              relationTo: 'guideMainInfo';
+              value: string | GuideMainInfo;
+            }
+        )[];
         buttonLabel: string;
         guideLabel: string;
         articleLabel: string;
@@ -5011,7 +6042,10 @@ export interface CustomersMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -5019,7 +6053,10 @@ export interface CustomersMainPage {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         mobileImage?: (string | null) | Media;
         bannerBody?: string | null;
         bannerLabel?: string | null;
@@ -5101,7 +6138,10 @@ export interface CustomersMainPage {
                 blockType: 'button';
               }
             | {
-                button: string | GlobalButton;
+                button: {
+                  relationTo: 'globalButton';
+                  value: string | GlobalButton;
+                };
                 id?: string | null;
                 blockName?: string | null;
                 blockType: 'globalButtons';
@@ -5162,7 +6202,10 @@ export interface CustomersMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -5233,7 +6276,10 @@ export interface CustomersMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -5244,7 +6290,10 @@ export interface CustomersMainPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -5255,7 +6304,10 @@ export interface CustomersMainPage {
         reviews: {
           text: string;
           tag?: string | null;
-          representative: string | TestimonialReviewer;
+          representative: {
+            relationTo: 'testimonial-reviewer';
+            value: string | TestimonialReviewer;
+          };
           image: string | Media;
           id?: string | null;
           blockName?: string | null;
@@ -5270,7 +6322,10 @@ export interface CustomersMainPage {
         tag?: string | null;
         backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
         imagePosition: 'left' | 'right';
-        representative: string | TestimonialReviewer;
+        representative: {
+          relationTo: 'testimonial-reviewer';
+          value: string | TestimonialReviewer;
+        };
         image: string | Media;
         id?: string | null;
         blockName?: string | null;
@@ -5297,7 +6352,7 @@ export interface CustomersMainPage {
               hoverColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04' | 'bg-red-04';
               link?: string | null;
               /**
-               * If the field is empty, the button will be navigated by a provided link in another field.The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
+               * If the field is empty, the button will be navigated by a provided link in another field.  The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
                */
               contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
               icon: string | Media;
@@ -5397,7 +6452,7 @@ export interface Event {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -5414,7 +6469,7 @@ export interface Event {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -5422,10 +6477,19 @@ export interface Event {
         blockType: 'ogImage';
       }[]
     | null;
-  navigationBar?: (string | null) | NavigationBar;
-  footer?: (string | null) | Footer;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   cover: string | Media;
-  globalTag?: (string | null) | GlobalTag;
+  globalTag?: {
+    relationTo: 'globalTag';
+    value: string | GlobalTag;
+  } | null;
   livestormEmbed: string;
   blocks?:
     | (
@@ -5487,13 +6551,19 @@ export interface Event {
             blockType: 'suggestedArticles';
           }
         | {
-            clientLogotypes: string | ClientLogotype;
+            clientLogotypes: {
+              relationTo: 'clientLogotype';
+              value: string | ClientLogotype;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalClientLogotypes';
           }
         | {
-            cta: string | CallToAction;
+            cta: {
+              relationTo: 'callToAction';
+              value: string | CallToAction;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalCTA';
@@ -5564,13 +6634,19 @@ export interface Event {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
                 }
             )[];
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             leftAsset?: (string | null) | Media;
             rightAsset?: (string | null) | Media;
             id?: string | null;
@@ -5687,7 +6763,10 @@ export interface Event {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -5739,7 +6818,7 @@ export interface Feature {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -5756,7 +6835,7 @@ export interface Feature {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -5767,18 +6846,27 @@ export interface Feature {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
   blocks?:
     | (
         | {
-            review?: (string | null) | GlobalReview;
+            review?: {
+              relationTo: 'globalReviews';
+              value: string | GlobalReview;
+            } | null;
             stats?:
               | {
                   [k: string]: unknown;
@@ -5828,7 +6916,10 @@ export interface Feature {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -5863,7 +6954,10 @@ export interface Feature {
               [k: string]: unknown;
             } | null;
             logos?: (string | Media)[] | null;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             embed?: string | null;
             id?: string | null;
             blockName?: string | null;
@@ -5887,7 +6981,7 @@ export interface Feature {
         | {
             backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
             /**
-             * Minimal images count - 8Maximum images count - 18
+             * Minimal images count - 8 Maximum images count - 18
              */
             images: (string | Media)[];
             id?: string | null;
@@ -5960,13 +7054,19 @@ export interface Feature {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
                 }
             )[];
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             leftAsset?: (string | null) | Media;
             rightAsset?: (string | null) | Media;
             id?: string | null;
@@ -6083,7 +7183,10 @@ export interface Feature {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -6324,55 +7427,82 @@ export interface Feature {
             blockType: 'form';
           }
         | {
-            clientLogotypes: string | ClientLogotype;
+            clientLogotypes: {
+              relationTo: 'clientLogotype';
+              value: string | ClientLogotype;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalClientLogotypes';
           }
         | {
-            cta: string | CallToAction;
+            cta: {
+              relationTo: 'callToAction';
+              value: string | CallToAction;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalCTA';
           }
         | {
-            infoAccordion: string | GlobalInfoAccordion;
+            infoAccordion: {
+              relationTo: 'globalInfoAccordions';
+              value: string | GlobalInfoAccordion;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoAccordion';
           }
         | {
-            infoCarousel: string | GlobalInfoCarousel;
+            infoCarousel: {
+              relationTo: 'globalInfoCarousels';
+              value: string | GlobalInfoCarousel;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoCarousel';
           }
         | {
-            infoGrid: string | GlobalInfoGrid;
+            infoGrid: {
+              relationTo: 'globalInfoGrids';
+              value: string | GlobalInfoGrid;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoGrid';
           }
         | {
-            infoTab: string | GlobalInfoTab;
+            infoTab: {
+              relationTo: 'globalInfoTabs';
+              value: string | GlobalInfoTab;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoTabVariant';
           }
         | {
-            infoTextWithImage: string | GlobalInfoTextWithImage;
+            infoTextWithImage: {
+              relationTo: 'globalInfoTextWithImages';
+              value: string | GlobalInfoTextWithImage;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoTextWithImage';
           }
         | {
-            infoWithCards: string | GlobalInfoWithCard;
+            infoWithCards: {
+              relationTo: 'globalInfoWithCards';
+              value: string | GlobalInfoWithCard;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoWithCardsSection';
           }
         | {
-            reviewBlock: string | GlobalReview;
+            reviewBlock: {
+              relationTo: 'globalReviews';
+              value: string | GlobalReview;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalReviewsSection';
@@ -6402,7 +7532,10 @@ export interface Feature {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -6443,7 +7576,10 @@ export interface Feature {
                 }[]
               | null;
             caption?: string | null;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'heroSubpages';
@@ -6519,7 +7655,10 @@ export interface Feature {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -6527,7 +7666,10 @@ export interface Feature {
                 )[]
               | null;
             caption?: string | null;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'homeHero';
@@ -6682,7 +7824,24 @@ export interface Feature {
             /**
              * Maximum values - 3
              */
-            resources: (string | GuideMainInfo)[];
+            resources: (
+              | {
+                  relationTo: 'article';
+                  value: string | Article;
+                }
+              | {
+                  relationTo: 'template';
+                  value: string | Template;
+                }
+              | {
+                  relationTo: 'video';
+                  value: string | Video;
+                }
+              | {
+                  relationTo: 'guideMainInfo';
+                  value: string | GuideMainInfo;
+                }
+            )[];
             buttonLabel: string;
             guideLabel: string;
             articleLabel: string;
@@ -6909,7 +8068,10 @@ export interface Feature {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -6917,7 +8079,10 @@ export interface Feature {
                 )[]
               | null;
             caption?: string | null;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             mobileImage?: (string | null) | Media;
             bannerBody?: string | null;
             bannerLabel?: string | null;
@@ -6999,7 +8164,10 @@ export interface Feature {
                     blockType: 'button';
                   }
                 | {
-                    button: string | GlobalButton;
+                    button: {
+                      relationTo: 'globalButton';
+                      value: string | GlobalButton;
+                    };
                     id?: string | null;
                     blockName?: string | null;
                     blockType: 'globalButtons';
@@ -7060,7 +8228,10 @@ export interface Feature {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -7131,7 +8302,10 @@ export interface Feature {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -7142,7 +8316,10 @@ export interface Feature {
             buttonSubtext?: string | null;
             backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
             media: string | Media;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             isCentered?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -7153,7 +8330,10 @@ export interface Feature {
             reviews: {
               text: string;
               tag?: string | null;
-              representative: string | TestimonialReviewer;
+              representative: {
+                relationTo: 'testimonial-reviewer';
+                value: string | TestimonialReviewer;
+              };
               image: string | Media;
               id?: string | null;
               blockName?: string | null;
@@ -7168,7 +8348,10 @@ export interface Feature {
             tag?: string | null;
             backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
             imagePosition: 'left' | 'right';
-            representative: string | TestimonialReviewer;
+            representative: {
+              relationTo: 'testimonial-reviewer';
+              value: string | TestimonialReviewer;
+            };
             image: string | Media;
             id?: string | null;
             blockName?: string | null;
@@ -7195,7 +8378,7 @@ export interface Feature {
                   hoverColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04' | 'bg-red-04';
                   link?: string | null;
                   /**
-                   * If the field is empty, the button will be navigated by a provided link in another field.The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
+                   * If the field is empty, the button will be navigated by a provided link in another field.  The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
                    */
                   contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
                   icon: string | Media;
@@ -7235,7 +8418,7 @@ export interface Guide {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -7252,7 +8435,7 @@ export interface Guide {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -7263,11 +8446,17 @@ export interface Guide {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * For SEO optimization, page with position 1 must have default slug
    */
@@ -7306,7 +8495,7 @@ export interface Integration {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -7323,7 +8512,7 @@ export interface Integration {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -7334,11 +8523,17 @@ export interface Integration {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   heroTitle: string;
   heroBody: string;
   /**
@@ -7367,7 +8562,10 @@ export interface Integration {
             blockType: 'button';
           }
         | {
-            button: string | GlobalButton;
+            button: {
+              relationTo: 'globalButton';
+              value: string | GlobalButton;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalButtons';
@@ -7445,7 +8643,10 @@ export interface IntegrationMainInfo {
    * Text will be used for the sidebar progress percentage.
    */
   completeTitle: string;
-  globalTag?: (string | null) | GlobalTag;
+  globalTag?: {
+    relationTo: 'globalTag';
+    value: string | GlobalTag;
+  } | null;
   cover: string | Media;
   shareLinkedin?: boolean | null;
   shareFacebook?: boolean | null;
@@ -7468,7 +8669,7 @@ export interface LandingPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -7485,7 +8686,7 @@ export interface LandingPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -7496,17 +8697,26 @@ export interface LandingPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
   body: (
     | {
-        review?: (string | null) | GlobalReview;
+        review?: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        } | null;
         stats?:
           | {
               [k: string]: unknown;
@@ -7556,7 +8766,10 @@ export interface LandingPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
@@ -7591,7 +8804,10 @@ export interface LandingPage {
           [k: string]: unknown;
         } | null;
         logos?: (string | Media)[] | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         embed?: string | null;
         id?: string | null;
         blockName?: string | null;
@@ -7615,7 +8831,7 @@ export interface LandingPage {
     | {
         backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
         /**
-         * Minimal images count - 8Maximum images count - 18
+         * Minimal images count - 8 Maximum images count - 18
          */
         images: (string | Media)[];
         id?: string | null;
@@ -7688,13 +8904,19 @@ export interface LandingPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -7811,7 +9033,10 @@ export interface LandingPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -8052,55 +9277,82 @@ export interface LandingPage {
         blockType: 'form';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        infoAccordion: string | GlobalInfoAccordion;
+        infoAccordion: {
+          relationTo: 'globalInfoAccordions';
+          value: string | GlobalInfoAccordion;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoAccordion';
       }
     | {
-        infoCarousel: string | GlobalInfoCarousel;
+        infoCarousel: {
+          relationTo: 'globalInfoCarousels';
+          value: string | GlobalInfoCarousel;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoCarousel';
       }
     | {
-        infoGrid: string | GlobalInfoGrid;
+        infoGrid: {
+          relationTo: 'globalInfoGrids';
+          value: string | GlobalInfoGrid;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoGrid';
       }
     | {
-        infoTab: string | GlobalInfoTab;
+        infoTab: {
+          relationTo: 'globalInfoTabs';
+          value: string | GlobalInfoTab;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTabVariant';
       }
     | {
-        infoTextWithImage: string | GlobalInfoTextWithImage;
+        infoTextWithImage: {
+          relationTo: 'globalInfoTextWithImages';
+          value: string | GlobalInfoTextWithImage;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTextWithImage';
       }
     | {
-        infoWithCards: string | GlobalInfoWithCard;
+        infoWithCards: {
+          relationTo: 'globalInfoWithCards';
+          value: string | GlobalInfoWithCard;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoWithCardsSection';
       }
     | {
-        reviewBlock: string | GlobalReview;
+        reviewBlock: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalReviewsSection';
@@ -8130,7 +9382,10 @@ export interface LandingPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -8171,7 +9426,10 @@ export interface LandingPage {
             }[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'heroSubpages';
@@ -8247,7 +9505,10 @@ export interface LandingPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -8255,7 +9516,10 @@ export interface LandingPage {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'homeHero';
@@ -8410,7 +9674,24 @@ export interface LandingPage {
         /**
          * Maximum values - 3
          */
-        resources: (string | GuideMainInfo)[];
+        resources: (
+          | {
+              relationTo: 'article';
+              value: string | Article;
+            }
+          | {
+              relationTo: 'template';
+              value: string | Template;
+            }
+          | {
+              relationTo: 'video';
+              value: string | Video;
+            }
+          | {
+              relationTo: 'guideMainInfo';
+              value: string | GuideMainInfo;
+            }
+        )[];
         buttonLabel: string;
         guideLabel: string;
         articleLabel: string;
@@ -8637,7 +9918,10 @@ export interface LandingPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -8645,7 +9929,10 @@ export interface LandingPage {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         mobileImage?: (string | null) | Media;
         bannerBody?: string | null;
         bannerLabel?: string | null;
@@ -8727,7 +10014,10 @@ export interface LandingPage {
                 blockType: 'button';
               }
             | {
-                button: string | GlobalButton;
+                button: {
+                  relationTo: 'globalButton';
+                  value: string | GlobalButton;
+                };
                 id?: string | null;
                 blockName?: string | null;
                 blockType: 'globalButtons';
@@ -8788,7 +10078,10 @@ export interface LandingPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -8859,7 +10152,10 @@ export interface LandingPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -8870,7 +10166,10 @@ export interface LandingPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -8881,7 +10180,10 @@ export interface LandingPage {
         reviews: {
           text: string;
           tag?: string | null;
-          representative: string | TestimonialReviewer;
+          representative: {
+            relationTo: 'testimonial-reviewer';
+            value: string | TestimonialReviewer;
+          };
           image: string | Media;
           id?: string | null;
           blockName?: string | null;
@@ -8896,7 +10198,10 @@ export interface LandingPage {
         tag?: string | null;
         backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
         imagePosition: 'left' | 'right';
-        representative: string | TestimonialReviewer;
+        representative: {
+          relationTo: 'testimonial-reviewer';
+          value: string | TestimonialReviewer;
+        };
         image: string | Media;
         id?: string | null;
         blockName?: string | null;
@@ -8923,7 +10228,7 @@ export interface LandingPage {
               hoverColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04' | 'bg-red-04';
               link?: string | null;
               /**
-               * If the field is empty, the button will be navigated by a provided link in another field.The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
+               * If the field is empty, the button will be navigated by a provided link in another field.  The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
                */
               contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
               icon: string | Media;
@@ -8961,7 +10266,7 @@ export interface LegalPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -8978,7 +10283,7 @@ export interface LegalPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -8989,11 +10294,17 @@ export interface LegalPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   headerTitle?: string | null;
   headerBody?: {
     root: {
@@ -9042,7 +10353,7 @@ export interface Page {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -9059,7 +10370,7 @@ export interface Page {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -9070,17 +10381,26 @@ export interface Page {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
   body: (
     | {
-        review?: (string | null) | GlobalReview;
+        review?: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        } | null;
         stats?:
           | {
               [k: string]: unknown;
@@ -9130,7 +10450,10 @@ export interface Page {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
@@ -9165,7 +10488,10 @@ export interface Page {
           [k: string]: unknown;
         } | null;
         logos?: (string | Media)[] | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         embed?: string | null;
         id?: string | null;
         blockName?: string | null;
@@ -9189,7 +10515,7 @@ export interface Page {
     | {
         backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
         /**
-         * Minimal images count - 8Maximum images count - 18
+         * Minimal images count - 8 Maximum images count - 18
          */
         images: (string | Media)[];
         id?: string | null;
@@ -9262,13 +10588,19 @@ export interface Page {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -9385,7 +10717,10 @@ export interface Page {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -9626,55 +10961,82 @@ export interface Page {
         blockType: 'form';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        infoAccordion: string | GlobalInfoAccordion;
+        infoAccordion: {
+          relationTo: 'globalInfoAccordions';
+          value: string | GlobalInfoAccordion;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoAccordion';
       }
     | {
-        infoCarousel: string | GlobalInfoCarousel;
+        infoCarousel: {
+          relationTo: 'globalInfoCarousels';
+          value: string | GlobalInfoCarousel;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoCarousel';
       }
     | {
-        infoGrid: string | GlobalInfoGrid;
+        infoGrid: {
+          relationTo: 'globalInfoGrids';
+          value: string | GlobalInfoGrid;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoGrid';
       }
     | {
-        infoTab: string | GlobalInfoTab;
+        infoTab: {
+          relationTo: 'globalInfoTabs';
+          value: string | GlobalInfoTab;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTabVariant';
       }
     | {
-        infoTextWithImage: string | GlobalInfoTextWithImage;
+        infoTextWithImage: {
+          relationTo: 'globalInfoTextWithImages';
+          value: string | GlobalInfoTextWithImage;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTextWithImage';
       }
     | {
-        infoWithCards: string | GlobalInfoWithCard;
+        infoWithCards: {
+          relationTo: 'globalInfoWithCards';
+          value: string | GlobalInfoWithCard;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoWithCardsSection';
       }
     | {
-        reviewBlock: string | GlobalReview;
+        reviewBlock: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalReviewsSection';
@@ -9704,7 +11066,10 @@ export interface Page {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -9745,7 +11110,10 @@ export interface Page {
             }[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'heroSubpages';
@@ -9821,7 +11189,10 @@ export interface Page {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -9829,7 +11200,10 @@ export interface Page {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'homeHero';
@@ -9984,7 +11358,24 @@ export interface Page {
         /**
          * Maximum values - 3
          */
-        resources: (string | GuideMainInfo)[];
+        resources: (
+          | {
+              relationTo: 'article';
+              value: string | Article;
+            }
+          | {
+              relationTo: 'template';
+              value: string | Template;
+            }
+          | {
+              relationTo: 'video';
+              value: string | Video;
+            }
+          | {
+              relationTo: 'guideMainInfo';
+              value: string | GuideMainInfo;
+            }
+        )[];
         buttonLabel: string;
         guideLabel: string;
         articleLabel: string;
@@ -10211,7 +11602,10 @@ export interface Page {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -10219,7 +11613,10 @@ export interface Page {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         mobileImage?: (string | null) | Media;
         bannerBody?: string | null;
         bannerLabel?: string | null;
@@ -10301,7 +11698,10 @@ export interface Page {
                 blockType: 'button';
               }
             | {
-                button: string | GlobalButton;
+                button: {
+                  relationTo: 'globalButton';
+                  value: string | GlobalButton;
+                };
                 id?: string | null;
                 blockName?: string | null;
                 blockType: 'globalButtons';
@@ -10362,7 +11762,10 @@ export interface Page {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -10433,7 +11836,10 @@ export interface Page {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -10444,7 +11850,10 @@ export interface Page {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -10455,7 +11864,10 @@ export interface Page {
         reviews: {
           text: string;
           tag?: string | null;
-          representative: string | TestimonialReviewer;
+          representative: {
+            relationTo: 'testimonial-reviewer';
+            value: string | TestimonialReviewer;
+          };
           image: string | Media;
           id?: string | null;
           blockName?: string | null;
@@ -10470,7 +11882,10 @@ export interface Page {
         tag?: string | null;
         backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
         imagePosition: 'left' | 'right';
-        representative: string | TestimonialReviewer;
+        representative: {
+          relationTo: 'testimonial-reviewer';
+          value: string | TestimonialReviewer;
+        };
         image: string | Media;
         id?: string | null;
         blockName?: string | null;
@@ -10497,7 +11912,7 @@ export interface Page {
               hoverColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04' | 'bg-red-04';
               link?: string | null;
               /**
-               * If the field is empty, the button will be navigated by a provided link in another field.The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
+               * If the field is empty, the button will be navigated by a provided link in another field.  The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
                */
               contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
               icon: string | Media;
@@ -10535,7 +11950,7 @@ export interface PricingUseCase {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -10552,7 +11967,7 @@ export interface PricingUseCase {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -10563,17 +11978,26 @@ export interface PricingUseCase {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
   blocks: (
     | {
-        review?: (string | null) | GlobalReview;
+        review?: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        } | null;
         stats?:
           | {
               [k: string]: unknown;
@@ -10623,7 +12047,10 @@ export interface PricingUseCase {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
@@ -10658,7 +12085,10 @@ export interface PricingUseCase {
           [k: string]: unknown;
         } | null;
         logos?: (string | Media)[] | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         embed?: string | null;
         id?: string | null;
         blockName?: string | null;
@@ -10682,7 +12112,7 @@ export interface PricingUseCase {
     | {
         backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
         /**
-         * Minimal images count - 8Maximum images count - 18
+         * Minimal images count - 8 Maximum images count - 18
          */
         images: (string | Media)[];
         id?: string | null;
@@ -10755,13 +12185,19 @@ export interface PricingUseCase {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -10878,7 +12314,10 @@ export interface PricingUseCase {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -11119,55 +12558,82 @@ export interface PricingUseCase {
         blockType: 'form';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        infoAccordion: string | GlobalInfoAccordion;
+        infoAccordion: {
+          relationTo: 'globalInfoAccordions';
+          value: string | GlobalInfoAccordion;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoAccordion';
       }
     | {
-        infoCarousel: string | GlobalInfoCarousel;
+        infoCarousel: {
+          relationTo: 'globalInfoCarousels';
+          value: string | GlobalInfoCarousel;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoCarousel';
       }
     | {
-        infoGrid: string | GlobalInfoGrid;
+        infoGrid: {
+          relationTo: 'globalInfoGrids';
+          value: string | GlobalInfoGrid;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoGrid';
       }
     | {
-        infoTab: string | GlobalInfoTab;
+        infoTab: {
+          relationTo: 'globalInfoTabs';
+          value: string | GlobalInfoTab;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTabVariant';
       }
     | {
-        infoTextWithImage: string | GlobalInfoTextWithImage;
+        infoTextWithImage: {
+          relationTo: 'globalInfoTextWithImages';
+          value: string | GlobalInfoTextWithImage;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTextWithImage';
       }
     | {
-        infoWithCards: string | GlobalInfoWithCard;
+        infoWithCards: {
+          relationTo: 'globalInfoWithCards';
+          value: string | GlobalInfoWithCard;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoWithCardsSection';
       }
     | {
-        reviewBlock: string | GlobalReview;
+        reviewBlock: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalReviewsSection';
@@ -11197,7 +12663,10 @@ export interface PricingUseCase {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -11238,7 +12707,10 @@ export interface PricingUseCase {
             }[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'heroSubpages';
@@ -11314,7 +12786,10 @@ export interface PricingUseCase {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -11322,7 +12797,10 @@ export interface PricingUseCase {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'homeHero';
@@ -11477,7 +12955,24 @@ export interface PricingUseCase {
         /**
          * Maximum values - 3
          */
-        resources: (string | GuideMainInfo)[];
+        resources: (
+          | {
+              relationTo: 'article';
+              value: string | Article;
+            }
+          | {
+              relationTo: 'template';
+              value: string | Template;
+            }
+          | {
+              relationTo: 'video';
+              value: string | Video;
+            }
+          | {
+              relationTo: 'guideMainInfo';
+              value: string | GuideMainInfo;
+            }
+        )[];
         buttonLabel: string;
         guideLabel: string;
         articleLabel: string;
@@ -11704,7 +13199,10 @@ export interface PricingUseCase {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -11712,7 +13210,10 @@ export interface PricingUseCase {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         mobileImage?: (string | null) | Media;
         bannerBody?: string | null;
         bannerLabel?: string | null;
@@ -11794,7 +13295,10 @@ export interface PricingUseCase {
                 blockType: 'button';
               }
             | {
-                button: string | GlobalButton;
+                button: {
+                  relationTo: 'globalButton';
+                  value: string | GlobalButton;
+                };
                 id?: string | null;
                 blockName?: string | null;
                 blockType: 'globalButtons';
@@ -11855,7 +13359,10 @@ export interface PricingUseCase {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -11926,7 +13433,10 @@ export interface PricingUseCase {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -11937,7 +13447,10 @@ export interface PricingUseCase {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -11948,7 +13461,10 @@ export interface PricingUseCase {
         reviews: {
           text: string;
           tag?: string | null;
-          representative: string | TestimonialReviewer;
+          representative: {
+            relationTo: 'testimonial-reviewer';
+            value: string | TestimonialReviewer;
+          };
           image: string | Media;
           id?: string | null;
           blockName?: string | null;
@@ -11963,7 +13479,10 @@ export interface PricingUseCase {
         tag?: string | null;
         backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
         imagePosition: 'left' | 'right';
-        representative: string | TestimonialReviewer;
+        representative: {
+          relationTo: 'testimonial-reviewer';
+          value: string | TestimonialReviewer;
+        };
         image: string | Media;
         id?: string | null;
         blockName?: string | null;
@@ -11990,7 +13509,7 @@ export interface PricingUseCase {
               hoverColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04' | 'bg-red-04';
               link?: string | null;
               /**
-               * If the field is empty, the button will be navigated by a provided link in another field.The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
+               * If the field is empty, the button will be navigated by a provided link in another field.  The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
                */
               contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
               icon: string | Media;
@@ -12030,7 +13549,7 @@ export interface Report {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -12047,7 +13566,7 @@ export interface Report {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -12058,12 +13577,21 @@ export interface Report {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
-  author: string | Author;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
+  author: {
+    relationTo: 'author';
+    value: string | Author;
+  };
   heroArticle: {
     title: string;
     subtitle: string;
@@ -12133,13 +13661,19 @@ export interface Report {
             blockType: 'suggestedArticles';
           }
         | {
-            clientLogotypes: string | ClientLogotype;
+            clientLogotypes: {
+              relationTo: 'clientLogotype';
+              value: string | ClientLogotype;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalClientLogotypes';
           }
         | {
-            cta: string | CallToAction;
+            cta: {
+              relationTo: 'callToAction';
+              value: string | CallToAction;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalCTA';
@@ -12210,13 +13744,19 @@ export interface Report {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
                 }
             )[];
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             leftAsset?: (string | null) | Media;
             rightAsset?: (string | null) | Media;
             id?: string | null;
@@ -12333,7 +13873,10 @@ export interface Report {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -12385,7 +13928,7 @@ export interface Solution {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -12402,7 +13945,7 @@ export interface Solution {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -12413,18 +13956,27 @@ export interface Solution {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
   blocks?:
     | (
         | {
-            review?: (string | null) | GlobalReview;
+            review?: {
+              relationTo: 'globalReviews';
+              value: string | GlobalReview;
+            } | null;
             stats?:
               | {
                   [k: string]: unknown;
@@ -12474,7 +14026,10 @@ export interface Solution {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -12509,7 +14064,10 @@ export interface Solution {
               [k: string]: unknown;
             } | null;
             logos?: (string | Media)[] | null;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             embed?: string | null;
             id?: string | null;
             blockName?: string | null;
@@ -12533,7 +14091,7 @@ export interface Solution {
         | {
             backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
             /**
-             * Minimal images count - 8Maximum images count - 18
+             * Minimal images count - 8 Maximum images count - 18
              */
             images: (string | Media)[];
             id?: string | null;
@@ -12606,13 +14164,19 @@ export interface Solution {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
                 }
             )[];
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             leftAsset?: (string | null) | Media;
             rightAsset?: (string | null) | Media;
             id?: string | null;
@@ -12729,7 +14293,10 @@ export interface Solution {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -12970,55 +14537,82 @@ export interface Solution {
             blockType: 'form';
           }
         | {
-            clientLogotypes: string | ClientLogotype;
+            clientLogotypes: {
+              relationTo: 'clientLogotype';
+              value: string | ClientLogotype;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalClientLogotypes';
           }
         | {
-            cta: string | CallToAction;
+            cta: {
+              relationTo: 'callToAction';
+              value: string | CallToAction;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalCTA';
           }
         | {
-            infoAccordion: string | GlobalInfoAccordion;
+            infoAccordion: {
+              relationTo: 'globalInfoAccordions';
+              value: string | GlobalInfoAccordion;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoAccordion';
           }
         | {
-            infoCarousel: string | GlobalInfoCarousel;
+            infoCarousel: {
+              relationTo: 'globalInfoCarousels';
+              value: string | GlobalInfoCarousel;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoCarousel';
           }
         | {
-            infoGrid: string | GlobalInfoGrid;
+            infoGrid: {
+              relationTo: 'globalInfoGrids';
+              value: string | GlobalInfoGrid;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoGrid';
           }
         | {
-            infoTab: string | GlobalInfoTab;
+            infoTab: {
+              relationTo: 'globalInfoTabs';
+              value: string | GlobalInfoTab;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoTabVariant';
           }
         | {
-            infoTextWithImage: string | GlobalInfoTextWithImage;
+            infoTextWithImage: {
+              relationTo: 'globalInfoTextWithImages';
+              value: string | GlobalInfoTextWithImage;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoTextWithImage';
           }
         | {
-            infoWithCards: string | GlobalInfoWithCard;
+            infoWithCards: {
+              relationTo: 'globalInfoWithCards';
+              value: string | GlobalInfoWithCard;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalInfoWithCardsSection';
           }
         | {
-            reviewBlock: string | GlobalReview;
+            reviewBlock: {
+              relationTo: 'globalReviews';
+              value: string | GlobalReview;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalReviewsSection';
@@ -13048,7 +14642,10 @@ export interface Solution {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -13089,7 +14686,10 @@ export interface Solution {
                 }[]
               | null;
             caption?: string | null;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'heroSubpages';
@@ -13165,7 +14765,10 @@ export interface Solution {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -13173,7 +14776,10 @@ export interface Solution {
                 )[]
               | null;
             caption?: string | null;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'homeHero';
@@ -13328,7 +14934,24 @@ export interface Solution {
             /**
              * Maximum values - 3
              */
-            resources: (string | GuideMainInfo)[];
+            resources: (
+              | {
+                  relationTo: 'article';
+                  value: string | Article;
+                }
+              | {
+                  relationTo: 'template';
+                  value: string | Template;
+                }
+              | {
+                  relationTo: 'video';
+                  value: string | Video;
+                }
+              | {
+                  relationTo: 'guideMainInfo';
+                  value: string | GuideMainInfo;
+                }
+            )[];
             buttonLabel: string;
             guideLabel: string;
             articleLabel: string;
@@ -13555,7 +15178,10 @@ export interface Solution {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -13563,7 +15189,10 @@ export interface Solution {
                 )[]
               | null;
             caption?: string | null;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             mobileImage?: (string | null) | Media;
             bannerBody?: string | null;
             bannerLabel?: string | null;
@@ -13645,7 +15274,10 @@ export interface Solution {
                     blockType: 'button';
                   }
                 | {
-                    button: string | GlobalButton;
+                    button: {
+                      relationTo: 'globalButton';
+                      value: string | GlobalButton;
+                    };
                     id?: string | null;
                     blockName?: string | null;
                     blockType: 'globalButtons';
@@ -13706,7 +15338,10 @@ export interface Solution {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -13777,7 +15412,10 @@ export interface Solution {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -13788,7 +15426,10 @@ export interface Solution {
             buttonSubtext?: string | null;
             backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
             media: string | Media;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             isCentered?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -13799,7 +15440,10 @@ export interface Solution {
             reviews: {
               text: string;
               tag?: string | null;
-              representative: string | TestimonialReviewer;
+              representative: {
+                relationTo: 'testimonial-reviewer';
+                value: string | TestimonialReviewer;
+              };
               image: string | Media;
               id?: string | null;
               blockName?: string | null;
@@ -13814,7 +15458,10 @@ export interface Solution {
             tag?: string | null;
             backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
             imagePosition: 'left' | 'right';
-            representative: string | TestimonialReviewer;
+            representative: {
+              relationTo: 'testimonial-reviewer';
+              value: string | TestimonialReviewer;
+            };
             image: string | Media;
             id?: string | null;
             blockName?: string | null;
@@ -13841,7 +15488,7 @@ export interface Solution {
                   hoverColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04' | 'bg-red-04';
                   link?: string | null;
                   /**
-                   * If the field is empty, the button will be navigated by a provided link in another field.The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
+                   * If the field is empty, the button will be navigated by a provided link in another field.  The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
                    */
                   contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
                   icon: string | Media;
@@ -13864,655 +15511,6 @@ export interface Solution {
       )[]
     | null;
   followAndIndex?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "template".
- */
-export interface Template {
-  id: string;
-  title: string;
-  description: string;
-  ogImage?:
-    | {
-        title: string;
-        description: string;
-        /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
-         */
-        type:
-          | 'website'
-          | 'article'
-          | 'book'
-          | 'profile'
-          | 'music.song'
-          | 'music.album'
-          | 'music.playlist'
-          | 'music.radio_station'
-          | 'video.movie'
-          | 'video.episode'
-          | 'video.tv_show'
-          | 'video.other';
-        image: string | Media;
-        /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
-         */
-        tag?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'ogImage';
-      }[]
-    | null;
-  /**
-   * If field will be empty, page will be use default Navigation Bar.
-   */
-  navigationBar?: (string | null) | NavigationBar;
-  /**
-   * If field will be empty, page will be use default Footer.
-   */
-  footer?: (string | null) | Footer;
-  templateId: string;
-  globalTag?: (string | null) | GlobalTag;
-  useCase: string | TemplateUseCase;
-  team: string | TemplateTeam;
-  methodology: string | TemplateMethodology;
-  industry?: (string | null) | TemplateIndustry;
-  heroTemplate: {
-    title: string;
-    subtitle: string;
-    cover?: (string | null) | Media;
-    button?:
-      | (
-          | {
-              label: string;
-              /**
-               * When you add value for \"Scroll To\" field, link will be overwrite.
-               */
-              link: string;
-              buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
-              backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
-              /**
-               * If the field is filled, an analytics event will sent to the segment.
-               */
-              eventName?: string | null;
-              /**
-               * You need add the same value which you add to block field \"Ref to scroll to\".
-               */
-              scrollTo?: string | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'button';
-            }
-          | {
-              button: string | GlobalButton;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'globalButtons';
-            }
-        )[]
-      | null;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'heroTemplate';
-  }[];
-  blocks?:
-    | (
-        | {
-            title: string;
-            subtitle: string;
-            cover?: (string | null) | Media;
-            button?:
-              | (
-                  | {
-                      label: string;
-                      /**
-                       * When you add value for \"Scroll To\" field, link will be overwrite.
-                       */
-                      link: string;
-                      buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
-                      backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
-                      /**
-                       * If the field is filled, an analytics event will sent to the segment.
-                       */
-                      eventName?: string | null;
-                      /**
-                       * You need add the same value which you add to block field \"Ref to scroll to\".
-                       */
-                      scrollTo?: string | null;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'button';
-                    }
-                  | {
-                      button: string | GlobalButton;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'globalButtons';
-                    }
-                )[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'heroTemplate';
-          }
-        | {
-            title: string;
-            subtitle?: string | null;
-            backgroundColor?: ('bg-yellow-04' | 'bg-neutral-07') | null;
-            mobileCenter?: boolean | null;
-            version: 'center' | 'left' | 'left-margin';
-            /**
-             * You need add the same value which you add to button field
-             */
-            refForScrollTo?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'textBlock';
-          }
-        | {
-            buttonLabel: string;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'suggestedTemplates';
-          }
-        | {
-            sideBar: (
-              | {
-                  title: string;
-                  authorBody?: string | null;
-                  shareTitle: string;
-                  copiedTitle: string;
-                  shareFacebook?: boolean | null;
-                  shareTwitter?: boolean | null;
-                  shareLinkedin?: boolean | null;
-                  shareEmail?: boolean | null;
-                  copyLink?: boolean | null;
-                  teamMember?: (string | null) | Author;
-                  button: (
-                    | {
-                        label: string;
-                        /**
-                         * When you add value for \"Scroll To\" field, link will be overwrite.
-                         */
-                        link: string;
-                        buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
-                        backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
-                        /**
-                         * If the field is filled, an analytics event will sent to the segment.
-                         */
-                        eventName?: string | null;
-                        /**
-                         * You need add the same value which you add to block field \"Ref to scroll to\".
-                         */
-                        scrollTo?: string | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'button';
-                      }
-                    | {
-                        button: string | GlobalButton;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'globalButtons';
-                      }
-                  )[];
-                  id?: string | null;
-                  blockName?: string | null;
-                  blockType: 'templateCTA';
-                }
-              | {
-                  cta: string | CallToAction;
-                  id?: string | null;
-                  blockName?: string | null;
-                  blockType: 'globalCTA';
-                }
-            )[];
-            templateBody: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'templateSection';
-          }
-        | {
-            text: string;
-            tag?: string | null;
-            backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
-            imagePosition: 'left' | 'right';
-            representative: string | TestimonialReviewer;
-            image: string | Media;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'singleReview';
-          }
-        | {
-            clientLogotypes: string | ClientLogotype;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'globalClientLogotypes';
-          }
-        | {
-            cta: string | CallToAction;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'globalCTA';
-          }
-        | {
-            title: string;
-            subtitle: string;
-            /**
-             * You must select only image or Lottie JSON files.
-             */
-            asset: string | Media;
-            /**
-             * The field uses for html element and must be without white spaces.
-             */
-            formId?: string | null;
-            form?:
-              | (
-                  | {
-                      /**
-                       * The field uses for html element and must be without white spaces.
-                       */
-                      name: string;
-                      required?: boolean | null;
-                      autoComplete?: boolean | null;
-                      type: 'email' | 'date' | 'number' | 'tel' | 'text' | 'url';
-                      label?: string | null;
-                      placeholder: string;
-                      errorMessage: string;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'formInput';
-                    }
-                  | {
-                      /**
-                       * The field uses for html element and must be without white spaces.
-                       */
-                      name: string;
-                      required?: boolean | null;
-                      options: {
-                        name: string;
-                        value: string;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'dropdownOption';
-                      }[];
-                      label?: string | null;
-                      placeholder: string;
-                      errorMessage: string;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'formDropdown';
-                    }
-                  | {
-                      /**
-                       * The field uses for html element and must be without white spaces.
-                       */
-                      name: string;
-                      required?: boolean | null;
-                      label: {
-                        root: {
-                          type: string;
-                          children: {
-                            type: string;
-                            version: number;
-                            [k: string]: unknown;
-                          }[];
-                          direction: ('ltr' | 'rtl') | null;
-                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                          indent: number;
-                          version: number;
-                        };
-                        [k: string]: unknown;
-                      };
-                      errorMessage: string;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'formCheckbox';
-                    }
-                )[]
-              | null;
-            label: string;
-            /**
-             * The link overwriten with Form Input and Form ID fields
-             */
-            link?: string | null;
-            buttonPosition?: ('bottom' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'ctaForm';
-          }
-        | {
-            marginTop: '80' | '40' | '0';
-            backgroundColor:
-              | 'bg-yellow-04'
-              | 'bg-neutral-07'
-              | 'bg-pink-01'
-              | 'yellow-pink-gradient'
-              | 'blue-pink-gradient';
-            /**
-             * Determines if this CTA should be within a contained block or bleed to the edges of the screen.
-             */
-            isContained?: boolean | null;
-            title?: string | null;
-            /**
-             * If this field is populated then anything in title will be overridden.
-             */
-            richTitle?:
-              | (
-                  | {
-                      content?: string | null;
-                      gradient?: ('blue' | 'pink') | null;
-                      gradientTopOffset?: number | null;
-                      gradientRightOffset?: number | null;
-                      gradientBottomOffset?: number | null;
-                      gradientLeftOffset?: number | null;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'richTitleGradientSegment';
-                    }
-                  | {
-                      content?: string | null;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'richTitleSegment';
-                    }
-                  | {
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'richTitleUsersSegment';
-                    }
-                )[]
-              | null;
-            subtitle?: string | null;
-            caption?: string | null;
-            buttons: (
-              | {
-                  label: string;
-                  /**
-                   * When you add value for \"Scroll To\" field, link will be overwrite.
-                   */
-                  link: string;
-                  buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
-                  backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
-                  /**
-                   * If the field is filled, an analytics event will sent to the segment.
-                   */
-                  eventName?: string | null;
-                  /**
-                   * You need add the same value which you add to block field \"Ref to scroll to\".
-                   */
-                  scrollTo?: string | null;
-                  id?: string | null;
-                  blockName?: string | null;
-                  blockType: 'button';
-                }
-              | {
-                  button: string | GlobalButton;
-                  id?: string | null;
-                  blockName?: string | null;
-                  blockType: 'globalButtons';
-                }
-            )[];
-            rating?: (string | null) | Rating;
-            leftAsset?: (string | null) | Media;
-            rightAsset?: (string | null) | Media;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta';
-          }
-        | {
-            button?:
-              | (
-                  | {
-                      label: string;
-                      /**
-                       * When you add value for \"Scroll To\" field, link will be overwrite.
-                       */
-                      link: string;
-                      buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
-                      backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
-                      /**
-                       * If the field is filled, an analytics event will sent to the segment.
-                       */
-                      eventName?: string | null;
-                      /**
-                       * You need add the same value which you add to block field \"Ref to scroll to\".
-                       */
-                      scrollTo?: string | null;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'button';
-                    }
-                  | {
-                      button: string | GlobalButton;
-                      id?: string | null;
-                      blockName?: string | null;
-                      blockType: 'globalButtons';
-                    }
-                )[]
-              | null;
-            /**
-             * The field control top and bottom margin for mobile version.
-             */
-            mobileMargin: '0' | '20';
-            /**
-             * If you fill this field, button on click will be scroll to element, where you will add the same value.
-             */
-            scrollToElement?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'ctaSmall';
-          }
-        | {
-            reviewBlock: string | GlobalReview;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'globalReviewsSection';
-          }
-      )[]
-    | null;
-  followAndIndex?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templateUseCase".
- */
-export interface TemplateUseCase {
-  id: string;
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templateTeam".
- */
-export interface TemplateTeam {
-  id: string;
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templateMethodology".
- */
-export interface TemplateMethodology {
-  id: string;
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templateIndustry".
- */
-export interface TemplateIndustry {
-  id: string;
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "video".
- */
-export interface Video {
-  id: string;
-  followAndIndex?: boolean | null;
-  title: string;
-  description?: string | null;
-  ogImage?:
-    | {
-        title: string;
-        description: string;
-        /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
-         */
-        type:
-          | 'website'
-          | 'article'
-          | 'book'
-          | 'profile'
-          | 'music.song'
-          | 'music.album'
-          | 'music.playlist'
-          | 'music.radio_station'
-          | 'video.movie'
-          | 'video.episode'
-          | 'video.tv_show'
-          | 'video.other';
-        image: string | Media;
-        /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
-         */
-        tag?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'ogImage';
-      }[]
-    | null;
-  /**
-   * If field will be empty, page will be use default Navigation Bar.
-   */
-  navigationBar?: (string | null) | NavigationBar;
-  /**
-   * If field will be empty, page will be use default Navigation Bar.
-   */
-  footer?: (string | null) | Footer;
-  cover: string | Media;
-  globalTag?: (string | null) | GlobalTag;
-  heroTemplate: {
-    title: string;
-    subtitle: string;
-    cover?: (string | null) | Media;
-    button?:
-      | (
-          | {
-              label: string;
-              /**
-               * When you add value for \"Scroll To\" field, link will be overwrite.
-               */
-              link: string;
-              buttonType: 'primary-m' | 'primary-s' | 'primary-width' | 'secondary-m' | 'secondary-width';
-              backgroundColor: 'bg-green-02' | 'bg-neutral-07' | 'bg-transparent' | 'bg-neutral-01';
-              /**
-               * If the field is filled, an analytics event will sent to the segment.
-               */
-              eventName?: string | null;
-              /**
-               * You need add the same value which you add to block field \"Ref to scroll to\".
-               */
-              scrollTo?: string | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'button';
-            }
-          | {
-              button: string | GlobalButton;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'globalButtons';
-            }
-        )[]
-      | null;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'heroTemplate';
-  }[];
-  /**
-   * You can pass here any embedded code to a video.You don't need to change only url in field.
-   */
-  embedVideo: string;
-  durationMinutes?: number | null;
-  /**
-   * This is not total seconds. It's the seconds in addition to the minutes, e.g. 5 minutes and 40 seconds.
-   */
-  durationSeconds?: number | null;
-  transcript: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  shareTitle: string;
-  copiedTitle: string;
-  shareFacebook?: boolean | null;
-  shareTwitter?: boolean | null;
-  shareLinkedin?: boolean | null;
-  shareEmail?: boolean | null;
-  copyLink?: boolean | null;
-  cta: {
-    cta: string | CallToAction;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'globalCTA';
-  }[];
-  clientLogoTypes: {
-    clientLogotypes: string | ClientLogotype;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'globalClientLogotypes';
-  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -27132,6 +28130,7 @@ export interface SolutionSelect<T extends boolean = true> {
  * via the `definition` "template_select".
  */
 export interface TemplateSelect<T extends boolean = true> {
+  followAndIndex?: T;
   title?: T;
   description?: T;
   ogImage?:
@@ -27499,7 +28498,6 @@ export interface TemplateSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -27799,7 +28797,7 @@ export interface BlogMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -27816,7 +28814,7 @@ export interface BlogMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -27827,11 +28825,17 @@ export interface BlogMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   title: string;
   description: string;
   /**
@@ -27863,7 +28867,10 @@ export interface BlogMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -27874,7 +28881,10 @@ export interface BlogMainPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -27943,13 +28953,19 @@ export interface BlogMainPage {
         blockType: 'pagination';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
@@ -28020,13 +29036,19 @@ export interface BlogMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -28143,7 +29165,10 @@ export interface BlogMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -28192,7 +29217,7 @@ export interface ErrorPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -28209,7 +29234,7 @@ export interface ErrorPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -28220,11 +29245,17 @@ export interface ErrorPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   hero: {
     title: string;
     button?:
@@ -28250,7 +29281,10 @@ export interface ErrorPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
@@ -28291,7 +29325,10 @@ export interface ErrorPage {
         }[]
       | null;
     caption?: string | null;
-    rating?: (string | null) | Rating;
+    rating?: {
+      relationTo: 'rating';
+      value: string | Rating;
+    } | null;
     id?: string | null;
     blockName?: string | null;
     blockType: 'heroSubpages';
@@ -28314,7 +29351,7 @@ export interface EventsMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -28331,7 +29368,7 @@ export interface EventsMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -28342,11 +29379,17 @@ export interface EventsMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   title: string;
   description: string;
   /**
@@ -28378,7 +29421,10 @@ export interface EventsMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -28389,7 +29435,10 @@ export interface EventsMainPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -28458,13 +29507,19 @@ export interface EventsMainPage {
         blockType: 'pagination';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
@@ -28535,13 +29590,19 @@ export interface EventsMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -28658,7 +29719,10 @@ export interface EventsMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -28732,7 +29796,7 @@ export interface GuidesMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -28749,7 +29813,7 @@ export interface GuidesMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -28760,11 +29824,17 @@ export interface GuidesMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
@@ -28794,7 +29864,10 @@ export interface GuidesMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -28805,7 +29878,10 @@ export interface GuidesMainPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -28830,13 +29906,19 @@ export interface GuidesMainPage {
         blockType: 'pagination';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
@@ -28993,13 +30075,19 @@ export interface GuidesMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -29045,7 +30133,10 @@ export interface GuidesMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -29083,7 +30174,7 @@ export interface IntegrationsMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -29100,7 +30191,7 @@ export interface IntegrationsMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -29111,11 +30202,17 @@ export interface IntegrationsMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
@@ -29145,7 +30242,10 @@ export interface IntegrationsMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -29156,20 +30256,29 @@ export interface IntegrationsMainPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'resourcesHero';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
@@ -29326,13 +30435,19 @@ export interface IntegrationsMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -29378,7 +30493,10 @@ export interface IntegrationsMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -29424,7 +30542,10 @@ export interface IntegrationsMainPage {
                     blockType: 'button';
                   }
                 | {
-                    button: string | GlobalButton;
+                    button: {
+                      relationTo: 'globalButton';
+                      value: string | GlobalButton;
+                    };
                     id?: string | null;
                     blockName?: string | null;
                     blockType: 'globalButtons';
@@ -29448,7 +30569,10 @@ export interface IntegrationsMainPage {
               blockType: 'templatesFilterBar';
             }
           | {
-              cta: string | CallToAction;
+              cta: {
+                relationTo: 'callToAction';
+                value: string | CallToAction;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalCTA';
@@ -29495,7 +30619,7 @@ export interface NotFoundPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -29512,7 +30636,7 @@ export interface NotFoundPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -29523,11 +30647,17 @@ export interface NotFoundPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   hero: {
     title: string;
     button?:
@@ -29553,7 +30683,10 @@ export interface NotFoundPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
@@ -29594,7 +30727,10 @@ export interface NotFoundPage {
         }[]
       | null;
     caption?: string | null;
-    rating?: (string | null) | Rating;
+    rating?: {
+      relationTo: 'rating';
+      value: string | Rating;
+    } | null;
     id?: string | null;
     blockName?: string | null;
     blockType: 'heroSubpages';
@@ -29618,7 +30754,7 @@ export interface PricingMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -29635,7 +30771,7 @@ export interface PricingMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -29646,17 +30782,26 @@ export interface PricingMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
   blocks: (
     | {
-        review?: (string | null) | GlobalReview;
+        review?: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        } | null;
         stats?:
           | {
               [k: string]: unknown;
@@ -29706,7 +30851,10 @@ export interface PricingMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
@@ -29741,7 +30889,10 @@ export interface PricingMainPage {
           [k: string]: unknown;
         } | null;
         logos?: (string | Media)[] | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         embed?: string | null;
         id?: string | null;
         blockName?: string | null;
@@ -29765,7 +30916,7 @@ export interface PricingMainPage {
     | {
         backgroundColor: 'bg-yellow-04' | 'bg-neutral-07' | 'bg-green-02';
         /**
-         * Minimal images count - 8Maximum images count - 18
+         * Minimal images count - 8 Maximum images count - 18
          */
         images: (string | Media)[];
         id?: string | null;
@@ -29838,13 +30989,19 @@ export interface PricingMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -29961,7 +31118,10 @@ export interface PricingMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -30202,55 +31362,82 @@ export interface PricingMainPage {
         blockType: 'form';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        infoAccordion: string | GlobalInfoAccordion;
+        infoAccordion: {
+          relationTo: 'globalInfoAccordions';
+          value: string | GlobalInfoAccordion;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoAccordion';
       }
     | {
-        infoCarousel: string | GlobalInfoCarousel;
+        infoCarousel: {
+          relationTo: 'globalInfoCarousels';
+          value: string | GlobalInfoCarousel;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoCarousel';
       }
     | {
-        infoGrid: string | GlobalInfoGrid;
+        infoGrid: {
+          relationTo: 'globalInfoGrids';
+          value: string | GlobalInfoGrid;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoGrid';
       }
     | {
-        infoTab: string | GlobalInfoTab;
+        infoTab: {
+          relationTo: 'globalInfoTabs';
+          value: string | GlobalInfoTab;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTabVariant';
       }
     | {
-        infoTextWithImage: string | GlobalInfoTextWithImage;
+        infoTextWithImage: {
+          relationTo: 'globalInfoTextWithImages';
+          value: string | GlobalInfoTextWithImage;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoTextWithImage';
       }
     | {
-        infoWithCards: string | GlobalInfoWithCard;
+        infoWithCards: {
+          relationTo: 'globalInfoWithCards';
+          value: string | GlobalInfoWithCard;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalInfoWithCardsSection';
       }
     | {
-        reviewBlock: string | GlobalReview;
+        reviewBlock: {
+          relationTo: 'globalReviews';
+          value: string | GlobalReview;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalReviewsSection';
@@ -30280,7 +31467,10 @@ export interface PricingMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -30321,7 +31511,10 @@ export interface PricingMainPage {
             }[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'heroSubpages';
@@ -30397,7 +31590,10 @@ export interface PricingMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -30405,7 +31601,10 @@ export interface PricingMainPage {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'homeHero';
@@ -30560,7 +31759,24 @@ export interface PricingMainPage {
         /**
          * Maximum values - 3
          */
-        resources: (string | GuideMainInfo)[];
+        resources: (
+          | {
+              relationTo: 'article';
+              value: string | Article;
+            }
+          | {
+              relationTo: 'template';
+              value: string | Template;
+            }
+          | {
+              relationTo: 'video';
+              value: string | Video;
+            }
+          | {
+              relationTo: 'guideMainInfo';
+              value: string | GuideMainInfo;
+            }
+        )[];
         buttonLabel: string;
         guideLabel: string;
         articleLabel: string;
@@ -30787,7 +32003,10 @@ export interface PricingMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -30795,7 +32014,10 @@ export interface PricingMainPage {
             )[]
           | null;
         caption?: string | null;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         mobileImage?: (string | null) | Media;
         bannerBody?: string | null;
         bannerLabel?: string | null;
@@ -30877,7 +32099,10 @@ export interface PricingMainPage {
                 blockType: 'button';
               }
             | {
-                button: string | GlobalButton;
+                button: {
+                  relationTo: 'globalButton';
+                  value: string | GlobalButton;
+                };
                 id?: string | null;
                 blockName?: string | null;
                 blockType: 'globalButtons';
@@ -30938,7 +32163,10 @@ export interface PricingMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -31009,7 +32237,10 @@ export interface PricingMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -31020,7 +32251,10 @@ export interface PricingMainPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -31031,7 +32265,10 @@ export interface PricingMainPage {
         reviews: {
           text: string;
           tag?: string | null;
-          representative: string | TestimonialReviewer;
+          representative: {
+            relationTo: 'testimonial-reviewer';
+            value: string | TestimonialReviewer;
+          };
           image: string | Media;
           id?: string | null;
           blockName?: string | null;
@@ -31046,7 +32283,10 @@ export interface PricingMainPage {
         tag?: string | null;
         backgroundColor: 'bg-green-02' | 'bg-pink-02' | 'bg-green-04';
         imagePosition: 'left' | 'right';
-        representative: string | TestimonialReviewer;
+        representative: {
+          relationTo: 'testimonial-reviewer';
+          value: string | TestimonialReviewer;
+        };
         image: string | Media;
         id?: string | null;
         blockName?: string | null;
@@ -31073,7 +32313,7 @@ export interface PricingMainPage {
               hoverColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04' | 'bg-red-04';
               link?: string | null;
               /**
-               * If the field is empty, the button will be navigated by a provided link in another field.The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
+               * If the field is empty, the button will be navigated by a provided link in another field.  The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
                */
               contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
               icon: string | Media;
@@ -31112,7 +32352,7 @@ export interface ReportsMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -31129,7 +32369,7 @@ export interface ReportsMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -31140,11 +32380,17 @@ export interface ReportsMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Footer.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
@@ -31174,7 +32420,10 @@ export interface ReportsMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -31185,7 +32434,10 @@ export interface ReportsMainPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -31210,13 +32462,19 @@ export interface ReportsMainPage {
         blockType: 'pagination';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
@@ -31373,13 +32631,19 @@ export interface ReportsMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
@@ -31425,7 +32689,10 @@ export interface ReportsMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -31472,7 +32739,7 @@ export interface TemplatesMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -31489,7 +32756,7 @@ export interface TemplatesMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -31500,11 +32767,17 @@ export interface TemplatesMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
@@ -31535,7 +32808,10 @@ export interface TemplatesMainPage {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -31546,7 +32822,10 @@ export interface TemplatesMainPage {
             buttonSubtext?: string | null;
             backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
             media: string | Media;
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             isCentered?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -31579,7 +32858,10 @@ export interface TemplatesMainPage {
                         blockType: 'button';
                       }
                     | {
-                        button: string | GlobalButton;
+                        button: {
+                          relationTo: 'globalButton';
+                          value: string | GlobalButton;
+                        };
                         id?: string | null;
                         blockName?: string | null;
                         blockType: 'globalButtons';
@@ -31603,7 +32885,10 @@ export interface TemplatesMainPage {
                   blockType: 'templatesFilterBar';
                 }
               | {
-                  cta: string | CallToAction;
+                  cta: {
+                    relationTo: 'callToAction';
+                    value: string | CallToAction;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalCTA';
@@ -31636,13 +32921,19 @@ export interface TemplatesMainPage {
             blockType: 'templatesSection';
           }
         | {
-            clientLogotypes: string | ClientLogotype;
+            clientLogotypes: {
+              relationTo: 'clientLogotype';
+              value: string | ClientLogotype;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalClientLogotypes';
           }
         | {
-            cta: string | CallToAction;
+            cta: {
+              relationTo: 'callToAction';
+              value: string | CallToAction;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'globalCTA';
@@ -31713,13 +33004,19 @@ export interface TemplatesMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
                 }
             )[];
-            rating?: (string | null) | Rating;
+            rating?: {
+              relationTo: 'rating';
+              value: string | Rating;
+            } | null;
             leftAsset?: (string | null) | Media;
             rightAsset?: (string | null) | Media;
             id?: string | null;
@@ -31851,7 +33148,10 @@ export interface TemplatesMainPage {
                       blockType: 'button';
                     }
                   | {
-                      button: string | GlobalButton;
+                      button: {
+                        relationTo: 'globalButton';
+                        value: string | GlobalButton;
+                      };
                       id?: string | null;
                       blockName?: string | null;
                       blockType: 'globalButtons';
@@ -31889,7 +33189,7 @@ export interface VideosMainPage {
         title: string;
         description: string;
         /**
-         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.Field 'author' avaialble only for types Article and Book and for page Article.
+         * Fields 'publishedTime' and 'modifiedTime' available only for type and page Article.  Field 'author' avaialble only for types Article and Book and for page Article.
          */
         type:
           | 'website'
@@ -31906,7 +33206,7 @@ export interface VideosMainPage {
           | 'video.other';
         image: string | Media;
         /**
-         * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video EpisodeThe pages, where you can use the tag field - Templates, Video, Article, Guide
+         * You can use the field only with specific types and specific pages.   The types, when the tag will be works - Article, Book, Video Movie, Video Episode  The pages, where you can use the tag field - Templates, Video, Article, Guide
          */
         tag?: string | null;
         id?: string | null;
@@ -31917,11 +33217,17 @@ export interface VideosMainPage {
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  navigationBar?: (string | null) | NavigationBar;
+  navigationBar?: {
+    relationTo: 'navigationBar';
+    value: string | NavigationBar;
+  } | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
-  footer?: (string | null) | Footer;
+  footer?: {
+    relationTo: 'footer';
+    value: string | Footer;
+  } | null;
   /**
    * Any hero block must be on first place.
    */
@@ -31951,7 +33257,10 @@ export interface VideosMainPage {
                   blockType: 'button';
                 }
               | {
-                  button: string | GlobalButton;
+                  button: {
+                    relationTo: 'globalButton';
+                    value: string | GlobalButton;
+                  };
                   id?: string | null;
                   blockName?: string | null;
                   blockType: 'globalButtons';
@@ -31962,7 +33271,10 @@ export interface VideosMainPage {
         buttonSubtext?: string | null;
         backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
         media: string | Media;
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         isCentered?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -31982,13 +33294,19 @@ export interface VideosMainPage {
         blockType: 'pagination';
       }
     | {
-        clientLogotypes: string | ClientLogotype;
+        clientLogotypes: {
+          relationTo: 'clientLogotype';
+          value: string | ClientLogotype;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalClientLogotypes';
       }
     | {
-        cta: string | CallToAction;
+        cta: {
+          relationTo: 'callToAction';
+          value: string | CallToAction;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'globalCTA';
@@ -32145,13 +33463,19 @@ export interface VideosMainPage {
               blockType: 'button';
             }
           | {
-              button: string | GlobalButton;
+              button: {
+                relationTo: 'globalButton';
+                value: string | GlobalButton;
+              };
               id?: string | null;
               blockName?: string | null;
               blockType: 'globalButtons';
             }
         )[];
-        rating?: (string | null) | Rating;
+        rating?: {
+          relationTo: 'rating';
+          value: string | Rating;
+        } | null;
         leftAsset?: (string | null) | Media;
         rightAsset?: (string | null) | Media;
         id?: string | null;
