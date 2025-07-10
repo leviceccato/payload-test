@@ -7,7 +7,7 @@ const STORYBLOK_TOKEN = process.env.STORYBLOK_TOKEN
 const API_URL = `https://mapi.storyblok.com/v1/spaces/${STORYBLOK_SPACE_ID}/components`
 const COLLECTIONS_DIR = path.join('src', 'collections')
 const BLOCKS_DIR = path.join('src', 'blocks')
-console.log(STORYBLOK_SPACE_ID, STORYBLOK_TOKEN)
+
 async function fetchStoryblokSchema() {
   const res = await fetch(API_URL, {
     headers: { Authorization: STORYBLOK_TOKEN },
