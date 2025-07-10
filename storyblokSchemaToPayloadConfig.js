@@ -72,6 +72,17 @@ async function fetchStoryblokSchema() {
   return data.components
 }
 
+function mapFileTypeToMimeType(fileType) {
+  switch (fileType) {
+    case 'images':
+      return 'image'
+    case 'videos':
+      return 'video'
+    default:
+      throw new Error(`Unknown file type: ${fileType}`)
+  }
+}
+
 function mapFieldType(components, component, field, key) {
   let comment = ''
   let output = { name: key }
@@ -85,6 +96,7 @@ function mapFieldType(components, component, field, key) {
     // Some Storyblok descriptions have newlines and quotes, clean these up
     output.admin.description = field.description
       .replace(/\n/g, ' ')
+      .replace(/\s\s+/g, ' ')
       .replace(/"/g, '\\"')
   }
 
@@ -103,12 +115,21 @@ function mapFieldType(components, component, field, key) {
       break
     case 'boolean':
       output.type = 'checkbox'
+      if (!field.required && field.default_value) {
+        output.defaultValue = true
+      }
       break
     case 'image':
     case 'asset':
       output.type = 'upload'
       output.relationTo = 'media'
+      if (field.filetypes) {
+        output.filterOptions = {
+          mimeType: { contains: field.filetypes.map(mapFileTypeToMimeType) },
+        }
+      }
       break
+    // TODO, check hasMany option, distinguish between single and multiple options
     case 'option':
     case 'options':
       if (
@@ -129,6 +150,9 @@ function mapFieldType(components, component, field, key) {
           label: opt.name,
           value: opt.value,
         }))
+        if (field.default_value) {
+          output.defaultValue = field.default_value
+        }
         break
       }
       // We aren't currently hitting this anywhere
@@ -183,8 +207,10 @@ function mapFieldType(components, component, field, key) {
       output.type = 'upload'
       output.relationTo = 'media'
       output.hasMany = true
-      output.filterOptions = {
-        mimeType: { contains: field.filetypes },
+      if (field.filetypes) {
+        output.filterOptions = {
+          mimeType: { contains: field.filetypes.map(mapFileTypeToMimeType) },
+        }
       }
       break
     case 'multilink':
