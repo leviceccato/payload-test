@@ -92,7 +92,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   globals: {
     settings: Setting;
@@ -132,7 +132,7 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -149,7 +149,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -168,14 +168,14 @@ export interface Media {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   /**
    * Optionally assign this page to a release. Releases allow you to schedule the publishing of pages in bulk
    */
   release?: {
-    docs?: (number | Release)[];
+    docs?: (string | Release)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
@@ -218,7 +218,7 @@ export interface Page {
  * via the `definition` "releases".
  */
 export interface Release {
-  id: number;
+  id: string;
   name: string;
   /**
    * Once selected, all published content will be deployed on the given date and time. Leave empty if you don't want this release to deploy automatically.
@@ -228,7 +228,7 @@ export interface Release {
   /**
    * Select documents to publish before this release. If you just want to release already published content, leave this empty. An error will occur if you try to add a document to multiple releases.
    */
-  documentsToPublish?: (number | Page)[] | null;
+  documentsToPublish?: (string | Page)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -237,13 +237,13 @@ export interface Release {
  * via the `definition` "redirects".
  */
 export interface Redirect {
-  id: number;
+  id: string;
   from: string;
   to?: {
     type?: ('reference' | 'custom') | null;
     reference?: {
       relationTo: 'pages';
-      value: number | Page;
+      value: string | Page;
     } | null;
     url?: string | null;
   };
@@ -256,32 +256,32 @@ export interface Redirect {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: string;
   document?:
     | ({
         relationTo: 'users';
-        value: number | User;
+        value: string | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: number | Media;
+        value: string | Media;
       } | null)
     | ({
         relationTo: 'pages';
-        value: number | Page;
+        value: string | Page;
       } | null)
     | ({
         relationTo: 'releases';
-        value: number | Release;
+        value: string | Release;
       } | null)
     | ({
         relationTo: 'redirects';
-        value: number | Redirect;
+        value: string | Redirect;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -291,10 +291,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -314,7 +314,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -449,10 +449,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "settings".
  */
 export interface Setting {
-  id: number;
+  id: string;
   defaultTitle?: string | null;
   titleTemplate?: string | null;
-  favicon?: (number | null) | Media;
+  favicon?: (string | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

@@ -1,4 +1,5 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { draftMode as getDraftMode } from 'next/headers'
@@ -44,11 +45,14 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: sqliteAdapter({
-    client: {
-      authToken: process.env.TURSO_AUTH_TOKEN,
-      url: process.env.TURSO_DATABASE_URL,
-    },
+  // db: sqliteAdapter({
+  //   client: {
+  //     authToken: process.env.TURSO_AUTH_TOKEN,
+  //     url: process.env.TURSO_DATABASE_URL,
+  //   },
+  // }),
+  db: mongooseAdapter({
+    url: process.env.MONGODB_URI,
   }),
   admin: {
     user: Users.slug,

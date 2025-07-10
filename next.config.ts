@@ -20,6 +20,7 @@ const envSchema = z.object({
   BLOB_READ_WRITE_TOKEN: z.string(),
   VERCEL_DEPLOY_HOOK: z.string().url(),
   NEXT_PUBLIC_PROD_URL: z.string().url(),
+  MONGODB_URI: z.string().url(),
 })
 
 envSchema.parse(process.env)
