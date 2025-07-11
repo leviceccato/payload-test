@@ -20,6 +20,7 @@ import { Settings } from '@/globals/Settings'
 import { Releases } from '@/collections/Releases'
 import { generatedCollections } from '@/collections/__generated__/_index'
 import { generatedGlobals } from '@/globals/__generated__/_index'
+import { generatedBlocks } from '@/blocks/__generated__/_index'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -74,6 +75,7 @@ export default buildConfig({
       redirectTypes: ['308', '307'],
     }),
   ],
+  blocks: generatedBlocks,
   globals: [...generatedGlobals, Settings],
   collections: [...generatedCollections, Users, Media, Pages, Releases],
   endpoints: [

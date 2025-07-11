@@ -69,6 +69,13 @@ async function fetchStoryblokSchema() {
   })
   if (!res.ok) throw new Error(await res.text())
   const data = await res.json()
+  data.components.forEach((c) => {
+    Object.entries(c.schema).forEach(([key, v]) => {
+      if (v.type === 'options' || v.type === 'option') {
+        console.log(c.name, key, v)
+      }
+    })
+  })
   return data.components
 }
 
@@ -129,9 +136,9 @@ function mapFieldType(components, component, field, key) {
         }
       }
       break
-    // TODO, check hasMany option, distinguish between single and multiple options
     case 'option':
     case 'options':
+      output.hasMany = field.type === 'options'
       if (
         field.source === 'internal_stories' &&
         Array.isArray(field.filter_content_type)
@@ -140,7 +147,10 @@ function mapFieldType(components, component, field, key) {
         output.relationTo = field.filter_content_type
 
         if (field.max_options && Number(field.max_options) > 1) {
-          output.hasMany = true
+          output.maxRows = Number(field.max_options)
+        }
+        if (field.min_options) {
+          output.minRows = Number(field.min_options)
         }
         break
       }
@@ -162,13 +172,12 @@ function mapFieldType(components, component, field, key) {
       throw new Error('Unhandled multioption field: ' + JSON.stringify(field))
     case 'bloks':
       output.type = 'blocks'
+      output.blocks = []
       if (
         Array.isArray(field.component_whitelist) &&
         field.component_whitelist.length > 0
       ) {
-        output.blocks = field.component_whitelist.map((block) =>
-          Symbol.for(toPascalCase(block))
-        )
+        output.blockReferences = field.component_whitelist
         if (field.minimum) {
           output.minRows = field.minimum
         }
@@ -180,9 +189,9 @@ function mapFieldType(components, component, field, key) {
         const targetBlocks = componentGroupUUIDs.flatMap((folder) =>
           components
             .filter((comp) => comp.component_group_uuid === folder)
-            .map((comp) => Symbol.for(toPascalCase(comp.name)))
+            .map((comp) => comp.name)
         )
-        output.blocks = targetBlocks
+        output.blockReferences = targetBlocks
       }
       break
     case 'section':
@@ -232,8 +241,7 @@ function mapFieldType(components, component, field, key) {
 }
 
 function objToJS(obj) {
-  let blockImports = []
-  const js = Object.entries(obj)
+  return Object.entries(obj)
     .map(([key, value]) => {
       if (Array.isArray(value)) {
         if (value.length === 0) {
@@ -242,15 +250,6 @@ function objToJS(obj) {
         if (typeof value[0] === 'string') {
           // eg. relationTo: ["someCollection"]
           return `${key}: [${value.map((v) => `"${v}"`).join(', ')}]`
-        }
-        if (typeof value[0] === 'symbol') {
-          // eg.
-          // import { SomeConst } from "@/blocks/SomeConst"
-          // ...
-          // blocks: [SomeConst]
-          const symbols = value.map((v) => Symbol.keyFor(v))
-          blockImports.push(...symbols)
-          return `${key}: [${symbols.join(', ')}]`
         }
         return `${key}: ${JSON.stringify(value)}`
       }
@@ -263,8 +262,6 @@ function objToJS(obj) {
       return `${key}: ${value}`
     })
     .join(',\n      ')
-
-  return { blockImports, js }
 }
 
 function toPascalCase(str) {
@@ -275,7 +272,6 @@ function toPascalCase(str) {
 }
 
 function componentToPayloadConfig(components, component, type) {
-  const allBlockImports = []
   const fields = Object.entries(component.schema).map(([key, field]) =>
     mapFieldType(components, component, field, key)
   )
@@ -285,8 +281,7 @@ function componentToPayloadConfig(components, component, type) {
       if (comment.length > 0 && output === null) {
         return `// ${comment}`
       }
-      const { blockImports, js } = objToJS(output)
-      allBlockImports.push(...blockImports)
+      const js = objToJS(output)
       return `
     {
       ${comment ? `// ${comment}\n` : ''}${js}
@@ -294,7 +289,6 @@ function componentToPayloadConfig(components, component, type) {
     })
     .join(',\n')
 
-  const uniqueBlockImports = [...new Set(allBlockImports)]
   const payloadType = {
     collection: 'CollectionConfig',
     block: 'Block',
@@ -304,12 +298,7 @@ function componentToPayloadConfig(components, component, type) {
     throw new Error(`Unknown type: ${type}`)
   }
 
-  const blockImportsString =
-    uniqueBlockImports.length > 0
-      ? `\n${uniqueBlockImports.map((i) => `import { ${i} } from "${BLOCKS_DIR_WITH_ALIAS}/${i}"`).join('\n')}`
-      : ''
-
-  return `import type { ${payloadType} } from "payload"${blockImportsString}
+  return `import type { ${payloadType} } from "payload"
 
 export const ${pascalName} = {
   slug: '${component.name.charAt(0).toLowerCase()}${component.name.slice(1)}',
@@ -389,6 +378,11 @@ async function main() {
     GLOBALS_DIR_WITH_SRC,
     'generatedGlobals'
   )
+  const blocksIndexContent = schemaToIndex(
+    components.filter((component) => component.is_nestable),
+    BLOCKS_DIR_WITH_SRC,
+    'generatedBlocks'
+  )
   fs.writeFileSync(
     path.join(COLLECTIONS_DIR_WITH_SRC, '_index.ts'),
     collectionsIndexContent
@@ -397,8 +391,12 @@ async function main() {
     path.join(GLOBALS_DIR_WITH_SRC, '_index.ts'),
     globalsIndexContent
   )
+  fs.writeFileSync(
+    path.join(BLOCKS_DIR_WITH_SRC, '_index.ts'),
+    blocksIndexContent
+  )
   console.log(
-    `Payload collections and blocks written to ${COLLECTIONS_DIR_WITH_SRC} and ${BLOCKS_DIR_WITH_SRC}`
+    `Payload collections, globals and blocks written to ${COLLECTIONS_DIR_WITH_SRC}, ${GLOBALS_DIR_WITH_SRC} and ${BLOCKS_DIR_WITH_SRC}`
   )
 }
 
