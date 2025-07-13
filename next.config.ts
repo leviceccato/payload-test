@@ -19,6 +19,7 @@ const envSchema = z.object({
   VERCEL_DEPLOY_HOOK: z.string().url(),
   NEXT_PUBLIC_PROD_URL: z.string().url(),
   MONGODB_PASSWORD: z.string(),
+  VERCEL_GIT_COMMIT_REF: z.string().optional(),
 })
 
 envSchema.parse(process.env)

@@ -4,18 +4,26 @@ export const protectedDatabaseNames = new Set(['main'])
 
 let cachedDatabaseName = ''
 
+function getBranchName(): string {
+  if (process.env.VERCEL_GIT_COMMIT_REF) {
+    return process.env.VERCEL_GIT_COMMIT_REF
+  }
+
+  try {
+    return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
+  } catch (error) {
+    console.error(error)
+    throw new Error('Could not get branch name')
+  }
+}
+
 export function getDatabaseName(branchName?: string): string {
   if (cachedDatabaseName && !branchName) {
     return cachedDatabaseName
   }
 
   if (!branchName) {
-    try {
-      branchName = execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-    } catch (error) {
-      console.error(error)
-      throw new Error('Could not get branch name')
-    }
+    branchName = getBranchName()
   }
 
   let databaseName = branchName
