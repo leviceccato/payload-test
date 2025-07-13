@@ -1,0 +1,67 @@
+import type { CollectionConfig } from "payload"
+
+export const LegalPage = {
+  slug: 'legalPage',
+  
+  fields: [
+    // TODO: Create a group (S E O: title,description,followAndIndex),
+
+    {
+      name: "title",
+      required: true,
+      type: "text"
+    },
+
+    {
+      name: "description",
+      required: true,
+      type: "text"
+    },
+
+    {
+      name: "ogImage",
+      type: "blocks",
+      blocks: [],
+      blockReferences: ["ogImage"],
+      maxRows: 1
+    },
+
+    {
+      name: "navigationBar",
+      admin: {"description":"If field will be empty, page will be use default Navigation Bar."},
+      hasMany: false,
+      type: "relationship",
+      relationTo: ["navigationBar"]
+    },
+
+    {
+      name: "footer",
+      admin: {"description":"If field will be empty, page will be use default Footer."},
+      hasMany: false,
+      type: "relationship",
+      relationTo: ["footer"]
+    },
+
+    {
+      name: "headerTitle",
+      type: "text"
+    },
+
+    {
+      name: "headerBody",
+      type: "richText"
+    },
+
+    {
+      name: "body",
+      required: true,
+      type: "richText"
+    },
+
+    {
+      name: "followAndIndex",
+      type: "checkbox",
+      defaultValue: true
+    }
+  ]
+} as const satisfies CollectionConfig
