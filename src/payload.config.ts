@@ -2,6 +2,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
+import { searchPlugin } from '@payloadcms/plugin-search'
 import { draftMode as getDraftMode } from 'next/headers'
 import {
   lexicalEditor,
@@ -73,6 +74,12 @@ export default buildConfig({
     redirectsPlugin({
       collections: [Pages.slug],
       redirectTypes: ['308', '307'],
+    }),
+    searchPlugin({
+      collections: [Pages.slug],
+      defaultPriorities: {
+        pages: 100,
+      },
     }),
   ],
   blocks: generatedBlocks,
