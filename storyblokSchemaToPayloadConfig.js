@@ -69,13 +69,6 @@ async function fetchStoryblokSchema() {
   })
   if (!res.ok) throw new Error(await res.text())
   const data = await res.json()
-  data.components.forEach((c) => {
-    Object.entries(c.schema).forEach(([key, v]) => {
-      if (v.type === 'options' || v.type === 'option') {
-        console.log(c.name, key, v)
-      }
-    })
-  })
   return data.components
 }
 
