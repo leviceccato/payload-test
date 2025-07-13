@@ -190,12 +190,16 @@ function mapFieldType(components, component, field, key) {
     case 'section':
       // Not totally straightforward to generate the group
       output = null
-      comment = `TODO: Create a group (${field.display_name}: ${field.keys.join(',')})`
+      comment = `TODO: Create a group (${field.display_name}: ${field.keys.join(
+        ','
+      )})`
       break
     case 'tab':
       // Not totally straightforward to generate the tab
       output = null
-      comment = `TODO: Create a tab (${field.display_name}: ${field.keys.join(',')})`
+      comment = `TODO: Create a tab (${field.display_name}: ${field.keys.join(
+        ','
+      )})`
       break
     case 'datetime':
       output.type = 'date'
