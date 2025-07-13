@@ -291,10 +291,19 @@ function componentToPayloadConfig(components, component, type) {
     throw new Error(`Unknown type: ${type}`)
   }
 
+  const slug = component.name.charAt(0).toLowerCase() + component.name.slice(1)
+
   return `import type { ${payloadType} } from "payload"
 
 export const ${pascalName} = {
-  slug: '${component.name.charAt(0).toLowerCase()}${component.name.slice(1)}',
+  slug: '${slug}',
+  ${
+    type === 'block'
+      ? `admin: {
+    disableBlockName: true,
+  },`
+      : ''
+  }
   fields: [
     ${fieldsString}
   ]
