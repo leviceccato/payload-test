@@ -276,6 +276,8 @@ export interface Config {
     pages: Page1;
     releases: Release;
     redirects: Redirect;
+    search: Search;
+    'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -283,6 +285,9 @@ export interface Config {
   collectionsJoins: {
     pages: {
       release: 'releases';
+    };
+    'payload-folders': {
+      documentsAndFolders: 'payload-folders' | 'media';
     };
   };
   collectionsSelect: {
@@ -335,6 +340,8 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     releases: ReleasesSelect<false> | ReleasesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    search: SearchSelect<false> | SearchSelect<true>;
+    'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -1309,10 +1316,12 @@ export interface EventPage {
     value: string | Footer;
   } | null;
   cover: string | Media;
-  globalTag?: {
-    relationTo: 'globalTag';
-    value: string | GlobalTag;
-  } | null;
+  globalTag?:
+    | {
+        relationTo: 'globalTag';
+        value: string | GlobalTag;
+      }[]
+    | null;
   livestormEmbed: string;
   shareTitle: string;
   copiedTitle: string;
@@ -2465,10 +2474,12 @@ export interface Article {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  globalTag?: {
-    relationTo: 'globalTag';
-    value: string | GlobalTag;
-  } | null;
+  globalTag?:
+    | {
+        relationTo: 'globalTag';
+        value: string | GlobalTag;
+      }[]
+    | null;
   category: {
     relationTo: 'articleCategory';
     value: string | ArticleCategory;
@@ -2558,26 +2569,30 @@ export interface Template {
     value: string | Footer;
   } | null;
   templateId: string;
-  globalTag?: {
-    relationTo: 'globalTag';
-    value: string | GlobalTag;
-  } | null;
+  globalTag?:
+    | {
+        relationTo: 'globalTag';
+        value: string | GlobalTag;
+      }[]
+    | null;
   useCase: {
     relationTo: 'templateUseCase';
     value: string | TemplateUseCase;
-  };
+  }[];
   team: {
     relationTo: 'templateTeam';
     value: string | TemplateTeam;
-  };
+  }[];
   methodology: {
     relationTo: 'templateMethodology';
     value: string | TemplateMethodology;
-  };
-  industry?: {
-    relationTo: 'templateIndustry';
-    value: string | TemplateIndustry;
-  } | null;
+  }[];
+  industry?:
+    | {
+        relationTo: 'templateIndustry';
+        value: string | TemplateIndustry;
+      }[]
+    | null;
   heroTemplate: HeroTemplate[];
   blocks?:
     | (
@@ -2709,10 +2724,12 @@ export interface Video {
     value: string | Footer;
   } | null;
   cover: string | Media;
-  globalTag?: {
-    relationTo: 'globalTag';
-    value: string | GlobalTag;
-  } | null;
+  globalTag?:
+    | {
+        relationTo: 'globalTag';
+        value: string | GlobalTag;
+      }[]
+    | null;
   heroTemplate: HeroTemplate[];
   /**
    * You can pass here any embedded code to a video. You don't need to change only url in field.
@@ -2784,10 +2801,12 @@ export interface GuideMainInfo {
    * Text will be used for the sidebar progress percentage.
    */
   completeTitle: string;
-  globalTag?: {
-    relationTo: 'globalTag';
-    value: string | GlobalTag;
-  } | null;
+  globalTag?:
+    | {
+        relationTo: 'globalTag';
+        value: string | GlobalTag;
+      }[]
+    | null;
   cover: string | Media;
   shareLinkedin?: boolean | null;
   shareFacebook?: boolean | null;
@@ -3436,10 +3455,12 @@ export interface Customer {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  globalTag?: {
-    relationTo: 'globalTag';
-    value: string | GlobalTag;
-  } | null;
+  globalTag?:
+    | {
+        relationTo: 'globalTag';
+        value: string | GlobalTag;
+      }[]
+    | null;
   useCase: {
     relationTo: 'customerUseCase';
     value: string | CustomerUseCase;
@@ -3680,10 +3701,12 @@ export interface Event {
     value: string | Footer;
   } | null;
   cover: string | Media;
-  globalTag?: {
-    relationTo: 'globalTag';
-    value: string | GlobalTag;
-  } | null;
+  globalTag?:
+    | {
+        relationTo: 'globalTag';
+        value: string | GlobalTag;
+      }[]
+    | null;
   livestormEmbed: string;
   blocks?:
     | (
@@ -3921,10 +3944,12 @@ export interface IntegrationMainInfo {
    * Text will be used for the sidebar progress percentage.
    */
   completeTitle: string;
-  globalTag?: {
-    relationTo: 'globalTag';
-    value: string | GlobalTag;
-  } | null;
+  globalTag?:
+    | {
+        relationTo: 'globalTag';
+        value: string | GlobalTag;
+      }[]
+    | null;
   cover: string | Media;
   shareLinkedin?: boolean | null;
   shareFacebook?: boolean | null;
@@ -4395,6 +4420,13 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
   password?: string | null;
 }
 /**
@@ -4482,6 +4514,48 @@ export interface Redirect {
     url?: string | null;
   };
   type: '307' | '308';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search".
+ */
+export interface Search {
+  id: string;
+  title?: string | null;
+  priority?: number | null;
+  doc: {
+    relationTo: 'pages';
+    value: string | Page1;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-folders".
+ */
+export interface FolderInterface {
+  id: string;
+  name: string;
+  folder?: (string | null) | FolderInterface;
+  documentsAndFolders?: {
+    docs?: (
+      | {
+          relationTo?: 'payload-folders';
+          value: string | FolderInterface;
+        }
+      | {
+          relationTo?: 'media';
+          value: string | Media;
+        }
+    )[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -4687,6 +4761,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'redirects';
         value: string | Redirect;
+      } | null)
+    | ({
+        relationTo: 'search';
+        value: string | Search;
+      } | null)
+    | ({
+        relationTo: 'payload-folders';
+        value: string | FolderInterface;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -5389,6 +5471,13 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5396,6 +5485,8 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
+  folder?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -5464,6 +5555,28 @@ export interface RedirectsSelect<T extends boolean = true> {
         url?: T;
       };
   type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search_select".
+ */
+export interface SearchSelect<T extends boolean = true> {
+  title?: T;
+  priority?: T;
+  doc?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-folders_select".
+ */
+export interface PayloadFoldersSelect<T extends boolean = true> {
+  name?: T;
+  folder?: T;
+  documentsAndFolders?: T;
   updatedAt?: T;
   createdAt?: T;
 }

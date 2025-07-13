@@ -1,4 +1,3 @@
-import 'server-only'
 import {
   getPayload as getPayloadOriginal,
   type TransformCollectionWithSelect,

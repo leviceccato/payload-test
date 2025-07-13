@@ -1,6 +1,5 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { draftMode as getDraftMode } from 'next/headers'
@@ -9,11 +8,10 @@ import {
   BlocksFeature,
   EXPERIMENTAL_TableFeature,
 } from '@payloadcms/richtext-lexical'
-import path from 'path'
+import path from 'node:path'
 import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
+import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import type { Config } from '@/payload-types'
 import { Users } from '@/collections/Users'
 import { Media } from '@/collections/Media'
 import { Pages } from '@/collections/Pages'
@@ -22,6 +20,7 @@ import { Releases } from '@/collections/Releases'
 import { generatedCollections } from '@/collections/__generated__/_index'
 import { generatedGlobals } from '@/globals/__generated__/_index'
 import { generatedBlocks } from '@/blocks/__generated__/_index'
+import { getDatabaseName } from '@/utils/database'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -49,15 +48,14 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  // db: sqliteAdapter({
-  //   client: {
-  //     authToken: process.env.TURSO_AUTH_TOKEN,
-  //     url: process.env.TURSO_DATABASE_URL,
-  //   },
-  // }),
   db: mongooseAdapter({
-    url: process.env.MONGODB_URI,
+    url: `mongodb+srv://payload:${
+      process.env.MONGODB_PASSWORD
+    }@payload.glft1tr.mongodb.net/${getDatabaseName()}?retryWrites=true&w=majority&appName=payload`,
   }),
+  folders: {
+    browseByFolder: false,
+  },
   admin: {
     user: Users.slug,
     importMap: {
@@ -68,7 +66,9 @@ export default buildConfig({
     vercelBlobStorage({
       token: process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
-        media: true,
+        media: {
+          prefix: getDatabaseName(),
+        },
       },
     }),
     redirectsPlugin({

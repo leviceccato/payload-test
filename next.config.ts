@@ -15,12 +15,10 @@ export default withPayload(config, { devBundleServerPackages: false })
 const envSchema = z.object({
   PAYLOAD_SECRET: z.string(),
   PREVIEW_SECRET: z.string(),
-  TURSO_DATABASE_URL: z.string().url(),
-  TURSO_AUTH_TOKEN: z.string().optional(),
   BLOB_READ_WRITE_TOKEN: z.string(),
   VERCEL_DEPLOY_HOOK: z.string().url(),
   NEXT_PUBLIC_PROD_URL: z.string().url(),
-  MONGODB_URI: z.string().url(),
+  MONGODB_PASSWORD: z.string(),
 })
 
 envSchema.parse(process.env)

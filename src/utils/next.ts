@@ -1,4 +1,3 @@
-import 'server-only'
 import type { Metadata, ResolvingMetadata } from 'next'
 import type { FC, ReactNode } from 'react'
 

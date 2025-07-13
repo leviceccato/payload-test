@@ -1,0 +1,55 @@
+name: Cleanup Branch Database
+
+on:
+  pull_request:
+    types: [closed]
+  delete:
+    branches:
+      - '*'
+
+jobs:
+  cleanup_database:
+    # Only run if PR was merged OR if branch was deleted directly
+    if: github.event.pull_request.merged == true || github.event_name == 'delete'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '10.12.4'
+
+      - name: Cleanup database
+        id: cleanup-database
+        env:
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+          PREVIEW_SECRET: ${{ secrets.PREVIEW_SECRET }}
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+          NEXT_PUBLIC_PROD_URL: ${{ secrets.NEXT_PUBLIC_PROD_URL }}
+          MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+        run: |
+          pnpm install
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # For merged PRs, use the head ref (source branch)
+            BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          else
+            # For direct branch deletion
+            BRANCH_NAME="${{ github.event.ref }}"
+          fi
+
+          # Clean the branch name (remove refs/heads/ prefix if present)
+          BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's|refs/heads/||')
+
+          pnpm payload run src/scripts/delete-database.ts $BRANCH_NAME
+
+          echo "Database cleanup completed for branch: $BRANCH_NAME"
