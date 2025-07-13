@@ -1,4 +1,4 @@
-import { getGlobal, normaliseMedia } from '@/utils/payload'
+import { getGlobal, normaliseAsset } from '@/utils/payload'
 import { ImageResponse } from 'next/og'
 import { notFound } from 'next/navigation'
 import { Settings } from '@/globals/Settings'
@@ -13,7 +13,7 @@ export const size = {
 
 const Icon: NextIcon = async () => {
   const settings = await getGlobal(Settings.slug)
-  const favicon = normaliseMedia(settings.favicon)
+  const favicon = normaliseAsset(settings.favicon)
 
   if (!favicon?.url) {
     notFound()
