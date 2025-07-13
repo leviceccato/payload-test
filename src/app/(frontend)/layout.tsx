@@ -2,7 +2,7 @@ import '@/app/(frontend)/styles.css'
 import Link from '@/components/Link'
 import LivePreview from '@/components/LivePreview'
 import { getDocs, getGlobal } from '@/utils/payload'
-import { Pages } from '@/collections/TestPages'
+import { TestPages } from '@/collections/TestPages'
 import type { NextLayout, GenerateLayoutMetadata } from '@/utils/next'
 import { Settings } from '@/globals/Settings'
 
@@ -18,7 +18,7 @@ export const generateMetadata: GenerateLayoutMetadata = async () => {
 }
 
 const Layout: NextLayout = async (props) => {
-  const pages = await getDocs(Pages.slug)
+  const pages = await getDocs(TestPages.slug)
 
   return (
     <html lang="en">
