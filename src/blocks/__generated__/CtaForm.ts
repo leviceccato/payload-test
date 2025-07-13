@@ -24,7 +24,7 @@ export const CtaForm = {
       required: true,
       admin: {"description":"You must select only image or Lottie JSON files."},
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":[]}}
     },
 

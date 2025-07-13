@@ -9,7 +9,7 @@ export const Footer = {
       name: "logotype",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
@@ -31,7 +31,7 @@ export const Footer = {
     {
       name: "imagePlaceholders",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       hasMany: true,
       filterOptions: {"mimeType":{"contains":["image"]}}
     }

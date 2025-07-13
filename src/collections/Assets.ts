@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const Media = {
-  slug: 'media',
+export const Assets = {
+  slug: 'assets',
   folders: true,
   upload: true,
   access: {

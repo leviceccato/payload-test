@@ -20,21 +20,21 @@ export const TestimonialReviewer = {
     {
       name: "companyLogo",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "companyLogoOnLight",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "avatar",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

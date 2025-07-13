@@ -22,7 +22,7 @@ export const PricingPlanListItem = {
     {
       name: "tooltipImage",
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

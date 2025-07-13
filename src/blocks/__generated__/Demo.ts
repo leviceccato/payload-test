@@ -24,7 +24,7 @@ export const Demo = {
       required: true,
       admin: {"description":"Can be Rive animations or images"},
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

@@ -16,7 +16,7 @@ export const EmbededMap = {
     {
       name: "icon",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

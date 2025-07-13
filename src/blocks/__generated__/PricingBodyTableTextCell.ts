@@ -22,7 +22,7 @@ export const PricingBodyTableTextCell = {
     {
       name: "tooltipImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

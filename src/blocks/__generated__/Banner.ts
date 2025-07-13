@@ -31,7 +31,7 @@ export const Banner = {
       name: "mainImage",
       admin: {"description":"If you add a file here, the banner will use a second variant of design."},
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 // TODO: Create a group (undefined: leftTopImage,rightTopImage,leftBottomImage,rightBottomImage),
@@ -50,56 +50,56 @@ export const Banner = {
     {
       name: "leftTopImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "rightTopImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "leftBottomImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "rightBottomImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "leftTopImageMobile",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "rightTopImageMobile",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "leftBottomImageMobile",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "rightBottomImageMobile",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

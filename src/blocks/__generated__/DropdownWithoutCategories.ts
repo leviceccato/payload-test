@@ -39,7 +39,7 @@ export const DropdownWithoutCategories = {
     {
       name: "featureImage",
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

@@ -71,7 +71,7 @@ export const Compare = {
       name: "cover",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

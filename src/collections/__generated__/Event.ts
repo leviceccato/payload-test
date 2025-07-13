@@ -56,7 +56,7 @@ export const Event = {
       name: "cover",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

@@ -43,7 +43,7 @@ export const ResourcesHero = {
       name: "media",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

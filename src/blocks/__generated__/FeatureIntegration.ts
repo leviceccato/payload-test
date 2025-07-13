@@ -10,7 +10,7 @@ export const FeatureIntegration = {
     {
       name: "icon",
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

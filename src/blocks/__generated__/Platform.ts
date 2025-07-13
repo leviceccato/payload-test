@@ -28,14 +28,14 @@ export const Platform = {
     {
       name: "image",
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {
       name: "imageSm",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     }
   ]
 } as const satisfies Block

@@ -11,7 +11,7 @@ export const InfoCarouselSlide = {
       name: "image",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

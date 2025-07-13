@@ -272,8 +272,8 @@ export interface Config {
     'testimonial-reviewer': TestimonialReviewer;
     video: Video;
     users: User;
-    media: Media;
-    pages: Page1;
+    assets: Asset;
+    'test-pages': TestPage;
     releases: Release;
     redirects: Redirect;
     search: Search;
@@ -283,11 +283,11 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
-    pages: {
+    'test-pages': {
       release: 'releases';
     };
     'payload-folders': {
-      documentsAndFolders: 'payload-folders' | 'media';
+      documentsAndFolders: 'payload-folders' | 'assets';
     };
   };
   collectionsSelect: {
@@ -336,8 +336,8 @@ export interface Config {
     'testimonial-reviewer': TestimonialReviewerSelect<false> | TestimonialReviewerSelect<true>;
     video: VideoSelect<false> | VideoSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
+    assets: AssetsSelect<false> | AssetsSelect<true>;
+    'test-pages': TestPagesSelect<false> | TestPagesSelect<true>;
     releases: ReleasesSelect<false> | ReleasesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
@@ -483,7 +483,7 @@ export interface Review {
     relationTo: 'testimonial-reviewer';
     value: string | TestimonialReviewer;
   };
-  image: string | Media;
+  image: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'review';
@@ -496,31 +496,57 @@ export interface TestimonialReviewer {
   id: string;
   fullName: string;
   position: string;
-  companyLogo?: (string | null) | Media;
-  companyLogoOnLight?: (string | null) | Media;
-  avatar?: (string | null) | Media;
+  companyLogo?: (string | null) | Asset;
+  companyLogoOnLight?: (string | null) | Asset;
+  avatar?: (string | null) | Asset;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "assets".
  */
-export interface Media {
-  /**
-   * Generic embeds have more priority than YouTube embeds and video fields.
-   */
-  embed?: string | null;
-  /**
-   * YouTube embeds have more priority than video fields.
-   */
-  embedLink?: string | null;
-  assetDesktop?: (string | null) | Media;
-  assetMobile?: (string | null) | Media;
-  size: 'parallax' | '780' | '885';
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'media';
+export interface Asset {
+  id: string;
+  alt: string;
+  prefix?: string | null;
+  folder?: (string | null) | FolderInterface;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-folders".
+ */
+export interface FolderInterface {
+  id: string;
+  name: string;
+  folder?: (string | null) | FolderInterface;
+  documentsAndFolders?: {
+    docs?: (
+      | {
+          relationTo?: 'payload-folders';
+          value: string | FolderInterface;
+        }
+      | {
+          relationTo?: 'assets';
+          value: string | Asset;
+        }
+    )[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -535,7 +561,7 @@ export interface SingleReview {
     relationTo: 'testimonial-reviewer';
     value: string | TestimonialReviewer;
   };
-  image: string | Media;
+  image: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'singleReview';
@@ -620,7 +646,7 @@ export interface Author {
   id: string;
   name: string;
   position: string;
-  image: string | Media;
+  image: string | Asset;
   description?: string | null;
   socialMediaLinks?: SocialMedia[] | null;
   updatedAt: string;
@@ -631,7 +657,7 @@ export interface Author {
  * via the `definition` "socialMedia".
  */
 export interface SocialMedia {
-  icon: string | Media;
+  icon: string | Asset;
   link: string;
   id?: string | null;
   blockName?: string | null;
@@ -654,16 +680,16 @@ export interface Banner {
   /**
    * If you add a file here, the banner will use a second variant of design.
    */
-  mainImage?: (string | null) | Media;
+  mainImage?: (string | null) | Asset;
   button: (Button | GlobalButtons)[];
-  leftTopImage?: (string | null) | Media;
-  rightTopImage?: (string | null) | Media;
-  leftBottomImage?: (string | null) | Media;
-  rightBottomImage?: (string | null) | Media;
-  leftTopImageMobile?: (string | null) | Media;
-  rightTopImageMobile?: (string | null) | Media;
-  leftBottomImageMobile?: (string | null) | Media;
-  rightBottomImageMobile?: (string | null) | Media;
+  leftTopImage?: (string | null) | Asset;
+  rightTopImage?: (string | null) | Asset;
+  leftBottomImage?: (string | null) | Asset;
+  rightBottomImage?: (string | null) | Asset;
+  leftTopImageMobile?: (string | null) | Asset;
+  rightTopImageMobile?: (string | null) | Asset;
+  leftBottomImageMobile?: (string | null) | Asset;
+  rightBottomImageMobile?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'banner';
@@ -735,7 +761,7 @@ export interface BookDemoMain {
     };
     [k: string]: unknown;
   } | null;
-  logos?: (string | Media)[] | null;
+  logos?: (string | Asset)[] | null;
   rating?: {
     relationTo: 'rating';
     value: string | Rating;
@@ -765,7 +791,7 @@ export interface ClientLogotypes {
    * Defaults to left
    */
   subtitleAlignment?: ('left' | 'centre') | null;
-  logos: (string | Media)[];
+  logos: (string | Asset)[];
   bottomDivider: '0' | '50';
   mobileBottomDivider?: boolean | null;
   marginTop: '80' | '0';
@@ -783,7 +809,7 @@ export interface ClientLogotypesCards {
   /**
    * Minimal images count - 8 Maximum images count - 18
    */
-  images: (string | Media)[];
+  images: (string | Asset)[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'clientLogotypesCards';
@@ -826,7 +852,7 @@ export interface CompareTableIconCell {
 export interface CompareTableTextCell {
   label: string;
   tooltipBody?: string | null;
-  tooltipImage?: (string | null) | Media;
+  tooltipImage?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'compareTableTextCell';
@@ -879,8 +905,8 @@ export interface Cta {
     relationTo: 'rating';
     value: string | Rating;
   } | null;
-  leftAsset?: (string | null) | Media;
-  rightAsset?: (string | null) | Media;
+  leftAsset?: (string | null) | Asset;
+  rightAsset?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
@@ -929,7 +955,7 @@ export interface CtaForm {
   /**
    * You must select only image or Lottie JSON files.
    */
-  asset: string | Media;
+  asset: string | Asset;
   /**
    * The field uses for html element and must be without white spaces.
    */
@@ -1182,7 +1208,7 @@ export interface Demo {
   /**
    * Can be Rive animations or images
    */
-  media: string | Media;
+  media: string | Asset;
   /**
    * Duration the demo will be shown in milliseconds, not providing a value will assume an infinite duration
    */
@@ -1242,7 +1268,7 @@ export interface DropdownWithoutCategories {
   label?: string | null;
   link?: string | null;
   eventName?: string | null;
-  featureImage?: (string | null) | Media;
+  featureImage?: (string | null) | Asset;
   featureTitle?: string | null;
   featureBody?: string | null;
   featureButtonLabel?: string | null;
@@ -1283,7 +1309,7 @@ export interface Embedded {
  */
 export interface EmbededMap {
   address: string;
-  icon?: (string | null) | Media;
+  icon?: (string | null) | Asset;
   /**
    * Property width and height for embeded element must be set to 100%
    */
@@ -1315,7 +1341,7 @@ export interface EventPage {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  cover: string | Media;
+  cover: string | Asset;
   globalTag?:
     | {
         relationTo: 'globalTag';
@@ -1358,7 +1384,7 @@ export interface OgImage {
     | 'video.episode'
     | 'video.tv_show'
     | 'video.other';
-  image: string | Media;
+  image: string | Asset;
   /**
    * You can use the field only with specific types and specific pages. The types, when the tag will be works - Article, Book, Video Movie, Video Episode The pages, where you can use the tag field - Templates, Video, Article, Guide
    */
@@ -1384,7 +1410,7 @@ export interface NavigationBar {
     | 'bg-pink-04'
     | 'bg-blue-05';
   buttons?: (Button | GlobalButtons)[] | null;
-  logotype: string | Media;
+  logotype: string | Asset;
   searchHidden?: boolean | null;
   menuItems?: {
     relationTo: 'navigationBarMenuItems';
@@ -1450,10 +1476,10 @@ export interface NavBarGroup {
  */
 export interface Footer {
   id: string;
-  logotype: string | Media;
+  logotype: string | Asset;
   groups?: FooterLinksGroup[] | null;
   socialMedia?: SocialMedia[] | null;
-  imagePlaceholders?: (string | Media)[] | null;
+  imagePlaceholders?: (string | Asset)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1564,7 +1590,7 @@ export interface InlineCTA {
   body?: string | null;
   backgroundColor: 'bg-green-03' | 'bg-green-04' | 'bg-pink-04' | 'bg-purple-04' | 'bg-yellow-03';
   button: (Button | GlobalButtons)[];
-  image: string | Media;
+  image: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'inlineCTA';
@@ -1598,7 +1624,7 @@ export interface TemplateCTA {
  */
 export interface TemplatesCTA {
   title: string;
-  image: string | Media;
+  image: string | Asset;
   button: (Button | GlobalButtons)[];
   id?: string | null;
   blockName?: string | null;
@@ -1656,7 +1682,7 @@ export interface ResourcesHero {
   subtitle: string;
   buttonSubtext?: string | null;
   backgroundColor: 'bg-neutral-06' | 'bg-green-04' | 'bg-blue-05';
-  media: string | Media;
+  media: string | Asset;
   rating?: {
     relationTo: 'rating';
     value: string | Rating;
@@ -1700,7 +1726,7 @@ export interface FeatureBlock {
   integrations?: FeatureIntegration[] | null;
   link?: string | null;
   linkText?: string | null;
-  image?: (string | null) | Media;
+  image?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'featureBlock';
@@ -1710,7 +1736,7 @@ export interface FeatureBlock {
  * via the `definition` "featureIntegration".
  */
 export interface FeatureIntegration {
-  icon?: (string | null) | Media;
+  icon?: (string | null) | Asset;
   link?: string | null;
   /**
    * Only used for screen readers
@@ -1883,7 +1909,7 @@ export interface InfoCarousel {
  * via the `definition` "infoCarouselSlide".
  */
 export interface InfoCarouselSlide {
-  image: string | Media;
+  image: string | Asset;
   backgroundColor:
     | 'bg-yellow-03'
     | 'bg-neutral-06'
@@ -1908,7 +1934,7 @@ export interface InfoCarouselSlide {
  */
 export interface InfoCarouselSlideItem {
   title: string;
-  icon: string | Media;
+  icon: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoCarouselSlideItem';
@@ -1953,7 +1979,7 @@ export interface InfoGrid {
 export interface InfoGridItem {
   title: string;
   subtitle?: string | null;
-  icon: string | Media;
+  icon: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoGridItem';
@@ -1977,7 +2003,7 @@ export interface GridCard {
   title: string;
   body: string;
   fullWidthImage?: boolean | null;
-  image: string | Media;
+  image: string | Asset;
   textLink?: TextLinkButton[] | null;
   id?: string | null;
   blockName?: string | null;
@@ -2011,7 +2037,7 @@ export interface InfoGridTwoColumnsWithTitle {
     | 'bg-neutral-07';
   title: string;
   subtitle?: string | null;
-  image: string | Media;
+  image: string | Asset;
   items?: InfoGridTwoColumnsWithTitleItem[] | null;
   id?: string | null;
   blockName?: string | null;
@@ -2022,7 +2048,7 @@ export interface InfoGridTwoColumnsWithTitle {
  * via the `definition` "infoGridTwoColumnsWithTitleItem".
  */
 export interface InfoGridTwoColumnsWithTitleItem {
-  icon?: (string | null) | Media;
+  icon?: (string | null) | Asset;
   title: string;
   body: string;
   id?: string | null;
@@ -2071,7 +2097,7 @@ export interface InfoTabsWithDescriptions {
 export interface InfoTab {
   title: string;
   description: string;
-  image: string | Media;
+  image: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoTab';
@@ -2082,13 +2108,13 @@ export interface InfoTab {
  */
 export interface InfoTabsWithIcon {
   heading?: string | null;
-  headingImage?: (string | null) | Media;
+  headingImage?: (string | null) | Asset;
   body?: string | null;
   backgroundColour?: ('bg-neutral-07' | 'bg-green-01') | null;
   /**
    * If this field is empty then individual tab images will be used, otherwise this image will be shown persistently.
    */
-  tabImage?: (string | null) | Media;
+  tabImage?: (string | null) | Asset;
   tabs: InfoIconTab[];
   id?: string | null;
   blockName?: string | null;
@@ -2099,9 +2125,9 @@ export interface InfoTabsWithIcon {
  * via the `definition` "infoIconTab".
  */
 export interface InfoIconTab {
-  icon?: (string | null) | Media;
+  icon?: (string | null) | Asset;
   title: string;
-  image: string | Media;
+  image: string | Asset;
   link?: string | null;
   mobileButton: string;
   id?: string | null;
@@ -2144,7 +2170,7 @@ export interface InfoTextWithImage {
   contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
   backgroundColor: 'bg-neutral-06' | 'bg-neutral-07' | 'bg-yellow-04';
   imagePosition?: ('right' | 'left') | null;
-  cover?: (string | null) | Media;
+  cover?: (string | null) | Asset;
   customComponent?:
     | (LiveWebsiteTestingHero | LiveWebsiteTestingPanel | LiveWebsiteTestingSites | LiveWebsiteTestingTasks)[]
     | null;
@@ -2160,7 +2186,7 @@ export interface InfoTextWithImage {
  */
 export interface InfoText {
   text: string;
-  icon: string | Media;
+  icon: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoText';
@@ -2204,8 +2230,8 @@ export interface InfoWithCards {
  * via the `definition` "infoCard".
  */
 export interface InfoCard {
-  image: string | Media;
-  mobileImage?: (string | null) | Media;
+  image: string | Asset;
+  mobileImage?: (string | null) | Asset;
   title: string;
   subtitle: string;
   textLink: TextLinkButton[];
@@ -2276,7 +2302,7 @@ export interface GuidesBody {
 export interface HeroArticle {
   title: string;
   subtitle: string;
-  cover: string | Media;
+  cover: string | Asset;
   showGlobalTags?: boolean | null;
   id?: string | null;
   blockName?: string | null;
@@ -2303,7 +2329,7 @@ export interface HeroSubpages {
     | 'bg-green-02'
     | 'bg-pink-05'
     | 'bg-pink-04';
-  media?: (string | null) | Media;
+  media?: (string | null) | Asset;
   customComponent?: LiveWebsiteTestingHero[] | null;
   caption?: string | null;
   rating?: {
@@ -2321,7 +2347,7 @@ export interface HeroSubpages {
 export interface IconButton {
   label: string;
   link: string;
-  icon: string | Media;
+  icon: string | Asset;
   iconPosition: 'right' | 'left';
   eventName?: string | null;
   id?: string | null;
@@ -2348,11 +2374,11 @@ export interface HeroSubpagesCentered {
     | 'bg-pink-05'
     | 'bg-pink-04'
     | 'bg-neutral-07';
-  topLeftImage?: (string | null) | Media;
+  topLeftImage?: (string | null) | Asset;
   topLeftImageSize?: ('small' | 'large') | null;
-  bottomRightImage?: (string | null) | Media;
-  topRightMobileImage?: (string | null) | Media;
-  bottomRightMobileImage?: (string | null) | Media;
+  bottomRightImage?: (string | null) | Asset;
+  topRightMobileImage?: (string | null) | Asset;
+  bottomRightMobileImage?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroSubpagesCentered';
@@ -2364,7 +2390,7 @@ export interface HeroSubpagesCentered {
 export interface HeroTemplate {
   title: string;
   subtitle: string;
-  cover?: (string | null) | Media;
+  cover?: (string | null) | Asset;
   button?: (Button | GlobalButtons)[] | null;
   id?: string | null;
   blockName?: string | null;
@@ -2406,7 +2432,7 @@ export interface InfoGridWithHeading {
   backgroundColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04';
   bottomLineSeperator?: boolean | null;
   title: string;
-  icon: string | Media;
+  icon: string | Asset;
   cardTag: string;
   cardButtonLabel: string;
   contentType: 'articles' | 'guides' | 'videos' | 'templates' | 'events' | 'reports';
@@ -2723,7 +2749,7 @@ export interface Video {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  cover: string | Media;
+  cover: string | Asset;
   globalTag?:
     | {
         relationTo: 'globalTag';
@@ -2807,7 +2833,7 @@ export interface GuideMainInfo {
         value: string | GlobalTag;
       }[]
     | null;
-  cover: string | Media;
+  cover: string | Asset;
   shareLinkedin?: boolean | null;
   shareFacebook?: boolean | null;
   shareEmail?: boolean | null;
@@ -2822,7 +2848,7 @@ export interface GuideMainInfo {
  */
 export interface InfoQuote {
   title: string;
-  image?: (string | null) | Media;
+  image?: (string | null) | Asset;
   representative?: {
     relationTo: 'testimonial-reviewer';
     value: string | TestimonialReviewer;
@@ -2836,7 +2862,7 @@ export interface InfoQuote {
  * via the `definition` "infoSlide".
  */
 export interface InfoSlide {
-  cover: string | Media;
+  cover: string | Asset;
   title: string;
   subtitle: string;
   label?: string | null;
@@ -2878,7 +2904,7 @@ export interface InfoSliderTimeline {
 export interface TimelineSlide {
   title: string;
   subtitle: string;
-  image: string | Media;
+  image: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'timelineSlide';
@@ -2890,10 +2916,10 @@ export interface TimelineSlide {
 export interface InfoTextWithCollage {
   title: string;
   subtitle: string;
-  leftGraphic: string | Media;
-  topGraphic: string | Media;
-  bottomGraphic: string | Media;
-  mainPhoto: string | Media;
+  leftGraphic: string | Asset;
+  topGraphic: string | Asset;
+  bottomGraphic: string | Asset;
+  mainPhoto: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoTextWithCollage';
@@ -2926,7 +2952,7 @@ export interface InfoTip {
     | 'bg-pink-04'
     | 'bg-pink-05'
     | 'bg-yellow-04';
-  icon: string | Media;
+  icon: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoTip';
@@ -2983,21 +3009,41 @@ export interface MainHero {
     relationTo: 'rating';
     value: string | Rating;
   } | null;
-  mobileImage?: (string | null) | Media;
+  mobileImage?: (string | null) | Asset;
   bannerBody?: string | null;
   bannerLabel?: string | null;
   bannerLink?: string | null;
   /**
    * Lottie JSON file or image
    */
-  leftPart: string | Media;
+  leftPart: string | Asset;
   /**
    * Lottie JSON file or image
    */
-  rightPart: string | Media;
+  rightPart: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mainHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  /**
+   * Generic embeds have more priority than YouTube embeds and video fields.
+   */
+  embed?: string | null;
+  /**
+   * YouTube embeds have more priority than video fields.
+   */
+  embedLink?: string | null;
+  assetDesktop?: (string | null) | Asset;
+  assetMobile?: (string | null) | Asset;
+  size: 'parallax' | '780' | '885';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'media';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3007,11 +3053,11 @@ export interface MediaCollage {
   /**
    * You need to select 3 images.
    */
-  firstLine: (string | Media)[];
+  firstLine: (string | Asset)[];
   /**
    * You need to select 5 images.
    */
-  secondLine: (string | Media)[];
+  secondLine: (string | Asset)[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaCollage';
@@ -3024,8 +3070,8 @@ export interface Platform {
   title: string;
   subtitle: string;
   link: string;
-  image?: (string | null) | Media;
-  imageSm: string | Media;
+  image?: (string | null) | Asset;
+  imageSm: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'platform';
@@ -3058,7 +3104,7 @@ export interface PricingBodyTableRow {
 export interface PricingBodyTableTextCell {
   label: string;
   tooltipBody?: string | null;
-  tooltipImage?: (string | null) | Media;
+  tooltipImage?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'pricingBodyTableTextCell';
@@ -3109,7 +3155,7 @@ export interface PricingPlanItem {
 export interface PricingPlanListItem {
   label: string;
   additionalLabel?: string | null;
-  tooltipImage?: (string | null) | Media;
+  tooltipImage?: (string | null) | Asset;
   tooltipBody?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -3244,7 +3290,7 @@ export interface TemplateInfoAccordion {
  * via the `definition` "templateInfoGridColumn".
  */
 export interface TemplateInfoGridColumn {
-  icon: string | Media;
+  icon: string | Asset;
   title: string;
   body: string;
   id?: string | null;
@@ -3266,7 +3312,7 @@ export interface TemplateInfoGridThreeColumns {
  * via the `definition` "templateMedia".
  */
 export interface TemplateMedia {
-  media?: (string | null) | Media;
+  media?: (string | null) | Asset;
   mediaLink?: string | null;
   mediaLinkLabel?: string | null;
   embeded?: string | null;
@@ -3347,7 +3393,7 @@ export interface TextLinkWithIcon {
    * If the field is empty, the button will be navigated by a provided link in another field. The page will scroll to \"Info Grid With Heading\" with the same content type by button press.
    */
   contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
-  icon: string | Media;
+  icon: string | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'textLinkWithIcon';
@@ -3400,7 +3446,7 @@ export interface Compare {
    * CTA buttons shown in hero section
    */
   buttons?: (Button | GlobalButtons)[] | null;
-  cover: string | Media;
+  cover: string | Asset;
   body: {
     root: {
       type: string;
@@ -3440,7 +3486,7 @@ export interface Customer {
   /**
    * This field will be show at customers list page.
    */
-  cover: string | Media;
+  cover: string | Asset;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -3700,7 +3746,7 @@ export interface Event {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  cover: string | Media;
+  cover: string | Asset;
   globalTag?:
     | {
         relationTo: 'globalTag';
@@ -3890,7 +3936,7 @@ export interface Integration {
    */
   button?: (Button | GlobalButtons)[] | null;
   buttonSubtext?: string | null;
-  cover?: (string | null) | Media;
+  cover?: (string | null) | Asset;
   sideBar: TableOfContent[];
   body: {
     root: {
@@ -3950,7 +3996,7 @@ export interface IntegrationMainInfo {
         value: string | GlobalTag;
       }[]
     | null;
-  cover: string | Media;
+  cover: string | Asset;
   shareLinkedin?: boolean | null;
   shareFacebook?: boolean | null;
   shareEmail?: boolean | null;
@@ -4431,9 +4477,9 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
+ * via the `definition` "test-pages".
  */
-export interface Page1 {
+export interface TestPage {
   id: string;
   title: string;
   slug: string;
@@ -4494,7 +4540,7 @@ export interface Release {
   /**
    * Select documents to publish before this release. If you just want to release already published content, leave this empty. An error will occur if you try to add a document to multiple releases.
    */
-  documentsToPublish?: (string | Page1)[] | null;
+  documentsToPublish?: (string | TestPage)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4508,8 +4554,8 @@ export interface Redirect {
   to?: {
     type?: ('reference' | 'custom') | null;
     reference?: {
-      relationTo: 'pages';
-      value: string | Page1;
+      relationTo: 'test-pages';
+      value: string | TestPage;
     } | null;
     url?: string | null;
   };
@@ -4528,33 +4574,8 @@ export interface Search {
   title?: string | null;
   priority?: number | null;
   doc: {
-    relationTo: 'pages';
-    value: string | Page1;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-folders".
- */
-export interface FolderInterface {
-  id: string;
-  name: string;
-  folder?: (string | null) | FolderInterface;
-  documentsAndFolders?: {
-    docs?: (
-      | {
-          relationTo?: 'payload-folders';
-          value: string | FolderInterface;
-        }
-      | {
-          relationTo?: 'media';
-          value: string | Media;
-        }
-    )[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
+    relationTo: 'test-pages';
+    value: string | TestPage;
   };
   updatedAt: string;
   createdAt: string;
@@ -4747,12 +4768,12 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
-        relationTo: 'media';
-        value: string | Media;
+        relationTo: 'assets';
+        value: string | Asset;
       } | null)
     | ({
-        relationTo: 'pages';
-        value: string | Page1;
+        relationTo: 'test-pages';
+        value: string | TestPage;
       } | null)
     | ({
         relationTo: 'releases';
@@ -5481,9 +5502,9 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "assets_select".
  */
-export interface MediaSelect<T extends boolean = true> {
+export interface AssetsSelect<T extends boolean = true> {
   alt?: T;
   prefix?: T;
   folder?: T;
@@ -5501,9 +5522,9 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
+ * via the `definition` "test-pages_select".
  */
-export interface PagesSelect<T extends boolean = true> {
+export interface TestPagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   release?: T;
@@ -5734,7 +5755,7 @@ export interface EventsMainPage {
  */
 export interface Favicon {
   id: string;
-  favicon: string | Media;
+  favicon: string | Asset;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -6058,7 +6079,7 @@ export interface Setting {
   id: string;
   defaultTitle?: string | null;
   titleTemplate?: string | null;
-  favicon?: (string | null) | Media;
+  favicon?: (string | null) | Asset;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

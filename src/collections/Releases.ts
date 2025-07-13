@@ -36,7 +36,7 @@ export const Releases = {
     {
       name: 'documentsToPublish',
       type: 'relationship',
-      relationTo: 'pages',
+      relationTo: 'test-pages',
       hasMany: true,
       unique: true,
       admin: {
@@ -58,8 +58,8 @@ export const Releases = {
 
         for (const document of release.documentsToPublish ?? []) {
           await req.payload.update({
-            collection: 'pages',
-            id: typeof document === 'number' ? document : document.id,
+            collection: 'test-pages',
+            id: typeof document === 'string' ? document : document.id,
             data: {
               _status: 'published',
             },
@@ -88,8 +88,8 @@ export const Releases = {
           for (const release of releases.docs) {
             for (const document of release.documentsToPublish ?? []) {
               await req.payload.update({
-                collection: 'pages',
-                id: typeof document === 'number' ? document : document.id,
+                collection: 'test-pages',
+                id: typeof document === 'string' ? document : document.id,
                 data: {
                   _status: 'published',
                 },

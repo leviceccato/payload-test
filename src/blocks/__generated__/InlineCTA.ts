@@ -40,7 +40,7 @@ export const InlineCTA = {
       name: "image",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     }
   ]
 } as const satisfies Block

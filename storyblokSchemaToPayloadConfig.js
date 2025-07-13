@@ -122,7 +122,7 @@ function mapFieldType(components, component, field, key) {
     case 'image':
     case 'asset':
       output.type = 'upload'
-      output.relationTo = 'media'
+      output.relationTo = 'assets'
       if (field.filetypes) {
         output.filterOptions = {
           mimeType: { contains: field.filetypes.map(mapFileTypeToMimeType) },
@@ -211,7 +211,7 @@ function mapFieldType(components, component, field, key) {
       break
     case 'multiasset':
       output.type = 'upload'
-      output.relationTo = 'media'
+      output.relationTo = 'assets'
       output.hasMany = true
       if (field.filetypes) {
         output.filterOptions = {

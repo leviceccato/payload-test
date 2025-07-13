@@ -14,7 +14,7 @@ export const Settings = {
     {
       name: 'favicon',
       type: 'upload',
-      relationTo: 'media',
+      relationTo: 'assets',
       filterOptions: {
         mimeType: { contains: 'image' },
       },

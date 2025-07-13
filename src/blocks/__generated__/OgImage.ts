@@ -33,7 +33,7 @@ export const OgImage = {
       name: "image",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

@@ -32,7 +32,7 @@ export const InfoGridWithHeading = {
       name: "icon",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 // TODO: Create a group (undefined: cardTag,cardButtonLabel),
 

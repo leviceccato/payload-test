@@ -23,7 +23,7 @@ export const IconButton = {
       name: "icon",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

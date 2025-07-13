@@ -12,7 +12,7 @@ export const MediaCollage = {
       required: true,
       admin: {"description":"You need to select 3 images."},
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       hasMany: true,
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
@@ -22,7 +22,7 @@ export const MediaCollage = {
       required: true,
       admin: {"description":"You need to select 5 images."},
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       hasMany: true,
       filterOptions: {"mimeType":{"contains":["image"]}}
     }

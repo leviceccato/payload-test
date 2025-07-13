@@ -46,7 +46,7 @@ export const HeroSubpages = {
     {
       name: "media",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image","video"]}}
     },
 

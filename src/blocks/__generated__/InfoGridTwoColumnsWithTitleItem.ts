@@ -10,7 +10,7 @@ export const InfoGridTwoColumnsWithTitleItem = {
     {
       name: "icon",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

@@ -23,7 +23,7 @@ export const InfoTab = {
       name: "image",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     }
   ]
 } as const satisfies Block

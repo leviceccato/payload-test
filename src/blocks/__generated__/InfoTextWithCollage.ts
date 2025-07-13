@@ -23,7 +23,7 @@ export const InfoTextWithCollage = {
       name: "leftGraphic",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
@@ -31,7 +31,7 @@ export const InfoTextWithCollage = {
       name: "topGraphic",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
@@ -39,7 +39,7 @@ export const InfoTextWithCollage = {
       name: "bottomGraphic",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
@@ -47,7 +47,7 @@ export const InfoTextWithCollage = {
       name: "mainPhoto",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

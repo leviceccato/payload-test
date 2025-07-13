@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
-const slug = 'pages'
+const slug = 'test-pages'
 
-export const Pages = {
+export const TestPages = {
   slug,
   admin: {
     useAsTitle: 'title',
@@ -22,7 +22,9 @@ export const Pages = {
         secret: process.env.PREVIEW_SECRET,
       })
 
-      return `${options.req.protocol}//${options.req.host}/api/preview?${params.toString()}`
+      return `${options.req.protocol}//${
+        options.req.host
+      }/api/preview?${params.toString()}`
     },
   },
   versions: {

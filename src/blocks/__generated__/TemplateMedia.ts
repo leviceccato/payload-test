@@ -10,7 +10,7 @@ export const TemplateMedia = {
     {
       name: "media",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["video","image"]}}
     },
 

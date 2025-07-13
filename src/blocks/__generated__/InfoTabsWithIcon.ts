@@ -15,7 +15,7 @@ export const InfoTabsWithIcon = {
     {
       name: "headingImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
@@ -36,7 +36,7 @@ export const InfoTabsWithIcon = {
       name: "tabImage",
       admin: {"description":"If this field is empty then individual tab images will be used, otherwise this image will be shown persistently."},
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

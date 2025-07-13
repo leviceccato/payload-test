@@ -2,7 +2,7 @@ import '@/app/(frontend)/styles.css'
 import Link from '@/components/Link'
 import LivePreview from '@/components/LivePreview'
 import { getDocs, getGlobal } from '@/utils/payload'
-import { Pages } from '@/collections/Pages'
+import { Pages } from '@/collections/TestPages'
 import type { NextLayout, GenerateLayoutMetadata } from '@/utils/next'
 import { Settings } from '@/globals/Settings'
 

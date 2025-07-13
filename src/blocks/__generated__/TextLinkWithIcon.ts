@@ -38,7 +38,7 @@ export const TextLinkWithIcon = {
       name: "icon",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     }
   ]
 } as const satisfies Block

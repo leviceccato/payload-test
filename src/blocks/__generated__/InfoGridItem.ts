@@ -22,7 +22,7 @@ export const InfoGridItem = {
       name: "icon",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

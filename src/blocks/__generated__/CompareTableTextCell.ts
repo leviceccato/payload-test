@@ -22,7 +22,7 @@ export const CompareTableTextCell = {
     {
       name: "tooltipImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

@@ -13,8 +13,8 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { Users } from '@/collections/Users'
-import { Media } from '@/collections/Media'
-import { Pages } from '@/collections/Pages'
+import { Assets } from '@/collections/Assets'
+import { TestPages } from '@/collections/TestPages'
 import { Settings } from '@/globals/Settings'
 import { Releases } from '@/collections/Releases'
 import { generatedCollections } from '@/collections/__generated__/_index'
@@ -66,25 +66,25 @@ export default buildConfig({
     vercelBlobStorage({
       token: process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
-        media: {
+        assets: {
           prefix: getDatabaseName(),
         },
       },
     }),
     redirectsPlugin({
-      collections: [Pages.slug],
+      collections: [TestPages.slug],
       redirectTypes: ['308', '307'],
     }),
     searchPlugin({
-      collections: [Pages.slug],
+      collections: [TestPages.slug],
       defaultPriorities: {
-        pages: 100,
+        [TestPages.slug]: 100,
       },
     }),
   ],
   blocks: generatedBlocks,
   globals: [...generatedGlobals, Settings],
-  collections: [...generatedCollections, Users, Media, Pages, Releases],
+  collections: [...generatedCollections, Users, Assets, TestPages, Releases],
   endpoints: [
     {
       path: '/preview',

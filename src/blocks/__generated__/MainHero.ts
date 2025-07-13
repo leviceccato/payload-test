@@ -43,7 +43,7 @@ export const MainHero = {
     {
       name: "mobileImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 // TODO: Create a group (undefined: leftPart,rightPart),
@@ -69,7 +69,7 @@ export const MainHero = {
       required: true,
       admin: {"description":"Lottie JSON file or image"},
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {
@@ -77,7 +77,7 @@ export const MainHero = {
       required: true,
       admin: {"description":"Lottie JSON file or image"},
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":[]}}
     }
   ]

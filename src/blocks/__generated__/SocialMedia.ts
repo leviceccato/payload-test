@@ -11,7 +11,7 @@ export const SocialMedia = {
       name: "icon",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

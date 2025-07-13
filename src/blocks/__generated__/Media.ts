@@ -22,14 +22,14 @@ export const Media = {
     {
       name: "assetDesktop",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":[]}}
     },
 
     {
       name: "assetMobile",
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

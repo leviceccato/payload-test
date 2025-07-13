@@ -11,14 +11,14 @@ export const InfoCard = {
       name: "image",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image","video"]}}
     },
 
     {
       name: "mobileImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image","video"]}}
     },
 

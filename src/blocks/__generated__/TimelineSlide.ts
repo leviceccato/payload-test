@@ -23,7 +23,7 @@ export const TimelineSlide = {
       name: "image",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

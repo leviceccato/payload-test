@@ -30,7 +30,7 @@ export const HeroSubpagesCentered = {
     {
       name: "topLeftImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
@@ -44,21 +44,21 @@ export const HeroSubpagesCentered = {
     {
       name: "bottomRightImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "topRightMobileImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
     {
       name: "bottomRightMobileImage",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

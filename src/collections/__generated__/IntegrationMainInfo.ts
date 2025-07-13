@@ -83,7 +83,7 @@ name: "linkToFirstPage",
       name: "cover",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

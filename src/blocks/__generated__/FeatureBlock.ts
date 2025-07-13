@@ -42,7 +42,7 @@ export const FeatureBlock = {
     {
       name: "image",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

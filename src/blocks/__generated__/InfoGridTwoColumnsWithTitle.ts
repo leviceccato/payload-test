@@ -30,7 +30,7 @@ export const InfoGridTwoColumnsWithTitle = {
       name: "image",
       required: true,
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     },
 
     {

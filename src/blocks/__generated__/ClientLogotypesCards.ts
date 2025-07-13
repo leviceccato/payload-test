@@ -20,7 +20,7 @@ export const ClientLogotypesCards = {
       required: true,
       admin: {"description":"Minimal images count - 8 Maximum images count - 18"},
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       hasMany: true,
       filterOptions: {"mimeType":{"contains":["image"]}}
     }

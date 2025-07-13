@@ -9,7 +9,7 @@ export const Favicon = {
       name: "favicon",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]

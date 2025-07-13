@@ -46,7 +46,7 @@ export const Customer = {
       required: true,
       admin: {"description":"This field will be show at customers list page."},
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

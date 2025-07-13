@@ -51,7 +51,7 @@ export const Video = {
       name: "cover",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

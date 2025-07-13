@@ -10,7 +10,7 @@ export const InfoIconTab = {
     {
       name: "icon",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 
@@ -24,7 +24,7 @@ export const InfoIconTab = {
       name: "image",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

@@ -15,7 +15,7 @@ export const BookDemoMain = {
     {
       name: "logos",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       hasMany: true,
       filterOptions: {"mimeType":{"contains":["image"]}}
     },

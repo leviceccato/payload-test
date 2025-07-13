@@ -45,7 +45,7 @@ export const InfoTextWithImage = {
     {
       name: "cover",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image","video"]}}
     },
 

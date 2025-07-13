@@ -11,7 +11,7 @@ export const TemplateInfoGridColumn = {
       name: "icon",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
 

@@ -25,7 +25,7 @@ export const ClientLogotypes = {
       name: "logos",
       required: true,
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       hasMany: true,
       filterOptions: {"mimeType":{"contains":["image"]}}
     },

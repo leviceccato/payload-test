@@ -72,14 +72,14 @@ export const Cta = {
     {
       name: "leftAsset",
       type: "upload",
-      relationTo: "media",
+      relationTo: "assets",
       filterOptions: {"mimeType":{"contains":[]}}
     },
 
     {
       name: "rightAsset",
       type: "upload",
-      relationTo: "media"
+      relationTo: "assets"
     }
   ]
 } as const satisfies Block
