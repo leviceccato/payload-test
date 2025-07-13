@@ -25,6 +25,8 @@ export type GenerateMetadata<TParams extends Params = {}> = (
   parent: ResolvingMetadata
 ) => Promise<Metadata>
 
+export type GenerateLayoutMetadata = () => Promise<Metadata>
+
 export type GenerateStaticParams<TParams extends Params = {}> = () => Promise<
   TParams[]
 >

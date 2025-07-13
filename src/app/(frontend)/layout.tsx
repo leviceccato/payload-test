@@ -3,10 +3,10 @@ import Link from '@/components/Link'
 import LivePreview from '@/components/LivePreview'
 import { getDocs, getGlobal } from '@/utils/payload'
 import { Pages } from '@/collections/Pages'
-import type { NextLayout, GenerateMetadata } from '@/utils/next'
+import type { NextLayout, GenerateLayoutMetadata } from '@/utils/next'
 import { Settings } from '@/globals/Settings'
 
-export const generateMetadata: GenerateMetadata = async () => {
+export const generateMetadata: GenerateLayoutMetadata = async () => {
   const settings = await getGlobal(Settings.slug)
 
   return {
