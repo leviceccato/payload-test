@@ -373,7 +373,7 @@ async function main() {
       (component) =>
         !component.is_nestable && !OVERRIDES[component.name]?.isGlobal
     ),
-    COLLECTIONS_DIR_WITH_SRC,
+    COLLECTIONS_DIR_WITH_ALIAS,
     'generatedCollections'
   )
   const globalsIndexContent = schemaToIndex(
@@ -381,12 +381,12 @@ async function main() {
       (component) =>
         !component.is_nestable && OVERRIDES[component.name]?.isGlobal
     ),
-    GLOBALS_DIR_WITH_SRC,
+    GLOBALS_DIR_WITH_ALIAS,
     'generatedGlobals'
   )
   const blocksIndexContent = schemaToIndex(
     components.filter((component) => component.is_nestable),
-    BLOCKS_DIR_WITH_SRC,
+    BLOCKS_DIR_WITH_ALIAS,
     'generatedBlocks'
   )
   fs.writeFileSync(
