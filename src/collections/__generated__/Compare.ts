@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload"
+import { lexicalEditor, BlocksFeature } from "@payloadcms/richtext-lexical"
 
 export const Compare = {
   slug: 'compare',
@@ -77,7 +78,8 @@ export const Compare = {
     {
       name: "body",
       required: true,
-      type: "richText"
+      type: "richText",
+      editor: lexicalEditor({ features: ({ rootFeatures }) => [...rootFeatures, BlocksFeature({ blocks: ["globalCTA","infoQuote","infoTip","inlineCTA","table","templateInfoAccordion","templateInfoGridThreeColumns","templateMedia","grid","compareTable","richText","infoAccordion"] })] })
     },
 
     {

@@ -63,6 +63,12 @@ const OVERRIDES = {
   },
 }
 
+class Editor {
+  constructor(blocks) {
+    this.blocks = blocks
+  }
+}
+
 async function fetchStoryblokSchema() {
   const res = await fetch(API_URL, {
     headers: { Authorization: STORYBLOK_TOKEN },
@@ -115,6 +121,12 @@ function mapFieldType(components, component, field, key) {
       break
     case 'richtext':
       output.type = 'richText'
+      if (
+        Array.isArray(field.component_whitelist) &&
+        field.component_whitelist.length > 0
+      ) {
+        output.editor = new Editor(field.component_whitelist)
+      }
       break
     case 'number':
       output.type = 'number'
@@ -257,7 +269,8 @@ function mapFieldType(components, component, field, key) {
 }
 
 function objToJS(obj) {
-  return Object.entries(obj)
+  const imports = []
+  const js = Object.entries(obj)
     .map(([key, value]) => {
       if (Array.isArray(value)) {
         if (value.length === 0) {
@@ -269,6 +282,14 @@ function objToJS(obj) {
         }
         return `${key}: ${JSON.stringify(value)}`
       }
+      if (value instanceof Editor) {
+        imports.push(
+          'import { lexicalEditor, BlocksFeature } from "@payloadcms/richtext-lexical"'
+        )
+        return `${key}: lexicalEditor({ features: ({ rootFeatures }) => [...rootFeatures, BlocksFeature({ blocks: ${JSON.stringify(
+          value.blocks
+        )} })] })`
+      }
       if (typeof value === 'string') {
         return `${key}: "${value}"`
       }
@@ -278,6 +299,8 @@ function objToJS(obj) {
       return `${key}: ${value}`
     })
     .join(',\n      ')
+
+  return { imports, js }
 }
 
 function toPascalCase(str) {
@@ -292,12 +315,14 @@ function componentToPayloadConfig(components, component, type) {
     mapFieldType(components, component, field, key)
   )
   const pascalName = toPascalCase(component.name)
+  const imports = new Set()
   const fieldsString = fields
     .map(({ output, comment }) => {
       if (comment.length > 0 && output === null) {
         return `// ${comment}`
       }
-      const js = objToJS(output)
+      const { imports: newImports, js } = objToJS(output)
+      newImports.forEach((imp) => imports.add(imp))
       return `
     {
       ${comment ? `// ${comment}\n` : ''}${js}
@@ -316,7 +341,9 @@ function componentToPayloadConfig(components, component, type) {
 
   const slug = component.name.charAt(0).toLowerCase() + component.name.slice(1)
 
-  return `import type { ${payloadType} } from "payload"
+  return `import type { ${payloadType} } from "payload"\n${Array.from(imports)
+    .join('\n')
+    .trim()}
 
 export const ${pascalName} = {
   slug: '${slug}',

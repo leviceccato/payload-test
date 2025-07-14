@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const GlobalTagBody = {
   slug: 'globalTagBody',
   admin: {
@@ -10,7 +11,8 @@ export const GlobalTagBody = {
     {
       name: "videoLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Video"
     },
 
     {
@@ -22,7 +24,8 @@ export const GlobalTagBody = {
     {
       name: "guideLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Guide"
     },
 
     {
@@ -34,7 +37,8 @@ export const GlobalTagBody = {
     {
       name: "articleLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Article"
     },
 
     {
@@ -46,7 +50,8 @@ export const GlobalTagBody = {
     {
       name: "templateLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Template"
     },
 
     {
@@ -58,7 +63,8 @@ export const GlobalTagBody = {
     {
       name: "customersLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Customer Story"
     },
 
     {

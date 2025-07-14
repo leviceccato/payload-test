@@ -1,4 +1,5 @@
 import type { Block } from "payload"
+import { lexicalEditor, BlocksFeature } from "@payloadcms/richtext-lexical"
 
 export const TemplateSection = {
   slug: 'templateSection',
@@ -20,7 +21,8 @@ export const TemplateSection = {
     {
       name: "templateBody",
       required: true,
-      type: "richText"
+      type: "richText",
+      editor: lexicalEditor({ features: ({ rootFeatures }) => [...rootFeatures, BlocksFeature({ blocks: ["templateInfoGridThreeColumns","infoQuote","infoTip","inlineCTA","globalCTA","table","templateInfoAccordion","templateMedia","tableRichText"] })] })
     }
   ]
 } as const satisfies Block

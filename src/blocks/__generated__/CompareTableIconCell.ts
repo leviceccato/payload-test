@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const CompareTableIconCell = {
   slug: 'compareTableIconCell',
   admin: {

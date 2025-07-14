@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const FeatureIntegration = {
   slug: 'featureIntegration',
   admin: {
@@ -21,7 +22,8 @@ export const FeatureIntegration = {
     {
       name: "linkText",
       admin: {"description":"Only used for screen readers"},
-      type: "text"
+      type: "text",
+      defaultValue: ""
     }
   ]
 } as const satisfies Block

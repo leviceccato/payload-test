@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const InfoCard = {
   slug: 'infoCard',
   admin: {

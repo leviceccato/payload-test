@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const CustomersSideBar = {
   slug: 'customersSideBar',
   admin: {
@@ -22,37 +23,43 @@ export const CustomersSideBar = {
     {
       name: "useCaseTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Filter by use case"
     },
 
     {
       name: "companySizeTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Filter by company size"
     },
 
     {
       name: "regionTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Filter by region"
     },
 
     {
       name: "industryTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Filter by industry"
     },
 
     {
       name: "clearButtonLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Clear all filters"
     },
 
     {
       name: "mobileFilterButtonLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Categories"
     }
   ]
 } as const satisfies Block

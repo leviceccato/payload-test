@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload"
 
+
 export const IntegrationMainInfo = {
   slug: 'integrationMainInfo',
   
@@ -28,48 +29,55 @@ name: "linkToFirstPage",
       name: "buttonText",
       required: true,
       admin: {"description":"Text will be used for the button, which is used in the guides list."},
-      type: "text"
+      type: "text",
+      defaultValue: "Read more"
     },
 
     {
       name: "shareTitle",
       required: true,
       admin: {"description":"Text will be used for the sidebar table of content."},
-      type: "text"
+      type: "text",
+      defaultValue: "Share on:"
     },
 
     {
       name: "copiedTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Copied"
     },
 
     {
       name: "previousPageTitle",
       required: true,
       admin: {"description":"Text will be used for the guide pagination."},
-      type: "text"
+      type: "text",
+      defaultValue: "Previous page"
     },
 
     {
       name: "nextPageTitle",
       required: true,
       admin: {"description":"Text will be used for the guide pagination."},
-      type: "text"
+      type: "text",
+      defaultValue: "Next page"
     },
 
     {
       name: "finishTitle",
       required: true,
       admin: {"description":"Text will be used for the guide pagination."},
-      type: "text"
+      type: "text",
+      defaultValue: "Finish Reading"
     },
 
     {
       name: "completeTitle",
       required: true,
       admin: {"description":"Text will be used for the sidebar progress percentage."},
-      type: "text"
+      type: "text",
+      defaultValue: "complete"
     },
 
     {

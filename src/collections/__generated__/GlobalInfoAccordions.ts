@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload"
 
+
 export const GlobalInfoAccordions = {
   slug: 'globalInfoAccordions',
   

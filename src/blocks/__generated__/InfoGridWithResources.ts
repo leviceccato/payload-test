@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const InfoGridWithResources = {
   slug: 'infoGridWithResources',
   admin: {
@@ -21,31 +22,36 @@ export const InfoGridWithResources = {
     {
       name: "buttonLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Read more"
     },
 
     {
       name: "guideLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Guide"
     },
 
     {
       name: "articleLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Article"
     },
 
     {
       name: "videoLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Video"
     },
 
     {
       name: "templateLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Template"
     }
   ]
 } as const satisfies Block

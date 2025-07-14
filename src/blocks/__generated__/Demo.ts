@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const Demo = {
   slug: 'demo',
   admin: {
@@ -30,7 +31,8 @@ export const Demo = {
     {
       name: "duration",
       admin: {"description":"Duration the demo will be shown in milliseconds, not providing a value will assume an infinite duration"},
-      type: "number"
+      type: "number",
+      defaultValue: ""
     }
   ]
 } as const satisfies Block

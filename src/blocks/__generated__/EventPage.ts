@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const EventPage = {
   slug: 'eventPage',
   admin: {
@@ -73,13 +74,15 @@ export const EventPage = {
     {
       name: "shareTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Share on:"
     },
 
     {
       name: "copiedTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Copied"
     },
 
     {

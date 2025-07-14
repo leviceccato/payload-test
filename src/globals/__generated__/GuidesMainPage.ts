@@ -1,5 +1,6 @@
 import type { GlobalConfig } from "payload"
 
+
 export const GuidesMainPage = {
   slug: 'guidesMainPage',
   

@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const LiveWebsiteTestingCapture = {
   slug: 'liveWebsiteTestingCapture',
   admin: {

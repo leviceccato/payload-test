@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload"
 
+
 export const TestimonialReviewer = {
   slug: 'testimonial-reviewer',
   

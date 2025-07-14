@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload"
 
+
 export const GlobalTag = {
   slug: 'globalTag',
   

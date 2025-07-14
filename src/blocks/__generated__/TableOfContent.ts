@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const TableOfContent = {
   slug: 'tableOfContent',
   admin: {
@@ -10,7 +11,8 @@ export const TableOfContent = {
     {
       name: "shareTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Share on"
     },
 
     {
@@ -25,7 +27,8 @@ export const TableOfContent = {
     {
       name: "copiedTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Copied"
     },
 
     {

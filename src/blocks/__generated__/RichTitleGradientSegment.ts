@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const RichTitleGradientSegment = {
   slug: 'richTitleGradientSegment',
   admin: {
@@ -21,22 +22,38 @@ export const RichTitleGradientSegment = {
 
     {
       name: "gradientTopOffset",
-      type: "number"
+      type: "number",
+      min: 0,
+      max: 1,
+      admin: {"step":0.1},
+      defaultValue: "0"
     },
 
     {
       name: "gradientRightOffset",
-      type: "number"
+      type: "number",
+      min: 0,
+      max: 1,
+      admin: {"step":0.1},
+      defaultValue: "0"
     },
 
     {
       name: "gradientBottomOffset",
-      type: "number"
+      type: "number",
+      min: 0,
+      max: 1,
+      admin: {"step":0.1},
+      defaultValue: "0"
     },
 
     {
       name: "gradientLeftOffset",
-      type: "number"
+      type: "number",
+      min: 0,
+      max: 1,
+      admin: {"step":0.1},
+      defaultValue: "0"
     }
   ]
 } as const satisfies Block

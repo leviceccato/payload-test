@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const IntegrationsBody = {
   slug: 'integrationsBody',
   admin: {
@@ -10,7 +11,8 @@ export const IntegrationsBody = {
     {
       name: "buttonLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "See the integration"
     }
   ]
 } as const satisfies Block

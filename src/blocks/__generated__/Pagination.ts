@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const Pagination = {
   slug: 'pagination',
   admin: {
@@ -10,13 +11,15 @@ export const Pagination = {
     {
       name: "nextPageButtonTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Next page"
     },
 
     {
       name: "previousPageButtonTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Previous page"
     }
   ]
 } as const satisfies Block

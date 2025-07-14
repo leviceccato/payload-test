@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const InfoIconTab = {
   slug: 'infoIconTab',
   admin: {
@@ -36,7 +37,8 @@ export const InfoIconTab = {
     {
       name: "mobileButton",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Learn more"
     }
   ]
 } as const satisfies Block

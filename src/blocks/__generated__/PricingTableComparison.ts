@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const PricingTableComparison = {
   slug: 'pricingTableComparison',
   admin: {
@@ -10,7 +11,8 @@ export const PricingTableComparison = {
     {
       name: "mobileDropdownTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Plan type"
     },
 
     {

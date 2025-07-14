@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload"
 
+
 export const Video = {
   slug: 'video',
   
@@ -81,13 +82,16 @@ export const Video = {
 
     {
       name: "durationMinutes",
-      type: "number"
+      type: "number",
+      min: 0
     },
 
     {
       name: "durationSeconds",
       admin: {"description":"This is not total seconds. It's the seconds in addition to the minutes, e.g. 5 minutes and 40 seconds."},
-      type: "number"
+      type: "number",
+      min: 0,
+      max: 59
     },
 
     {
@@ -99,13 +103,15 @@ export const Video = {
     {
       name: "shareTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Share on:"
     },
 
     {
       name: "copiedTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Copied"
     },
 
     {

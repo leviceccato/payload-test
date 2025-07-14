@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const CustomComponent = {
   slug: 'customComponent',
   admin: {

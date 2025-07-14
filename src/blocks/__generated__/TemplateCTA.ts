@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const TemplateCTA = {
   slug: 'templateCTA',
   admin: {
@@ -10,24 +11,28 @@ export const TemplateCTA = {
     {
       name: "title",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "This template is for:"
     },
 
     {
       name: "authorBody",
-      type: "text"
+      type: "text",
+      defaultValue: "Created by:"
     },
 
     {
       name: "shareTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Share on:"
     },
 
     {
       name: "copiedTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Copied"
     },
 
     {

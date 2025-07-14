@@ -1,5 +1,6 @@
 import type { Block } from "payload"
 
+
 export const FilterBar = {
   slug: 'filterBar',
   admin: {
@@ -16,19 +17,22 @@ export const FilterBar = {
     {
       name: "emptyListTitle",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Oops, nothing was found"
     },
 
     {
       name: "resultLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "Results"
     },
 
     {
       name: "allFilterLabel",
       required: true,
-      type: "text"
+      type: "text",
+      defaultValue: "All"
     }
   ]
 } as const satisfies Block
