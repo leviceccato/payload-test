@@ -33,7 +33,9 @@ const Layout: NextLayout = async (props) => {
           <ul className="flex gap-4">
             {pages.docs.map((page) => (
               <li key={page.id}>
-                <Link href={`/pages/${page.slug}`}>{page.title}</Link>
+                <Link href={`/${TestPages.slug}/${page.slug}`}>
+                  {page.title}
+                </Link>
               </li>
             ))}
           </ul>
