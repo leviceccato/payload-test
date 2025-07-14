@@ -5,7 +5,6 @@ import { searchPlugin } from '@payloadcms/plugin-search'
 import { draftMode as getDraftMode } from 'next/headers'
 import {
   lexicalEditor,
-  BlocksFeature,
   EXPERIMENTAL_TableFeature,
 } from '@payloadcms/richtext-lexical'
 import path from 'node:path'
@@ -31,17 +30,6 @@ export default buildConfig({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
       EXPERIMENTAL_TableFeature(),
-      BlocksFeature({
-        blocks: [
-          {
-            slug: 'CustomBlock',
-            admin: {
-              disableBlockName: true,
-            },
-            fields: [],
-          },
-        ],
-      }),
     ],
   }),
   sharp,

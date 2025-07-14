@@ -63,12 +63,6 @@ const OVERRIDES = {
   },
 }
 
-class Editor {
-  constructor(blocks) {
-    this.blocks = blocks
-  }
-}
-
 async function fetchStoryblokSchema() {
   const res = await fetch(API_URL, {
     headers: { Authorization: STORYBLOK_TOKEN },
@@ -257,9 +251,12 @@ function mapFieldType(components, component, field, key) {
       }
       break
     case 'table':
-      // Could be array or richText, fallback to json
-      output.type = 'json'
-      comment = 'TODO: Table: consider custom implementation'
+      output.type = 'richText'
+      output.editor = new Table()
+      output.admin = output.admin ?? {}
+      output.admin.description = `${
+        output.admin.description ? `${output.admin.description} ` : ''
+      }This field displays as a table editor. Since Payload v3.47 doesn't include a dedicated table field type, we've configured a rich text field to only allow table content as a workaround. To create the table you will need to type "/table" in the editor.`
       break
     default:
       throw new Error(`Unmapped field: ${JSON.stringify(field)}`)
@@ -289,6 +286,12 @@ function objToJS(obj) {
         return `${key}: lexicalEditor({ features: ({ rootFeatures }) => [...rootFeatures, BlocksFeature({ blocks: ${JSON.stringify(
           value.blocks
         )} })] })`
+      }
+      if (value instanceof Table) {
+        imports.push(
+          'import { EXPERIMENTAL_TableFeature, lexicalEditor } from "@payloadcms/richtext-lexical"'
+        )
+        return `${key}: lexicalEditor({ features: () => [EXPERIMENTAL_TableFeature()], admin: { hideGutter: true, hideInsertParagraphAtEnd: true } })`
       }
       if (typeof value === 'string') {
         return `${key}: "${value}"`
@@ -453,3 +456,11 @@ async function main() {
 }
 
 main().catch(console.error)
+
+class Editor {
+  constructor(blocks) {
+    this.blocks = blocks
+  }
+}
+
+class Table {}
