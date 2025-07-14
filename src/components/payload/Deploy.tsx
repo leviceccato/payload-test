@@ -16,6 +16,10 @@ export const Deploy: UIFieldClientComponent = (props: UIFieldClientProps) => {
   const router = useRouter()
 
   async function deployRelease() {
+    if (!documentInfo.hasPublishedDoc) {
+      return
+    }
+
     try {
       const publishResponse = await fetch(
         `/api/releases/${documentInfo.id}/publish`,
@@ -64,7 +68,10 @@ export const Deploy: UIFieldClientComponent = (props: UIFieldClientProps) => {
 
   return (
     <>
-      <Button onClick={() => modal.openModal('confirm-deploy')}>
+      <Button
+        disabled={!documentInfo.hasPublishedDoc}
+        onClick={() => modal.openModal('confirm-deploy')}
+      >
         Deploy release manually
       </Button>
       <ConfirmationModal
