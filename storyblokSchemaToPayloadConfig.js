@@ -85,7 +85,10 @@ function mapFileTypeToMimeType(fileType) {
 
 function mapFieldType(components, component, field, key) {
   let comment = ''
-  let output = { name: key }
+  let groupFields = []
+  let output = {
+    name: field.display_name ?? key,
+  }
 
   if (field.required) {
     output.required = true
