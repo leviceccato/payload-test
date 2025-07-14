@@ -103,15 +103,34 @@ function mapFieldType(components, component, field, key) {
   switch (field.type) {
     case 'text':
       output.type = 'text'
+      if (field.default_value !== undefined) {
+        output.defaultValue = field.default_value
+      }
       break
     case 'textarea':
       output.type = 'textarea'
+      if (field.default_value !== undefined) {
+        output.defaultValue = field.default_value
+      }
       break
     case 'richtext':
       output.type = 'richText'
       break
     case 'number':
       output.type = 'number'
+      if (field.min_value !== undefined) {
+        output.min = field.min_value
+      }
+      if (field.max_value !== undefined) {
+        output.max = field.max_value
+      }
+      if (field.steps !== undefined) {
+        output.admin = output.admin ?? {}
+        output.admin.step = field.steps
+      }
+      if (field.default_value !== undefined) {
+        output.defaultValue = field.default_value
+      }
       break
     case 'boolean':
       output.type = 'checkbox'
