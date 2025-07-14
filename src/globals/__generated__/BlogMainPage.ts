@@ -5,16 +5,24 @@ export const BlogMainPage = {
   slug: 'blogMainPage',
   
   fields: [
-    // TODO: Create a group (S E O: description,folow,followAndIndex,title),
-
+    
     {
-      name: "followAndIndex",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "description",
+      required: true,
+      type: "text" },
+      { name: "followAndIndex",
       type: "checkbox",
-      defaultValue: true
+      defaultValue: true },
+      { name: "title",
+      required: true,
+      type: "text" }
+        ]
     },
 
     {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -35,18 +43,6 @@ export const BlogMainPage = {
       hasMany: false,
       type: "relationship",
       relationTo: ["footer"]
-    },
-
-    {
-      name: "title",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "description",
-      required: true,
-      type: "text"
     },
 
     {

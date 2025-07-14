@@ -5,22 +5,24 @@ export const GlobalTag = {
   slug: 'globalTag',
   
   fields: [
-    // TODO: Create a group (S E O: title,description,followAndIndex),
-
+    
     {
-      name: "title",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "title",
       required: true,
-      type: "text"
+      type: "text" },
+      { name: "description",
+      required: true,
+      type: "text" },
+      { name: "followAndIndex",
+      type: "checkbox",
+      defaultValue: true }
+        ]
     },
 
     {
-      name: "description",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -56,12 +58,6 @@ export const GlobalTag = {
       type: "blocks",
       blocks: [],
       blockReferences: ["pagination", "globalCTA", "globalTagBody", "globalClientLogotypes", "resourcesHero", "cta", "ctaForm", "ctaSmall", "clientLogotypes"]
-    },
-
-    {
-      name: "followAndIndex",
-      type: "checkbox",
-      defaultValue: true
     }
   ]
 } as const satisfies CollectionConfig

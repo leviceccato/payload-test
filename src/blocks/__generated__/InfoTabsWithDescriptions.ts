@@ -19,7 +19,7 @@ export const InfoTabsWithDescriptions = {
     },
 
     {
-      name: "tabs",
+      name: "Tab items",
       required: true,
       type: "blocks",
       blocks: [],

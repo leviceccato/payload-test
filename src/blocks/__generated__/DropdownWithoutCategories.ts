@@ -19,55 +19,38 @@ export const DropdownWithoutCategories = {
       required: true,
       type: "text"
     },
-// TODO: Create a group (undefined: label,link,eventName),
 
     {
-      name: "label",
-      type: "text"
+      name: "button",
+      type: "group",
+      fields: [{ name: "label",
+      type: "text" },
+      { name: "link",
+      type: "text" },
+      { name: "eventName",
+      type: "text" }
+        ]
     },
 
     {
-      name: "link",
-      type: "text"
-    },
-
-    {
-      name: "eventName",
-      type: "text"
-    },
-// TODO: Create a group (undefined: featureImage,featureTitle,featureBody,featureButtonLabel,featureLink,featureBackgroundColor),
-
-    {
-      name: "featureImage",
+      name: "featureBlock",
+      type: "group",
+      fields: [{ name: "featureImage",
       type: "upload",
-      relationTo: "assets"
-    },
-
-    {
-      name: "featureTitle",
-      type: "text"
-    },
-
-    {
-      name: "featureBody",
-      type: "text"
-    },
-
-    {
-      name: "featureButtonLabel",
-      type: "text"
-    },
-
-    {
-      name: "featureBackgroundColor",
+      relationTo: "assets" },
+      { name: "featureTitle",
+      type: "text" },
+      { name: "featureBody",
+      type: "text" },
+      { name: "featureButtonLabel",
+      type: "text" },
+      { name: "featureLink",
+      type: "text" },
+      { name: "featureBackgroundColor",
       hasMany: false,
       type: "select",
-      options: [{"label":"bg-green-04","value":"bg-green-04"},{"label":"bg-green-02","value":"bg-green-02"},{"label":"bg-yellow-04","value":"bg-yellow-04"},{"label":"bg-blue-04","value":"bg-blue-04"},{"label":"bg-neutral-06","value":"bg-neutral-06"},{"label":"bg-purple-04/40","value":"bg-purple-04/40"}]
-    },
-
-    {
-      name: "featureLink",
-      type: "text"
+      options: [{"label":"bg-green-04","value":"bg-green-04"},{"label":"bg-green-02","value":"bg-green-02"},{"label":"bg-yellow-04","value":"bg-yellow-04"},{"label":"bg-blue-04","value":"bg-blue-04"},{"label":"bg-neutral-06","value":"bg-neutral-06"},{"label":"bg-purple-04/40","value":"bg-purple-04/40"}] }
+        ]
     },
 
     {

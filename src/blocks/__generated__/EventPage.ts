@@ -7,23 +7,19 @@ export const EventPage = {
     disableBlockName: true,
   },
   fields: [
-    // TODO: Create a group (S E O: followAndIndex,title,description),
-
+    
     {
-      name: "followAndIndex",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "followAndIndex",
       type: "checkbox",
-      defaultValue: true
-    },
-
-    {
-      name: "title",
+      defaultValue: true },
+      { name: "title",
       required: true,
-      type: "text"
-    },
-
-    {
-      name: "description",
-      type: "text"
+      type: "text" },
+      { name: "description",
+      type: "text" }
+        ]
     },
 
     {

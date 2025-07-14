@@ -5,22 +5,24 @@ export const LandingPage = {
   slug: 'landingPage',
   
   fields: [
-    // TODO: Create a group (S E O: title,description,followAndIndex),
-
+    
     {
-      name: "title",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "title",
       required: true,
-      type: "text"
+      type: "text" },
+      { name: "description",
+      required: true,
+      type: "text" },
+      { name: "followAndIndex",
+      type: "checkbox",
+      defaultValue: true }
+        ]
     },
 
     {
-      name: "description",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -50,12 +52,6 @@ export const LandingPage = {
       type: "blocks",
       blocks: [],
       blockReferences: ["appreciation", "banner", "bookDemoMain", "clientLogotypes", "clientLogotypesCards", "cta", "ctaForm", "ctaSmall", "customComponent", "demos", "embedded", "embededMap", "features", "form", "globalClientLogotypes", "globalCTA", "globalInfoAccordion", "globalInfoCarousel", "globalInfoGrid", "globalInfoTabVariant", "globalInfoTextWithImage", "globalInfoWithCardsSection", "globalReviewsSection", "heroSubpages", "heroSubpagesCentered", "homeHero", "infoAccordion", "infoCarousel", "infoGrid", "infoGridCardsWithIcons", "infoGridTwoColumnsWithTitle", "infoGridWithHeading", "infoGridWithResources", "infoSlider", "infoSliderTimeline", "infoTabsWithDescriptions", "infoTabsWithIcon", "infoTextWithCollage", "infoTextWithImage", "infoWithCards", "insightComparison", "mainHero", "media", "mediaCollage", "pagination", "pricingTable", "pricingTableComparison", "resourcesHero", "reviews", "singleReview", "textBlock", "textLinks", "toggle"]
-    },
-
-    {
-      name: "followAndIndex",
-      type: "checkbox",
-      defaultValue: true
     }
   ]
 } as const satisfies CollectionConfig

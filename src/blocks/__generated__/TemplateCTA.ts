@@ -16,7 +16,7 @@ export const TemplateCTA = {
     },
 
     {
-      name: "authorBody",
+      name: "Author Body",
       type: "text",
       defaultValue: "Created by:"
     },

@@ -47,39 +47,34 @@ export const MainHero = {
       relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
-// TODO: Create a group (undefined: leftPart,rightPart),
-// TODO: Create a group (undefined: bannerBody,bannerLabel,bannerLink),
 
     {
-      name: "bannerBody",
-      type: "text"
-    },
-
-    {
-      name: "bannerLabel",
-      type: "text"
-    },
-
-    {
-      name: "bannerLink",
-      type: "text"
-    },
-
-    {
-      name: "leftPart",
+      name: "lottieAnimation",
+      type: "group",
+      fields: [{ name: "leftPart",
       required: true,
       admin: {"description":"Lottie JSON file or image"},
       type: "upload",
-      relationTo: "assets"
-    },
-
-    {
-      name: "rightPart",
+      relationTo: "assets" },
+      { name: "rightPart",
       required: true,
       admin: {"description":"Lottie JSON file or image"},
       type: "upload",
       relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":[]}}
+      filterOptions: {"mimeType":{"contains":[]}} }
+        ]
+    },
+
+    {
+      name: "banner",
+      type: "group",
+      fields: [{ name: "bannerBody",
+      type: "text" },
+      { name: "bannerLabel",
+      type: "text" },
+      { name: "bannerLink",
+      type: "text" }
+        ]
     }
   ]
 } as const satisfies Block

@@ -19,62 +19,55 @@ export const DropdownWithCategories = {
       required: true,
       type: "text"
     },
-// TODO: Create a group (undefined: label,link,eventName),
 
     {
-      name: "label",
-      type: "text"
+      name: "button",
+      type: "group",
+      fields: [{ name: "label",
+      type: "text" },
+      { name: "link",
+      type: "text" },
+      { name: "eventName",
+      type: "text" }
+        ]
     },
 
     {
-      name: "link",
-      type: "text"
-    },
-
-    {
-      name: "eventName",
-      type: "text"
-    },
-// TODO: Create a group (undefined: mainColumnSubtitle,mainColumnLinks),
-
-    {
-      name: "mainColumnSubtitle",
+      name: "mainColumn",
+      type: "group",
+      fields: [{ name: "mainColumnSubtitle",
       required: true,
-      type: "text"
-    },
-
-    {
-      name: "mainColumnLinks",
+      type: "text" },
+      { name: "mainColumnLinks",
       required: true,
       type: "blocks",
       blocks: [],
-      blockReferences: ["navBarCategoryLink"]
-    },
-// TODO: Create a group (undefined: secondColumnLinks,secondColumnSubtitle),
-
-    {
-      name: "secondColumnSubtitle",
-      type: "text"
+      blockReferences: ["navBarCategoryLink"] }
+        ]
     },
 
     {
-      name: "secondColumnLinks",
+      name: "secondColumn",
+      type: "group",
+      fields: [{ name: "secondColumnLinks",
       type: "blocks",
       blocks: [],
-      blockReferences: ["navBarCategoryLink"]
-    },
-// TODO: Create a group (undefined: thirdColumnSubtitle,thirdColumnLinks),
-
-    {
-      name: "thirdColumnSubtitle",
-      type: "text"
+      blockReferences: ["navBarCategoryLink"] },
+      { name: "secondColumnSubtitle",
+      type: "text" }
+        ]
     },
 
     {
-      name: "thirdColumnLinks",
+      name: "thirdColumn",
+      type: "group",
+      fields: [{ name: "thirdColumnSubtitle",
+      type: "text" },
+      { name: "thirdColumnLinks",
       type: "blocks",
       blocks: [],
-      blockReferences: ["navBarCategoryLink"]
+      blockReferences: ["navBarCategoryLink"] }
+        ]
     }
   ]
 } as const satisfies Block

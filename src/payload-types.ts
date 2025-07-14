@@ -438,6 +438,9 @@ export interface Appreciation {
     relationTo: 'globalReviews';
     value: string | GlobalReview;
   } | null;
+  /**
+   * This field displays as a table editor. Since Payload v3.47 doesn't include a dedicated table field type, we've configured a rich text field to only allow table content as a workaround. To create the table you will need to type "/table" in the editor.
+   */
   stats?: {
     root: {
       type: string;
@@ -473,7 +476,7 @@ export interface GlobalReview {
  */
 export interface Reviews {
   backgroundColor?: ('bg-green-02' | 'bg-pink-01') | null;
-  reviews: Review[];
+  'Review Components': Review[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'reviews';
@@ -623,10 +626,10 @@ export interface TableOfContent {
  * via the `definition` "articlesBody".
  */
 export interface ArticlesBody {
-  label?: boolean | null;
-  date?: boolean | null;
-  readTime?: boolean | null;
-  author?: boolean | null;
+  'Show Label'?: boolean | null;
+  'Show Date'?: boolean | null;
+  'Show Read Time'?: boolean | null;
+  'Show Author'?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'articlesBody';
@@ -687,15 +690,19 @@ export interface Banner {
    * If you add a file here, the banner will use a second variant of design.
    */
   mainImage?: (string | null) | Asset;
+  backgroundDesktop?: {
+    leftTopImage?: (string | null) | Asset;
+    rightTopImage?: (string | null) | Asset;
+    leftBottomImage?: (string | null) | Asset;
+    rightBottomImage?: (string | null) | Asset;
+  };
+  backgroundMobile?: {
+    rightTopImageMobile?: (string | null) | Asset;
+    leftBottomImageMobile?: (string | null) | Asset;
+    rightBottomImageMobile?: (string | null) | Asset;
+    leftTopImageMobile?: (string | null) | Asset;
+  };
   button: (Button | GlobalButtons)[];
-  leftTopImage?: (string | null) | Asset;
-  rightTopImage?: (string | null) | Asset;
-  leftBottomImage?: (string | null) | Asset;
-  rightBottomImage?: (string | null) | Asset;
-  leftTopImageMobile?: (string | null) | Asset;
-  rightTopImageMobile?: (string | null) | Asset;
-  leftBottomImageMobile?: (string | null) | Asset;
-  rightBottomImageMobile?: (string | null) | Asset;
   id?: string | null;
   blockName?: string | null;
   blockType: 'banner';
@@ -857,8 +864,10 @@ export interface CompareTableIconCell {
  */
 export interface CompareTableTextCell {
   label: string;
-  tooltipBody?: string | null;
-  tooltipImage?: (string | null) | Asset;
+  tooltip?: {
+    tooltipImage?: (string | null) | Asset;
+    tooltipBody?: string | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'compareTableTextCell';
@@ -881,7 +890,7 @@ export interface CompareTableSubtable {
 export interface ComparisonFeatureRow {
   title: string;
   monthlyPrice: string;
-  annualyPrice: string;
+  'Annual Price': string;
   button: (Button | GlobalButtons)[];
   caption?: string | null;
   id?: string | null;
@@ -965,14 +974,16 @@ export interface CtaForm {
   /**
    * The field uses for html element and must be without white spaces.
    */
-  formId?: string | null;
+  'Form ID'?: string | null;
   form?: (FormInput | FormDropdown | FormCheckbox)[] | null;
-  label: string;
-  /**
-   * The link overwriten with Form Input and Form ID fields
-   */
-  link?: string | null;
-  buttonPosition?: ('bottom' | 'right') | null;
+  button: {
+    label: string;
+    /**
+     * The link overwriten with Form Input and Form ID fields
+     */
+    link?: string | null;
+    buttonPosition?: ('bottom' | 'right') | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'ctaForm';
@@ -985,7 +996,7 @@ export interface FormInput {
   /**
    * The field uses for html element and must be without white spaces.
    */
-  name: string;
+  'Field name': string;
   required?: boolean | null;
   autoComplete?: boolean | null;
   type: 'email' | 'date' | 'number' | 'tel' | 'text' | 'url';
@@ -1240,15 +1251,23 @@ export interface Demos {
 export interface DropdownWithCategories {
   title: string;
   body: string;
-  label?: string | null;
-  link?: string | null;
-  eventName?: string | null;
-  mainColumnSubtitle: string;
-  mainColumnLinks: NavBarCategoryLink[];
-  secondColumnSubtitle?: string | null;
-  secondColumnLinks?: NavBarCategoryLink[] | null;
-  thirdColumnSubtitle?: string | null;
-  thirdColumnLinks?: NavBarCategoryLink[] | null;
+  button?: {
+    label?: string | null;
+    link?: string | null;
+    eventName?: string | null;
+  };
+  mainColumn: {
+    mainColumnSubtitle: string;
+    mainColumnLinks: NavBarCategoryLink[];
+  };
+  secondColumn?: {
+    secondColumnLinks?: NavBarCategoryLink[] | null;
+    secondColumnSubtitle?: string | null;
+  };
+  thirdColumn?: {
+    thirdColumnSubtitle?: string | null;
+    thirdColumnLinks?: NavBarCategoryLink[] | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'dropdownWithCategories';
@@ -1271,17 +1290,21 @@ export interface NavBarCategoryLink {
 export interface DropdownWithoutCategories {
   title: string;
   body: string;
-  label?: string | null;
-  link?: string | null;
-  eventName?: string | null;
-  featureImage?: (string | null) | Asset;
-  featureTitle?: string | null;
-  featureBody?: string | null;
-  featureButtonLabel?: string | null;
-  featureBackgroundColor?:
-    | ('bg-green-04' | 'bg-green-02' | 'bg-yellow-04' | 'bg-blue-04' | 'bg-neutral-06' | 'bg-purple-04/40')
-    | null;
-  featureLink?: string | null;
+  button?: {
+    label?: string | null;
+    link?: string | null;
+    eventName?: string | null;
+  };
+  featureBlock?: {
+    featureImage?: (string | null) | Asset;
+    featureTitle?: string | null;
+    featureBody?: string | null;
+    featureButtonLabel?: string | null;
+    featureLink?: string | null;
+    featureBackgroundColor?:
+      | ('bg-green-04' | 'bg-green-02' | 'bg-yellow-04' | 'bg-blue-04' | 'bg-neutral-06' | 'bg-purple-04/40')
+      | null;
+  };
   sublinks: NavBarLink[];
   id?: string | null;
   blockName?: string | null;
@@ -1329,9 +1352,11 @@ export interface EmbededMap {
  * via the `definition` "eventPage".
  */
 export interface EventPage {
-  followAndIndex?: boolean | null;
-  title: string;
-  description?: string | null;
+  'S E O': {
+    followAndIndex?: boolean | null;
+    title: string;
+    description?: string | null;
+  };
   ogImage?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
@@ -1434,30 +1459,32 @@ export interface NavigationBarMenuItem {
   logotypeLink: string;
   logoButtonLabel?: string | null;
   logoButtonLink?: string | null;
-  searchResultsTitle: string;
-  emptySearchTitle: string;
-  searchLengthValidationTitle: string;
-  searchPlaceholder: string;
-  searchPageContentType: string;
-  menuItems?: NavBarGroup[] | null;
-  searchGlobalTagContentType: string;
-  searchFeatureContentType: string;
-  searchCustomerMainPageContentType: string;
-  searchCustomerContentType: string;
-  searchSolutionContentType: string;
-  searchPricingUseCaseContentType: string;
-  searchPricingMainPageContentType: string;
-  searchArticleContentType: string;
-  searchBlogMainPageContentType: string;
-  searchVideoContentType: string;
-  searchVideoMainPageContentType: string;
-  searchGuidesMainPageContentType: string;
-  searchGuideMainPageContentType: string;
-  searchTemplatesMainPageContentType: string;
-  searchTemplateContentType: string;
-  searchLegalPageContentType: string;
-  searchLandingPageContentType: string;
-  searchGuideMainInfoContentType: string;
+  search: {
+    searchResultsTitle: string;
+    emptySearchTitle: string;
+    searchLengthValidationTitle: string;
+    searchPlaceholder: string;
+    searchGlobalTagContentType: string;
+    searchFeatureContentType: string;
+    searchCustomerMainPageContentType: string;
+    searchCustomerContentType: string;
+    searchSolutionContentType: string;
+    searchPricingUseCaseContentType: string;
+    searchPricingMainPageContentType: string;
+    searchArticleContentType: string;
+    searchBlogMainPageContentType: string;
+    searchVideoContentType: string;
+    searchVideoMainPageContentType: string;
+    searchGuidesMainPageContentType: string;
+    searchGuideMainPageContentType: string;
+    searchTemplatesMainPageContentType: string;
+    searchTemplateContentType: string;
+    searchLegalPageContentType: string;
+    searchLandingPageContentType: string;
+    searchPageContentType: string;
+    searchGuideMainInfoContentType: string;
+  };
+  'Menu Items'?: NavBarGroup[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1528,9 +1555,12 @@ export interface FooterTitleItem {
  */
 export interface GlobalTag {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -1560,7 +1590,6 @@ export interface GlobalTag {
     | CtaSmall
     | ClientLogotypes
   )[];
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1569,7 +1598,7 @@ export interface GlobalTag {
  * via the `definition` "globalCTA".
  */
 export interface GlobalCTA {
-  cta: {
+  'Call To Action': {
     relationTo: 'callToAction';
     value: string | CallToAction;
   };
@@ -1607,7 +1636,7 @@ export interface InlineCTA {
  */
 export interface TemplateCTA {
   title: string;
-  authorBody?: string | null;
+  'Author Body'?: string | null;
   shareTitle: string;
   copiedTitle: string;
   shareFacebook?: boolean | null;
@@ -1713,10 +1742,10 @@ export interface EventsBody {
  * via the `definition` "featureArticle".
  */
 export interface FeatureArticle {
-  label?: boolean | null;
-  date?: boolean | null;
-  readTime?: boolean | null;
-  author?: boolean | null;
+  'Show Label'?: boolean | null;
+  'Show Date'?: boolean | null;
+  'Show Read Time'?: boolean | null;
+  'Show Author'?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'featureArticle';
@@ -1800,13 +1829,19 @@ export interface FilterBar {
  * via the `definition` "form".
  */
 export interface Form {
-  id: string | null;
-  buttonLabel: string;
+  /**
+   * The field uses for html element and must be without white spaces.
+   */
+  'Form ID': string;
+  button: {
+    buttonLabel: string;
+  };
   alignment: 'row' | 'column';
   backgroundColor: 'bg-neutral-06' | 'transparent';
   padding: '0' | '40';
   header?: (FormTitle | FormSubtitle)[] | null;
   formElements: (FormInput | FormDropdown | FormCheckbox)[];
+  id?: string | null;
   blockName?: string | null;
   blockType: 'form';
 }
@@ -2091,7 +2126,7 @@ export interface GlobalInfoTab {
 export interface InfoTabsWithDescriptions {
   title?: string | null;
   subtitle?: string | null;
-  tabs: InfoTab[];
+  'Tab items': InfoTab[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoTabsWithDescriptions';
@@ -2121,7 +2156,7 @@ export interface InfoTabsWithIcon {
    * If this field is empty then individual tab images will be used, otherwise this image will be shown persistently.
    */
   tabImage?: (string | null) | Asset;
-  tabs: InfoIconTab[];
+  'Tab Items': InfoIconTab[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoTabsWithIcon';
@@ -2173,10 +2208,10 @@ export interface InfoTextWithImage {
   /**
    * The value must be equal with \"Text link with icon\" component field
    */
-  contentType?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
+  'Content Type'?: ('articles' | 'videos' | 'guides' | 'templates' | 'events' | 'reports') | null;
   backgroundColor: 'bg-neutral-06' | 'bg-neutral-07' | 'bg-yellow-04';
   imagePosition?: ('right' | 'left') | null;
-  cover?: (string | null) | Asset;
+  ''?: (string | null) | Asset;
   customComponent?:
     | (LiveWebsiteTestingHero | LiveWebsiteTestingPanel | LiveWebsiteTestingSites | LiveWebsiteTestingTasks)[]
     | null;
@@ -2435,12 +2470,16 @@ export interface InfoBottomTab {
  * via the `definition` "infoGridWithHeading".
  */
 export interface InfoGridWithHeading {
-  backgroundColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04';
+  heading: {
+    title: string;
+    icon: string | Asset;
+    backgroundColor: 'bg-yellow-03' | 'bg-pink-04' | 'bg-purple-04' | 'bg-blue-04';
+  };
   bottomLineSeperator?: boolean | null;
-  title: string;
-  icon: string | Asset;
-  cardTag: string;
-  cardButtonLabel: string;
+  cardsBlock: {
+    cardTag: string;
+    cardButtonLabel: string;
+  };
   contentType: 'articles' | 'guides' | 'videos' | 'templates' | 'events' | 'reports';
   id?: string | null;
   blockName?: string | null;
@@ -2487,11 +2526,13 @@ export interface InfoGridWithResources {
  */
 export interface Article {
   id: string;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
   lastUpdated?: string | null;
-  followAndIndex?: boolean | null;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -2582,10 +2623,12 @@ export interface SuggestedArticles {
  */
 export interface Template {
   id: string;
-  followAndIndex?: boolean | null;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -2600,7 +2643,7 @@ export interface Template {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  templateId: string;
+  'Template ID': string;
   globalTag?:
     | {
         relationTo: 'globalTag';
@@ -2650,10 +2693,12 @@ export interface Template {
  */
 export interface TemplateUseCase {
   id: string;
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
   name: string;
+  SEO?: {
+    description?: string | null;
+    followAndIndex?: boolean | null;
+    title?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -2663,10 +2708,12 @@ export interface TemplateUseCase {
  */
 export interface TemplateTeam {
   id: string;
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
   name: string;
+  SEO?: {
+    description?: string | null;
+    followAndIndex?: boolean | null;
+    title?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -2676,10 +2723,12 @@ export interface TemplateTeam {
  */
 export interface TemplateMethodology {
   id: string;
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
   name: string;
+  SEO?: {
+    description?: string | null;
+    followAndIndex?: boolean | null;
+    title?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -2689,10 +2738,12 @@ export interface TemplateMethodology {
  */
 export interface TemplateIndustry {
   id: string;
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
   name: string;
+  SEO?: {
+    description?: string | null;
+    followAndIndex?: boolean | null;
+    title?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -2737,10 +2788,12 @@ export interface TemplateSection {
  */
 export interface Video {
   id: string;
-  followAndIndex?: boolean | null;
-  title: string;
-  description?: string | null;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    description?: string | null;
+    title: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -2794,7 +2847,7 @@ export interface Video {
   shareLinkedin?: boolean | null;
   shareEmail?: boolean | null;
   copyLink?: boolean | null;
-  cta: GlobalCTA[];
+  'Call To Action': GlobalCTA[];
   clientLogoTypes: GlobalClientLogotypes[];
   updatedAt: string;
   createdAt: string;
@@ -2805,8 +2858,8 @@ export interface Video {
  */
 export interface GuideMainInfo {
   id: string;
-  title: string;
-  body: string;
+  'Guide Title': string;
+  'Guide Body': string;
   linkToFirstPage: string;
   /**
    * Text will be used for the button, which is used in the guides list.
@@ -2815,7 +2868,7 @@ export interface GuideMainInfo {
   /**
    * Text will be used for the sidebar table of content.
    */
-  shareTitle: string;
+  'Share Title': string;
   copiedTitle: string;
   /**
    * Text will be used for the guide pagination.
@@ -2839,7 +2892,7 @@ export interface GuideMainInfo {
         value: string | GlobalTag;
       }[]
     | null;
-  cover: string | Asset;
+  Cover: string | Asset;
   shareLinkedin?: boolean | null;
   shareFacebook?: boolean | null;
   shareEmail?: boolean | null;
@@ -2855,7 +2908,7 @@ export interface GuideMainInfo {
 export interface InfoQuote {
   title: string;
   image?: (string | null) | Asset;
-  representative?: {
+  ''?: {
     relationTo: 'testimonial-reviewer';
     value: string | TestimonialReviewer;
   } | null;
@@ -2997,7 +3050,7 @@ export interface LiveEvent {
  */
 export interface LivestormEmbed {
   title?: string | null;
-  embedHtml: string;
+  'Embed HTML': string;
   id?: string | null;
   blockName?: string | null;
   blockType: 'livestormEmbed';
@@ -3016,17 +3069,21 @@ export interface MainHero {
     value: string | Rating;
   } | null;
   mobileImage?: (string | null) | Asset;
-  bannerBody?: string | null;
-  bannerLabel?: string | null;
-  bannerLink?: string | null;
-  /**
-   * Lottie JSON file or image
-   */
-  leftPart: string | Asset;
-  /**
-   * Lottie JSON file or image
-   */
-  rightPart: string | Asset;
+  lottieAnimation: {
+    /**
+     * Lottie JSON file or image
+     */
+    leftPart: string | Asset;
+    /**
+     * Lottie JSON file or image
+     */
+    rightPart: string | Asset;
+  };
+  banner?: {
+    bannerBody?: string | null;
+    bannerLabel?: string | null;
+    bannerLink?: string | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'mainHero';
@@ -3043,7 +3100,7 @@ export interface Media {
   /**
    * YouTube embeds have more priority than video fields.
    */
-  embedLink?: string | null;
+  'YouTube Embed'?: string | null;
   assetDesktop?: (string | null) | Asset;
   assetMobile?: (string | null) | Asset;
   size: 'parallax' | '780' | '885';
@@ -3109,8 +3166,10 @@ export interface PricingBodyTableRow {
  */
 export interface PricingBodyTableTextCell {
   label: string;
-  tooltipBody?: string | null;
-  tooltipImage?: (string | null) | Asset;
+  tooltip?: {
+    tooltipImage?: (string | null) | Asset;
+    tooltipBody?: string | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'pricingBodyTableTextCell';
@@ -3133,8 +3192,8 @@ export interface PricingPlan {
   name: string;
   monthlyPrice: string;
   monthlyPriceLabel?: string | null;
-  annualyPrice: string;
-  annualyPriceLabel?: string | null;
+  'Annual Price': string;
+  'Annual Price Label'?: string | null;
   button: (Button | GlobalButtons)[];
   caption?: string | null;
   body: string;
@@ -3161,8 +3220,10 @@ export interface PricingPlanItem {
 export interface PricingPlanListItem {
   label: string;
   additionalLabel?: string | null;
-  tooltipImage?: (string | null) | Asset;
-  tooltipBody?: string | null;
+  tooltip?: {
+    tooltipImage?: (string | null) | Asset;
+    tooltipBody?: string | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'pricingPlanListItem';
@@ -3224,6 +3285,9 @@ export interface SideBarCtaBlock {
  * via the `definition` "table".
  */
 export interface Table {
+  /**
+   * This field displays as a table editor. Since Payload v3.47 doesn't include a dedicated table field type, we've configured a rich text field to only allow table content as a workaround. To create the table you will need to type "/table" in the editor.
+   */
   tableData?: {
     root: {
       type: string;
@@ -3437,7 +3501,11 @@ export interface VideosBody {
  */
 export interface Compare {
   id: string;
-  followAndIndex?: boolean | null;
+  'S E O': {
+    followAndIndex?: boolean | null;
+    title: string;
+    description?: string | null;
+  };
   ogImage?: OgImage[] | null;
   navigationBar?: {
     relationTo: 'navigationBar';
@@ -3450,8 +3518,6 @@ export interface Compare {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  title: string;
-  description?: string | null;
   heroTitle: string;
   heroBody: string;
   /**
@@ -3484,21 +3550,26 @@ export interface Compare {
  */
 export interface Customer {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
-  /**
-   * This field will be show at customers list page and customer page hero.
-   */
-  customerTitle: string;
-  /**
-   * This field will be show at customers list page and customer page hero.
-   */
-  customerBody: string;
-  /**
-   * This field will be show at customers list page.
-   */
-  cover: string | Asset;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
+  customerInfo: {
+    /**
+     * This field will be show at customers list page and customer page hero.
+     */
+    customerTitle: string;
+    /**
+     * This field will be show at customers list page and customer page hero.
+     */
+    customerBody: string;
+    /**
+     * This field will be show at customers list page.
+     */
+    cover: string | Asset;
+  };
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -3535,8 +3606,10 @@ export interface Customer {
     relationTo: 'customerIndustry';
     value: string | CustomerIndustry;
   };
-  summaryTitle: string;
-  summaryBody: string;
+  summary: {
+    summaryTitle: string;
+    summaryBody: string;
+  };
   body: {
     root: {
       type: string;
@@ -3607,7 +3680,6 @@ export interface Customer {
     | TextLinks
     | Toggle
   )[];
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3657,9 +3729,12 @@ export interface CustomerIndustry {
  */
 export interface CustomersMainPage {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -3735,7 +3810,6 @@ export interface CustomersMainPage {
     | CustomersSection
     | CustomersSideBar
   )[];
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3745,9 +3819,11 @@ export interface CustomersMainPage {
  */
 export interface Event {
   id: string;
-  followAndIndex?: boolean | null;
-  title: string;
-  description?: string | null;
+  'S E O': {
+    followAndIndex?: boolean | null;
+    title: string;
+    description?: string | null;
+  };
   date: string;
   ogImage?: OgImage[] | null;
   navigationBar?: {
@@ -3788,9 +3864,12 @@ export interface Event {
  */
 export interface Feature {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -3865,7 +3944,6 @@ export interface Feature {
         | Toggle
       )[]
     | null;
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3875,10 +3953,12 @@ export interface Feature {
  */
 export interface Guide {
   id: string;
-  followAndIndex?: boolean | null;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -3923,10 +4003,12 @@ export interface Guide {
  */
 export interface Integration {
   id: string;
-  followAndIndex?: boolean | null;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -3946,7 +4028,7 @@ export interface Integration {
   /**
    * CTA button shown in hero section
    */
-  button?: (Button | GlobalButtons)[] | null;
+  Button?: (Button | GlobalButtons)[] | null;
   buttonSubtext?: string | null;
   cover?: (string | null) | Asset;
   sideBar: TableOfContent[];
@@ -3974,8 +4056,8 @@ export interface Integration {
  */
 export interface IntegrationMainInfo {
   id: string;
-  title: string;
-  body: string;
+  'Guide Title': string;
+  'Guide Body': string;
   linkToFirstPage: string;
   /**
    * Text will be used for the button, which is used in the guides list.
@@ -3984,7 +4066,7 @@ export interface IntegrationMainInfo {
   /**
    * Text will be used for the sidebar table of content.
    */
-  shareTitle: string;
+  'Share Title': string;
   copiedTitle: string;
   /**
    * Text will be used for the guide pagination.
@@ -4008,7 +4090,7 @@ export interface IntegrationMainInfo {
         value: string | GlobalTag;
       }[]
     | null;
-  cover: string | Asset;
+  Cover: string | Asset;
   shareLinkedin?: boolean | null;
   shareFacebook?: boolean | null;
   shareEmail?: boolean | null;
@@ -4023,9 +4105,12 @@ export interface IntegrationMainInfo {
  */
 export interface LandingPage {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -4098,7 +4183,6 @@ export interface LandingPage {
     | TextLinks
     | Toggle
   )[];
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4108,9 +4192,12 @@ export interface LandingPage {
  */
 export interface LegalPage {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -4156,7 +4243,6 @@ export interface LegalPage {
     };
     [k: string]: unknown;
   };
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4166,9 +4252,14 @@ export interface LegalPage {
  */
 export interface Page {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    Title: string;
+    Description: string;
+    followAndIndex?: boolean | null;
+  };
+  Title: string;
+  Description: string;
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -4241,7 +4332,6 @@ export interface Page {
     | TextLinks
     | Toggle
   )[];
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4251,9 +4341,12 @@ export interface Page {
  */
 export interface PricingUseCase {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -4326,7 +4419,6 @@ export interface PricingUseCase {
     | TextLinks
     | Toggle
   )[];
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4336,11 +4428,13 @@ export interface PricingUseCase {
  */
 export interface Report {
   id: string;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
   lastUpdated?: string | null;
-  followAndIndex?: boolean | null;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -4382,9 +4476,12 @@ export interface Report {
  */
 export interface Solution {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -4459,7 +4556,6 @@ export interface Solution {
         | Toggle
       )[]
     | null;
-  followAndIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4850,11 +4946,15 @@ export interface PayloadMigration {
  * via the `definition` "article_select".
  */
 export interface ArticleSelect<T extends boolean = true> {
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
   lastUpdated?: T;
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   globalTag?: T;
@@ -4910,12 +5010,16 @@ export interface ClientLogotypeSelect<T extends boolean = true> {
  * via the `definition` "compare_select".
  */
 export interface CompareSelect<T extends boolean = true> {
-  followAndIndex?: T;
+  'S E O'?:
+    | T
+    | {
+        followAndIndex?: T;
+        title?: T;
+        description?: T;
+      };
   ogImage?: T | {};
   navigationBar?: T;
   footer?: T;
-  title?: T;
-  description?: T;
   heroTitle?: T;
   heroBody?: T;
   buttons?: T | {};
@@ -4930,12 +5034,21 @@ export interface CompareSelect<T extends boolean = true> {
  * via the `definition` "customer_select".
  */
 export interface CustomerSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
-  customerTitle?: T;
-  customerBody?: T;
-  cover?: T;
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
+  customerInfo?:
+    | T
+    | {
+        customerTitle?: T;
+        customerBody?: T;
+        cover?: T;
+      };
   navigationBar?: T;
   footer?: T;
   globalTag?: T;
@@ -4943,11 +5056,14 @@ export interface CustomerSelect<T extends boolean = true> {
   companySize?: T;
   customerRegion?: T;
   customerIndustry?: T;
-  summaryTitle?: T;
-  summaryBody?: T;
+  summary?:
+    | T
+    | {
+        summaryTitle?: T;
+        summaryBody?: T;
+      };
   body?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4983,13 +5099,17 @@ export interface CustomerRegionSelect<T extends boolean = true> {
  * via the `definition` "customersMainPage_select".
  */
 export interface CustomersMainPageSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5007,9 +5127,13 @@ export interface CustomerUseCaseSelect<T extends boolean = true> {
  * via the `definition` "event_select".
  */
 export interface EventSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
+  'S E O'?:
+    | T
+    | {
+        followAndIndex?: T;
+        title?: T;
+        description?: T;
+      };
   date?: T;
   ogImage?: T | {};
   navigationBar?: T;
@@ -5026,13 +5150,17 @@ export interface EventSelect<T extends boolean = true> {
  * via the `definition` "feature_select".
  */
 export interface FeatureSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5125,14 +5253,18 @@ export interface GlobalReviewsSelect<T extends boolean = true> {
  * via the `definition` "globalTag_select".
  */
 export interface GlobalTagSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   globalTagTitle?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5141,10 +5273,14 @@ export interface GlobalTagSelect<T extends boolean = true> {
  * via the `definition` "guide_select".
  */
 export interface GuideSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   position?: T;
@@ -5159,18 +5295,18 @@ export interface GuideSelect<T extends boolean = true> {
  * via the `definition` "guideMainInfo_select".
  */
 export interface GuideMainInfoSelect<T extends boolean = true> {
-  title?: T;
-  body?: T;
+  'Guide Title'?: T;
+  'Guide Body'?: T;
   linkToFirstPage?: T;
   buttonText?: T;
-  shareTitle?: T;
+  'Share Title'?: T;
   copiedTitle?: T;
   previousPageTitle?: T;
   nextPageTitle?: T;
   finishTitle?: T;
   completeTitle?: T;
   globalTag?: T;
-  cover?: T;
+  Cover?: T;
   shareLinkedin?: T;
   shareFacebook?: T;
   shareEmail?: T;
@@ -5184,15 +5320,19 @@ export interface GuideMainInfoSelect<T extends boolean = true> {
  * via the `definition` "integration_select".
  */
 export interface IntegrationSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   heroTitle?: T;
   heroBody?: T;
-  button?: T | {};
+  Button?: T | {};
   buttonSubtext?: T;
   cover?: T;
   sideBar?: T | {};
@@ -5205,18 +5345,18 @@ export interface IntegrationSelect<T extends boolean = true> {
  * via the `definition` "integrationMainInfo_select".
  */
 export interface IntegrationMainInfoSelect<T extends boolean = true> {
-  title?: T;
-  body?: T;
+  'Guide Title'?: T;
+  'Guide Body'?: T;
   linkToFirstPage?: T;
   buttonText?: T;
-  shareTitle?: T;
+  'Share Title'?: T;
   copiedTitle?: T;
   previousPageTitle?: T;
   nextPageTitle?: T;
   finishTitle?: T;
   completeTitle?: T;
   globalTag?: T;
-  cover?: T;
+  Cover?: T;
   shareLinkedin?: T;
   shareFacebook?: T;
   shareEmail?: T;
@@ -5230,13 +5370,17 @@ export interface IntegrationMainInfoSelect<T extends boolean = true> {
  * via the `definition` "landingPage_select".
  */
 export interface LandingPageSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   body?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5245,15 +5389,19 @@ export interface LandingPageSelect<T extends boolean = true> {
  * via the `definition` "legalPage_select".
  */
 export interface LegalPageSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   headerTitle?: T;
   headerBody?: T;
   body?: T;
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5278,30 +5426,34 @@ export interface NavigationBarMenuItemsSelect<T extends boolean = true> {
   logotypeLink?: T;
   logoButtonLabel?: T;
   logoButtonLink?: T;
-  searchResultsTitle?: T;
-  emptySearchTitle?: T;
-  searchLengthValidationTitle?: T;
-  searchPlaceholder?: T;
-  searchPageContentType?: T;
-  menuItems?: T | {};
-  searchGlobalTagContentType?: T;
-  searchFeatureContentType?: T;
-  searchCustomerMainPageContentType?: T;
-  searchCustomerContentType?: T;
-  searchSolutionContentType?: T;
-  searchPricingUseCaseContentType?: T;
-  searchPricingMainPageContentType?: T;
-  searchArticleContentType?: T;
-  searchBlogMainPageContentType?: T;
-  searchVideoContentType?: T;
-  searchVideoMainPageContentType?: T;
-  searchGuidesMainPageContentType?: T;
-  searchGuideMainPageContentType?: T;
-  searchTemplatesMainPageContentType?: T;
-  searchTemplateContentType?: T;
-  searchLegalPageContentType?: T;
-  searchLandingPageContentType?: T;
-  searchGuideMainInfoContentType?: T;
+  search?:
+    | T
+    | {
+        searchResultsTitle?: T;
+        emptySearchTitle?: T;
+        searchLengthValidationTitle?: T;
+        searchPlaceholder?: T;
+        searchGlobalTagContentType?: T;
+        searchFeatureContentType?: T;
+        searchCustomerMainPageContentType?: T;
+        searchCustomerContentType?: T;
+        searchSolutionContentType?: T;
+        searchPricingUseCaseContentType?: T;
+        searchPricingMainPageContentType?: T;
+        searchArticleContentType?: T;
+        searchBlogMainPageContentType?: T;
+        searchVideoContentType?: T;
+        searchVideoMainPageContentType?: T;
+        searchGuidesMainPageContentType?: T;
+        searchGuideMainPageContentType?: T;
+        searchTemplatesMainPageContentType?: T;
+        searchTemplateContentType?: T;
+        searchLegalPageContentType?: T;
+        searchLandingPageContentType?: T;
+        searchPageContentType?: T;
+        searchGuideMainInfoContentType?: T;
+      };
+  'Menu Items'?: T | {};
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5310,13 +5462,19 @@ export interface NavigationBarMenuItemsSelect<T extends boolean = true> {
  * via the `definition` "page_select".
  */
 export interface PageSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        Title?: T;
+        Description?: T;
+        followAndIndex?: T;
+      };
+  Title?: T;
+  Description?: T;
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   body?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5325,13 +5483,17 @@ export interface PageSelect<T extends boolean = true> {
  * via the `definition` "pricingUseCase_select".
  */
 export interface PricingUseCaseSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5349,11 +5511,15 @@ export interface RatingSelect<T extends boolean = true> {
  * via the `definition` "report_select".
  */
 export interface ReportSelect<T extends boolean = true> {
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
   lastUpdated?: T;
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   author?: T;
@@ -5367,13 +5533,17 @@ export interface ReportSelect<T extends boolean = true> {
  * via the `definition` "solution_select".
  */
 export interface SolutionSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5382,13 +5552,17 @@ export interface SolutionSelect<T extends boolean = true> {
  * via the `definition` "template_select".
  */
 export interface TemplateSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
-  templateId?: T;
+  'Template ID'?: T;
   globalTag?: T;
   useCase?: T;
   team?: T;
@@ -5404,10 +5578,14 @@ export interface TemplateSelect<T extends boolean = true> {
  * via the `definition` "templateIndustry_select".
  */
 export interface TemplateIndustrySelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  followAndIndex?: T;
   name?: T;
+  SEO?:
+    | T
+    | {
+        description?: T;
+        followAndIndex?: T;
+        title?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5416,10 +5594,14 @@ export interface TemplateIndustrySelect<T extends boolean = true> {
  * via the `definition` "templateMethodology_select".
  */
 export interface TemplateMethodologySelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  followAndIndex?: T;
   name?: T;
+  SEO?:
+    | T
+    | {
+        description?: T;
+        followAndIndex?: T;
+        title?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5428,10 +5610,14 @@ export interface TemplateMethodologySelect<T extends boolean = true> {
  * via the `definition` "templateTeam_select".
  */
 export interface TemplateTeamSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  followAndIndex?: T;
   name?: T;
+  SEO?:
+    | T
+    | {
+        description?: T;
+        followAndIndex?: T;
+        title?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5440,10 +5626,14 @@ export interface TemplateTeamSelect<T extends boolean = true> {
  * via the `definition` "templateUseCase_select".
  */
 export interface TemplateUseCaseSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  followAndIndex?: T;
   name?: T;
+  SEO?:
+    | T
+    | {
+        description?: T;
+        followAndIndex?: T;
+        title?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5465,10 +5655,14 @@ export interface TestimonialReviewerSelect<T extends boolean = true> {
  * via the `definition` "video_select".
  */
 export interface VideoSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        description?: T;
+        title?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   cover?: T;
@@ -5485,7 +5679,7 @@ export interface VideoSelect<T extends boolean = true> {
   shareLinkedin?: T;
   shareEmail?: T;
   copyLink?: T;
-  cta?: T | {};
+  'Call To Action'?: T | {};
   clientLogoTypes?: T | {};
   updatedAt?: T;
   createdAt?: T;
@@ -5651,8 +5845,12 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface BlogMainPage {
   id: string;
-  followAndIndex?: boolean | null;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    description: string;
+    followAndIndex?: boolean | null;
+    title: string;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -5667,8 +5865,6 @@ export interface BlogMainPage {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  title: string;
-  description: string;
   /**
    * Any hero block must be on first place.
    */
@@ -5694,7 +5890,12 @@ export interface BlogMainPage {
  */
 export interface ErrorPage {
   id: string;
-  ogImage?: OgImage[] | null;
+  SEO?: {
+    title?: string | null;
+    description?: string | null;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -5710,9 +5911,6 @@ export interface ErrorPage {
     value: string | Footer;
   } | null;
   hero: HeroSubpages[];
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5722,8 +5920,12 @@ export interface ErrorPage {
  */
 export interface EventsMainPage {
   id: string;
-  followAndIndex?: boolean | null;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    followAndIndex?: boolean | null;
+    title: string;
+    description: string;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -5738,8 +5940,6 @@ export interface EventsMainPage {
     relationTo: 'footer';
     value: string | Footer;
   } | null;
-  title: string;
-  description: string;
   /**
    * Any hero block must be on first place.
    */
@@ -5777,9 +5977,12 @@ export interface Favicon {
  */
 export interface GuidesMainPage {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Imagee'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -5809,7 +6012,6 @@ export interface GuidesMainPage {
     | ClientLogotypes
     | CtaSmall
   )[];
-  followAndIndex?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5819,10 +6021,12 @@ export interface GuidesMainPage {
  */
 export interface IntegrationsMainPage {
   id: string;
-  followAndIndex?: boolean | null;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Imagee'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -5859,7 +6063,12 @@ export interface IntegrationsMainPage {
  */
 export interface NotFoundPage {
   id: string;
-  ogImage?: OgImage[] | null;
+  SEO?: {
+    title?: string | null;
+    description?: string | null;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -5875,9 +6084,6 @@ export interface NotFoundPage {
     value: string | Footer;
   } | null;
   hero: HeroSubpages[];
-  title?: string | null;
-  description?: string | null;
-  followAndIndex?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5887,9 +6093,12 @@ export interface NotFoundPage {
  */
 export interface PricingMainPage {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -5962,7 +6171,6 @@ export interface PricingMainPage {
     | TextLinks
     | Toggle
   )[];
-  followAndIndex?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5972,10 +6180,12 @@ export interface PricingMainPage {
  */
 export interface ReportsMainPage {
   id: string;
-  followAndIndex?: boolean | null;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Imagee'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -6016,9 +6226,12 @@ export interface ReportsMainPage {
  */
 export interface TemplatesMainPage {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -6048,7 +6261,6 @@ export interface TemplatesMainPage {
         | CtaSmall
       )[]
     | null;
-  followAndIndex?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -6058,9 +6270,12 @@ export interface TemplatesMainPage {
  */
 export interface VideosMainPage {
   id: string;
-  title: string;
-  description: string;
-  ogImage?: OgImage[] | null;
+  'S E O': {
+    title: string;
+    description: string;
+    followAndIndex?: boolean | null;
+  };
+  'OG Image'?: OgImage[] | null;
   /**
    * If field will be empty, page will be use default Navigation Bar.
    */
@@ -6079,7 +6294,6 @@ export interface VideosMainPage {
    * Any hero block must be on first place.
    */
   blocks: (ResourcesHero | VideosBody | Pagination | GlobalClientLogotypes | GlobalCTA | CtaForm | Cta)[];
-  followAndIndex?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -6100,12 +6314,16 @@ export interface Setting {
  * via the `definition` "blogMainPage_select".
  */
 export interface BlogMainPageSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        description?: T;
+        followAndIndex?: T;
+        title?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
-  title?: T;
-  description?: T;
   blocks?: T | {};
   updatedAt?: T;
   createdAt?: T;
@@ -6116,13 +6334,17 @@ export interface BlogMainPageSelect<T extends boolean = true> {
  * via the `definition` "errorPage_select".
  */
 export interface ErrorPageSelect<T extends boolean = true> {
-  ogImage?: T | {};
+  SEO?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   hero?: T | {};
-  title?: T;
-  description?: T;
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -6132,12 +6354,16 @@ export interface ErrorPageSelect<T extends boolean = true> {
  * via the `definition` "eventsMainPage_select".
  */
 export interface EventsMainPageSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        followAndIndex?: T;
+        title?: T;
+        description?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
-  title?: T;
-  description?: T;
   blocks?: T | {};
   updatedAt?: T;
   createdAt?: T;
@@ -6158,13 +6384,17 @@ export interface FaviconSelect<T extends boolean = true> {
  * via the `definition` "guidesMainPage_select".
  */
 export interface GuidesMainPageSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Imagee'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -6174,10 +6404,14 @@ export interface GuidesMainPageSelect<T extends boolean = true> {
  * via the `definition` "integrationsMainPage_select".
  */
 export interface IntegrationsMainPageSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Imagee'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
@@ -6190,13 +6424,17 @@ export interface IntegrationsMainPageSelect<T extends boolean = true> {
  * via the `definition` "notFoundPage_select".
  */
 export interface NotFoundPageSelect<T extends boolean = true> {
-  ogImage?: T | {};
+  SEO?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   hero?: T | {};
-  title?: T;
-  description?: T;
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -6206,13 +6444,17 @@ export interface NotFoundPageSelect<T extends boolean = true> {
  * via the `definition` "pricingMainPage_select".
  */
 export interface PricingMainPageSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -6222,10 +6464,14 @@ export interface PricingMainPageSelect<T extends boolean = true> {
  * via the `definition` "reportsMainPage_select".
  */
 export interface ReportsMainPageSelect<T extends boolean = true> {
-  followAndIndex?: T;
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Imagee'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
@@ -6238,13 +6484,17 @@ export interface ReportsMainPageSelect<T extends boolean = true> {
  * via the `definition` "templatesMainPage_select".
  */
 export interface TemplatesMainPageSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -6254,13 +6504,17 @@ export interface TemplatesMainPageSelect<T extends boolean = true> {
  * via the `definition` "videosMainPage_select".
  */
 export interface VideosMainPageSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ogImage?: T | {};
+  'S E O'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        followAndIndex?: T;
+      };
+  'OG Image'?: T | {};
   navigationBar?: T;
   footer?: T;
   blocks?: T | {};
-  followAndIndex?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

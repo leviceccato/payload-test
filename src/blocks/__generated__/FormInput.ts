@@ -9,7 +9,7 @@ export const FormInput = {
   fields: [
     
     {
-      name: "name",
+      name: "Field name",
       required: true,
       admin: {"description":"The field uses for html element and must be without white spaces."},
       type: "text"

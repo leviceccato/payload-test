@@ -9,7 +9,7 @@ export const GlobalCTA = {
   fields: [
     
     {
-      name: "cta",
+      name: "Call To Action",
       required: true,
       hasMany: false,
       type: "relationship",

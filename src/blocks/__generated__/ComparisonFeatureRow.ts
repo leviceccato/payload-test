@@ -21,7 +21,7 @@ export const ComparisonFeatureRow = {
     },
 
     {
-      name: "annualyPrice",
+      name: "Annual Price",
       required: true,
       type: "text"
     },

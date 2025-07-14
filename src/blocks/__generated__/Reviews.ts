@@ -17,7 +17,7 @@ export const Reviews = {
     },
 
     {
-      name: "reviews",
+      name: "Review Components",
       required: true,
       type: "blocks",
       blocks: [],

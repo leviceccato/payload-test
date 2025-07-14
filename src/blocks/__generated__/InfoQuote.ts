@@ -22,7 +22,7 @@ export const InfoQuote = {
     },
 
     {
-      name: "representative",
+      name: "",
       hasMany: false,
       type: "relationship",
       relationTo: ["testimonial-reviewer"]

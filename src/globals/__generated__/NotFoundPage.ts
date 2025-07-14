@@ -5,10 +5,22 @@ export const NotFoundPage = {
   slug: 'notFoundPage',
   
   fields: [
-    // TODO: Create a group (SEO: title,description,followAndIndex),
+    
+    {
+      name: "SEO",
+      type: "group",
+      fields: [{ name: "title",
+      type: "text" },
+      { name: "description",
+      type: "text" },
+      { name: "followAndIndex",
+      type: "checkbox",
+      defaultValue: true }
+        ]
+    },
 
     {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -39,22 +51,6 @@ export const NotFoundPage = {
       blockReferences: ["heroSubpages"],
       minRows: 1,
       maxRows: 1
-    },
-
-    {
-      name: "title",
-      type: "text"
-    },
-
-    {
-      name: "description",
-      type: "text"
-    },
-
-    {
-      name: "followAndIndex",
-      type: "checkbox",
-      defaultValue: true
     }
   ]
 } as const satisfies GlobalConfig

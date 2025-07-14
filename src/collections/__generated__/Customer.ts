@@ -5,50 +5,48 @@ export const Customer = {
   slug: 'customer',
   
   fields: [
-    // TODO: Create a group (S E O: title,description,followAndIndex),
-
+    
     {
-      name: "title",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "title",
       required: true,
-      type: "text"
+      type: "text" },
+      { name: "description",
+      required: true,
+      type: "text" },
+      { name: "followAndIndex",
+      type: "checkbox",
+      defaultValue: true }
+        ]
     },
 
     {
-      name: "description",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
       maxRows: 1
     },
-// TODO: Create a group (undefined: customerTitle,customerBody,cover),
 
     {
-      name: "customerTitle",
+      name: "customerInfo",
+      type: "group",
+      fields: [{ name: "customerTitle",
       required: true,
       admin: {"description":"This field will be show at customers list page and customer page hero."},
-      type: "text"
-    },
-
-    {
-      name: "customerBody",
+      type: "text" },
+      { name: "customerBody",
       required: true,
       admin: {"description":"This field will be show at customers list page and customer page hero."},
-      type: "textarea"
-    },
-
-    {
-      name: "cover",
+      type: "textarea" },
+      { name: "cover",
       required: true,
       admin: {"description":"This field will be show at customers list page."},
       type: "upload",
       relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
+      filterOptions: {"mimeType":{"contains":["image"]}} }
+        ]
     },
 
     {
@@ -104,18 +102,17 @@ export const Customer = {
       type: "relationship",
       relationTo: ["customerIndustry"]
     },
-// TODO: Create a group (undefined: summaryTitle,summaryBody),
 
     {
-      name: "summaryTitle",
+      name: "summary",
+      type: "group",
+      fields: [{ name: "summaryTitle",
       required: true,
-      type: "text"
-    },
-
-    {
-      name: "summaryBody",
+      type: "text" },
+      { name: "summaryBody",
       required: true,
-      type: "textarea"
+      type: "textarea" }
+        ]
     },
 
     {
@@ -131,12 +128,6 @@ export const Customer = {
       type: "blocks",
       blocks: [],
       blockReferences: ["appreciation", "banner", "bookDemoMain", "clientLogotypes", "clientLogotypesCards", "cta", "ctaForm", "ctaSmall", "customComponent", "demos", "embedded", "embededMap", "features", "form", "globalClientLogotypes", "globalCTA", "globalInfoAccordion", "globalInfoCarousel", "globalInfoGrid", "globalInfoTabVariant", "globalInfoTextWithImage", "globalInfoWithCardsSection", "globalReviewsSection", "heroSubpages", "heroSubpagesCentered", "homeHero", "infoAccordion", "infoCarousel", "infoGrid", "infoGridCardsWithIcons", "infoGridTwoColumnsWithTitle", "infoGridWithHeading", "infoGridWithResources", "infoSlider", "infoSliderTimeline", "infoTabsWithDescriptions", "infoTabsWithIcon", "infoTextWithCollage", "infoTextWithImage", "infoWithCards", "insightComparison", "mainHero", "media", "mediaCollage", "pagination", "pricingTable", "pricingTableComparison", "resourcesHero", "reviews", "singleReview", "textBlock", "textLinks", "toggle"]
-    },
-
-    {
-      name: "followAndIndex",
-      type: "checkbox",
-      defaultValue: true
     }
   ]
 } as const satisfies CollectionConfig

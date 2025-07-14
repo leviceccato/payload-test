@@ -18,17 +18,16 @@ export const PricingPlanListItem = {
       name: "additionalLabel",
       type: "text"
     },
-// TODO: Create a group (undefined: tooltipImage,tooltipBody),
 
     {
-      name: "tooltipImage",
+      name: "tooltip",
+      type: "group",
+      fields: [{ name: "tooltipImage",
       type: "upload",
-      relationTo: "assets"
-    },
-
-    {
-      name: "tooltipBody",
-      type: "text"
+      relationTo: "assets" },
+      { name: "tooltipBody",
+      type: "text" }
+        ]
     }
   ]
 } as const satisfies Block

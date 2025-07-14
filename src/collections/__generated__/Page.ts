@@ -5,22 +5,36 @@ export const Page = {
   slug: 'page',
   
   fields: [
-    // TODO: Create a group (S E O: Title,Description,title,description,followAndIndex),
+    
+    {
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "Title",
+      required: true,
+      type: "text" },
+      { name: "Description",
+      required: true,
+      type: "text" },
+      { name: "followAndIndex",
+      type: "checkbox",
+      defaultValue: true }
+        ]
+    },
 
     {
-      name: "title",
+      name: "Title",
       required: true,
       type: "text"
     },
 
     {
-      name: "description",
+      name: "Description",
       required: true,
       type: "text"
     },
 
     {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -50,12 +64,6 @@ export const Page = {
       type: "blocks",
       blocks: [],
       blockReferences: ["appreciation", "banner", "bookDemoMain", "clientLogotypes", "clientLogotypesCards", "cta", "ctaForm", "ctaSmall", "customComponent", "demos", "embedded", "embededMap", "features", "form", "globalClientLogotypes", "globalCTA", "globalInfoAccordion", "globalInfoCarousel", "globalInfoGrid", "globalInfoTabVariant", "globalInfoTextWithImage", "globalInfoWithCardsSection", "globalReviewsSection", "heroSubpages", "heroSubpagesCentered", "homeHero", "infoAccordion", "infoCarousel", "infoGrid", "infoGridCardsWithIcons", "infoGridTwoColumnsWithTitle", "infoGridWithHeading", "infoGridWithResources", "infoSlider", "infoSliderTimeline", "infoTabsWithDescriptions", "infoTabsWithIcon", "infoTextWithCollage", "infoTextWithImage", "infoWithCards", "insightComparison", "mainHero", "media", "mediaCollage", "pagination", "pricingTable", "pricingTableComparison", "resourcesHero", "reviews", "singleReview", "textBlock", "textLinks", "toggle"]
-    },
-
-    {
-      name: "followAndIndex",
-      type: "checkbox",
-      defaultValue: true
     }
   ]
 } as const satisfies CollectionConfig

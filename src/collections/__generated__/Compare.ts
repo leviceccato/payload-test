@@ -5,11 +5,18 @@ export const Compare = {
   slug: 'compare',
   
   fields: [
-    // TODO: Create a group (S E O: followAndIndex,title,description),
-
+    
     {
-      name: "followAndIndex",
-      type: "checkbox"
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "followAndIndex",
+      type: "checkbox" },
+      { name: "title",
+      required: true,
+      type: "text" },
+      { name: "description",
+      type: "text" }
+        ]
     },
 
     {
@@ -33,17 +40,6 @@ export const Compare = {
       hasMany: false,
       type: "relationship",
       relationTo: ["footer"]
-    },
-
-    {
-      name: "title",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "description",
-      type: "text"
     },
 
     {

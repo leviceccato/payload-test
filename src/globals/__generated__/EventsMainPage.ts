@@ -5,16 +5,24 @@ export const EventsMainPage = {
   slug: 'eventsMainPage',
   
   fields: [
-    // TODO: Create a group (S E O: followAndIndex,title,description),
-
+    
     {
-      name: "followAndIndex",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "followAndIndex",
       type: "checkbox",
-      defaultValue: true
+      defaultValue: true },
+      { name: "title",
+      required: true,
+      type: "text" },
+      { name: "description",
+      required: true,
+      type: "text" }
+        ]
     },
 
     {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -35,18 +43,6 @@ export const EventsMainPage = {
       hasMany: false,
       type: "relationship",
       relationTo: ["footer"]
-    },
-
-    {
-      name: "title",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "description",
-      required: true,
-      type: "text"
     },
 
     {

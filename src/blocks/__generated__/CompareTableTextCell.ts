@@ -13,18 +13,17 @@ export const CompareTableTextCell = {
       required: true,
       type: "text"
     },
-// TODO: Create a group (undefined: tooltipImage,tooltipBody),
 
     {
-      name: "tooltipBody",
-      type: "text"
-    },
-
-    {
-      name: "tooltipImage",
+      name: "tooltip",
+      type: "group",
+      fields: [{ name: "tooltipImage",
       type: "upload",
       relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
+      filterOptions: {"mimeType":{"contains":["image"]}} },
+      { name: "tooltipBody",
+      type: "text" }
+        ]
     }
   ]
 } as const satisfies Block

@@ -5,28 +5,24 @@ export const IntegrationsMainPage = {
   slug: 'integrationsMainPage',
   
   fields: [
-    // TODO: Create a group (S E O: title,description,followAndIndex),
-
+    
     {
-      name: "followAndIndex",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "title",
+      required: true,
+      type: "text" },
+      { name: "description",
+      required: true,
+      type: "text" },
+      { name: "followAndIndex",
       type: "checkbox",
-      defaultValue: true
+      defaultValue: true }
+        ]
     },
 
     {
-      name: "title",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "description",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "ogImage",
+      name: "OG Imagee",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],

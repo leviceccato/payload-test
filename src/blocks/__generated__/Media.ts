@@ -15,7 +15,7 @@ export const Media = {
     },
 
     {
-      name: "embedLink",
+      name: "YouTube Embed",
       admin: {"description":"YouTube embeds have more priority than video fields."},
       type: "textarea"
     },

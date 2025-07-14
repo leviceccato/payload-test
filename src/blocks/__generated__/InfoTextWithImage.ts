@@ -21,7 +21,7 @@ export const InfoTextWithImage = {
     },
 
     {
-      name: "contentType",
+      name: "Content Type",
       admin: {"description":"The value must be equal with \\\"Text link with icon\\\" component field"},
       hasMany: false,
       type: "select",
@@ -44,7 +44,7 @@ export const InfoTextWithImage = {
     },
 
     {
-      name: "cover",
+      name: "",
       type: "upload",
       relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image","video"]}}

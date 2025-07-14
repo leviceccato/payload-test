@@ -7,14 +7,23 @@ export const InfoGridWithHeading = {
     disableBlockName: true,
   },
   fields: [
-    // TODO: Create a group (undefined: title,icon,backgroundColor),
-
+    
     {
-      name: "backgroundColor",
+      name: "heading",
+      type: "group",
+      fields: [{ name: "title",
+      required: true,
+      type: "text" },
+      { name: "icon",
+      required: true,
+      type: "upload",
+      relationTo: "assets" },
+      { name: "backgroundColor",
       required: true,
       hasMany: false,
       type: "select",
-      options: [{"label":"Yellow 03","value":"bg-yellow-03"},{"label":"Pink 04","value":"bg-pink-04"},{"label":"Purple 04","value":"bg-purple-04"},{"label":"Blue 04","value":"bg-blue-04"}]
+      options: [{"label":"Yellow 03","value":"bg-yellow-03"},{"label":"Pink 04","value":"bg-pink-04"},{"label":"Purple 04","value":"bg-purple-04"},{"label":"Blue 04","value":"bg-blue-04"}] }
+        ]
     },
 
     {
@@ -24,29 +33,15 @@ export const InfoGridWithHeading = {
     },
 
     {
-      name: "title",
+      name: "cardsBlock",
+      type: "group",
+      fields: [{ name: "cardTag",
       required: true,
-      type: "text"
-    },
-
-    {
-      name: "icon",
+      type: "text" },
+      { name: "cardButtonLabel",
       required: true,
-      type: "upload",
-      relationTo: "assets"
-    },
-// TODO: Create a group (undefined: cardTag,cardButtonLabel),
-
-    {
-      name: "cardTag",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "cardButtonLabel",
-      required: true,
-      type: "text"
+      type: "text" }
+        ]
     },
 
     {

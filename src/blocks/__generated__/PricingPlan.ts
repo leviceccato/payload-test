@@ -26,13 +26,13 @@ export const PricingPlan = {
     },
 
     {
-      name: "annualyPrice",
+      name: "Annual Price",
       required: true,
       type: "text"
     },
 
     {
-      name: "annualyPriceLabel",
+      name: "Annual Price Label",
       type: "text"
     },
 

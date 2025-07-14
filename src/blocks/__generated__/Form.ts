@@ -9,17 +9,19 @@ export const Form = {
   fields: [
     
     {
-      name: "id",
+      name: "Form ID",
       required: true,
       admin: {"description":"The field uses for html element and must be without white spaces."},
       type: "text"
     },
-// TODO: Create a group (undefined: buttonLabel),
 
     {
-      name: "buttonLabel",
+      name: "button",
+      type: "group",
+      fields: [{ name: "buttonLabel",
       required: true,
-      type: "text"
+      type: "text" }
+        ]
     },
 
     {

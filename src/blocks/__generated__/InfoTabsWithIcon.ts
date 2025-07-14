@@ -42,7 +42,7 @@ export const InfoTabsWithIcon = {
     },
 
     {
-      name: "tabs",
+      name: "Tab Items",
       required: true,
       type: "blocks",
       blocks: [],

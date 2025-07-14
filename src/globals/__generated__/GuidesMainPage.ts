@@ -5,22 +5,24 @@ export const GuidesMainPage = {
   slug: 'guidesMainPage',
   
   fields: [
-    // TODO: Create a group (S E O: title,description,followAndIndex),
-
+    
     {
-      name: "title",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "title",
       required: true,
-      type: "text"
+      type: "text" },
+      { name: "description",
+      required: true,
+      type: "text" },
+      { name: "followAndIndex",
+      type: "checkbox",
+      defaultValue: true }
+        ]
     },
 
     {
-      name: "description",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "ogImage",
+      name: "OG Imagee",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -50,12 +52,6 @@ export const GuidesMainPage = {
       type: "blocks",
       blocks: [],
       blockReferences: ["resourcesHero", "featureGuide", "guidesBody", "pagination", "globalCTA", "globalClientLogotypes", "ctaForm", "cta", "clientLogotypes", "ctaSmall"]
-    },
-
-    {
-      name: "followAndIndex",
-      type: "checkbox",
-      defaultValue: true
     }
   ]
 } as const satisfies GlobalConfig

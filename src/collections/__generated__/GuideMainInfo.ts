@@ -7,13 +7,13 @@ export const GuideMainInfo = {
   fields: [
     
     {
-      name: "title",
+      name: "Guide Title",
       required: true,
       type: "text"
     },
 
     {
-      name: "body",
+      name: "Guide Body",
       required: true,
       type: "textarea"
     },
@@ -34,7 +34,7 @@ name: "linkToFirstPage",
     },
 
     {
-      name: "shareTitle",
+      name: "Share Title",
       required: true,
       admin: {"description":"Text will be used for the sidebar table of content."},
       type: "text",
@@ -88,7 +88,7 @@ name: "linkToFirstPage",
     },
 
     {
-      name: "cover",
+      name: "Cover",
       required: true,
       type: "upload",
       relationTo: "assets",

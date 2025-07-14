@@ -216,18 +216,22 @@ function mapFieldType(components, component, field, key) {
       }
       break
     case 'section':
-      // Not totally straightforward to generate the group
-      output = null
-      comment = `TODO: Create a group (${field.display_name}: ${field.keys.join(
-        ','
-      )})`
-      break
     case 'tab':
-      // Not totally straightforward to generate the tab
-      output = null
-      comment = `TODO: Create a tab (${field.display_name}: ${field.keys.join(
-        ','
-      )})`
+      output.type = 'group'
+      output.fields = new GroupFields(
+        field.keys
+          .filter((key) => key in component.schema)
+          .map((key) => {
+            groupFields.push(key)
+            const { output } = mapFieldType(
+              components,
+              component,
+              component.schema[key],
+              key
+            )
+            return output
+          })
+      )
       break
     case 'datetime':
       output.type = 'date'
@@ -265,7 +269,7 @@ function mapFieldType(components, component, field, key) {
       throw new Error(`Unmapped field: ${JSON.stringify(field)}`)
   }
 
-  return { output, comment }
+  return { output, comment, groupFields }
 }
 
 function objToJS(obj) {
@@ -289,6 +293,16 @@ function objToJS(obj) {
         return `${key}: lexicalEditor({ features: ({ rootFeatures }) => [...rootFeatures, BlocksFeature({ blocks: ${JSON.stringify(
           value.blocks
         )} })] })`
+      }
+      if (value instanceof GroupFields) {
+        return `${key}: [${value.fields
+          .map((field) => {
+            const { imports: newImports, js } = objToJS(field)
+            newImports.forEach((imp) => imports.push(imp))
+            return `{ ${js} }`
+          })
+          .join(',\n      ')}
+        ]`
       }
       if (value instanceof Table) {
         imports.push(
@@ -320,9 +334,20 @@ function componentToPayloadConfig(components, component, type) {
   const fields = Object.entries(component.schema).map(([key, field]) =>
     mapFieldType(components, component, field, key)
   )
+
+  const groupFields = new Set(
+    fields.flatMap((field) => {
+      return field.groupFields
+    })
+  )
+
+  const filteredFields = fields.filter((field) => {
+    return !groupFields.has(field.output.name)
+  })
+
   const pascalName = toPascalCase(component.name)
   const imports = new Set()
-  const fieldsString = fields
+  const fieldsString = filteredFields
     .map(({ output, comment }) => {
       if (comment.length > 0 && output === null) {
         return `// ${comment}`
@@ -467,3 +492,9 @@ class Editor {
 }
 
 class Table {}
+
+class GroupFields {
+  constructor(fields) {
+    this.fields = fields
+  }
+}

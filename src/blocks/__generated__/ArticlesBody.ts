@@ -9,22 +9,22 @@ export const ArticlesBody = {
   fields: [
     
     {
-      name: "label",
+      name: "Show Label",
       type: "checkbox"
     },
 
     {
-      name: "date",
+      name: "Show Date",
       type: "checkbox"
     },
 
     {
-      name: "readTime",
+      name: "Show Read Time",
       type: "checkbox"
     },
 
     {
-      name: "author",
+      name: "Show Author",
       type: "checkbox"
     }
   ]

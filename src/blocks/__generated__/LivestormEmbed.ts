@@ -14,7 +14,7 @@ export const LivestormEmbed = {
     },
 
     {
-      name: "embedHtml",
+      name: "Embed HTML",
       required: true,
       type: "textarea"
     }

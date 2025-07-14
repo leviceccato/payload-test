@@ -5,27 +5,23 @@ export const Video = {
   slug: 'video',
   
   fields: [
-    // TODO: Create a group (S E O: description,title,followAndIndex),
-
+    
     {
-      name: "followAndIndex",
-      type: "checkbox",
-      defaultValue: true
-    },
-
-    {
-      name: "title",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "description",
+      type: "text" },
+      { name: "title",
       required: true,
-      type: "text"
+      type: "text" },
+      { name: "followAndIndex",
+      type: "checkbox",
+      defaultValue: true }
+        ]
     },
 
     {
-      name: "description",
-      type: "text"
-    },
-
-    {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -145,7 +141,7 @@ export const Video = {
     },
 
     {
-      name: "cta",
+      name: "Call To Action",
       required: true,
       type: "blocks",
       blocks: [],

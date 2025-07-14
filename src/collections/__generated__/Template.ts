@@ -5,28 +5,24 @@ export const Template = {
   slug: 'template',
   
   fields: [
-    // TODO: Create a group (S E O: title,description,followAndIndex),
-
+    
     {
-      name: "followAndIndex",
+      name: "S E O",
+      type: "group",
+      fields: [{ name: "title",
+      required: true,
+      type: "text" },
+      { name: "description",
+      required: true,
+      type: "text" },
+      { name: "followAndIndex",
       type: "checkbox",
-      defaultValue: true
+      defaultValue: true }
+        ]
     },
 
     {
-      name: "title",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "description",
-      required: true,
-      type: "text"
-    },
-
-    {
-      name: "ogImage",
+      name: "OG Image",
       type: "blocks",
       blocks: [],
       blockReferences: ["ogImage"],
@@ -50,7 +46,7 @@ export const Template = {
     },
 
     {
-      name: "templateId",
+      name: "Template ID",
       required: true,
       type: "text"
     },

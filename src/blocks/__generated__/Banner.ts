@@ -35,8 +35,50 @@ export const Banner = {
       relationTo: "assets",
       filterOptions: {"mimeType":{"contains":["image"]}}
     },
-// TODO: Create a group (undefined: leftTopImage,rightTopImage,leftBottomImage,rightBottomImage),
-// TODO: Create a group (undefined: rightTopImageMobile,leftBottomImageMobile,rightBottomImageMobile,leftTopImageMobile),
+
+    {
+      name: "backgroundDesktop",
+      type: "group",
+      fields: [{ name: "leftTopImage",
+      type: "upload",
+      relationTo: "assets",
+      filterOptions: {"mimeType":{"contains":["image"]}} },
+      { name: "rightTopImage",
+      type: "upload",
+      relationTo: "assets",
+      filterOptions: {"mimeType":{"contains":["image"]}} },
+      { name: "leftBottomImage",
+      type: "upload",
+      relationTo: "assets",
+      filterOptions: {"mimeType":{"contains":["image"]}} },
+      { name: "rightBottomImage",
+      type: "upload",
+      relationTo: "assets",
+      filterOptions: {"mimeType":{"contains":["image"]}} }
+        ]
+    },
+
+    {
+      name: "backgroundMobile",
+      type: "group",
+      fields: [{ name: "rightTopImageMobile",
+      type: "upload",
+      relationTo: "assets",
+      filterOptions: {"mimeType":{"contains":["image"]}} },
+      { name: "leftBottomImageMobile",
+      type: "upload",
+      relationTo: "assets",
+      filterOptions: {"mimeType":{"contains":["image"]}} },
+      { name: "rightBottomImageMobile",
+      type: "upload",
+      relationTo: "assets",
+      filterOptions: {"mimeType":{"contains":["image"]}} },
+      { name: "leftTopImageMobile",
+      type: "upload",
+      relationTo: "assets",
+      filterOptions: {"mimeType":{"contains":["image"]}} }
+        ]
+    },
 
     {
       name: "button",
@@ -46,62 +88,6 @@ export const Banner = {
       blockReferences: ["button", "globalButtons"],
       minRows: 1,
       maxRows: 1
-    },
-
-    {
-      name: "leftTopImage",
-      type: "upload",
-      relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
-    },
-
-    {
-      name: "rightTopImage",
-      type: "upload",
-      relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
-    },
-
-    {
-      name: "leftBottomImage",
-      type: "upload",
-      relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
-    },
-
-    {
-      name: "rightBottomImage",
-      type: "upload",
-      relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
-    },
-
-    {
-      name: "leftTopImageMobile",
-      type: "upload",
-      relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
-    },
-
-    {
-      name: "rightTopImageMobile",
-      type: "upload",
-      relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
-    },
-
-    {
-      name: "leftBottomImageMobile",
-      type: "upload",
-      relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
-    },
-
-    {
-      name: "rightBottomImageMobile",
-      type: "upload",
-      relationTo: "assets",
-      filterOptions: {"mimeType":{"contains":["image"]}}
     }
   ]
 } as const satisfies Block

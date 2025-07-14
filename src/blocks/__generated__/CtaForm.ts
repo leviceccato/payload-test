@@ -30,7 +30,7 @@ export const CtaForm = {
     },
 
     {
-      name: "formId",
+      name: "Form ID",
       admin: {"description":"The field uses for html element and must be without white spaces."},
       type: "text"
     },
@@ -41,25 +41,21 @@ export const CtaForm = {
       blocks: [],
       blockReferences: ["formInput", "formDropdown", "formCheckbox"]
     },
-// TODO: Create a group (undefined: label,link,buttonPoisition,buttonPosition),
 
     {
-      name: "label",
+      name: "button",
+      type: "group",
+      fields: [{ name: "label",
       required: true,
-      type: "text"
-    },
-
-    {
-      name: "link",
+      type: "text" },
+      { name: "link",
       admin: {"description":"The link overwriten with Form Input and Form ID fields"},
-      type: "text"
-    },
-
-    {
-      name: "buttonPosition",
+      type: "text" },
+      { name: "buttonPosition",
       hasMany: false,
       type: "select",
-      options: [{"label":"Bottom","value":"bottom"},{"label":"Right","value":"right"}]
+      options: [{"label":"Bottom","value":"bottom"},{"label":"Right","value":"right"}] }
+        ]
     }
   ]
 } as const satisfies Block

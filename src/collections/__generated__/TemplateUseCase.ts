@@ -7,25 +7,21 @@ export const TemplateUseCase = {
   fields: [
     
     {
-      name: "title",
-      type: "text"
-    },
-
-    {
-      name: "description",
-      type: "text"
-    },
-
-    {
-      name: "followAndIndex",
-      type: "checkbox"
-    },
-
-    {
       name: "name",
       required: true,
       type: "text"
     },
-// TODO: Create a tab (SEO: description,followAndIndex,title)
+
+    {
+      name: "SEO",
+      type: "group",
+      fields: [{ name: "description",
+      type: "text" },
+      { name: "followAndIndex",
+      type: "checkbox" },
+      { name: "title",
+      type: "text" }
+        ]
+    }
   ]
 } as const satisfies CollectionConfig
