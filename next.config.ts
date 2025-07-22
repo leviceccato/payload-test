@@ -20,6 +20,8 @@ const envSchema = z.object({
   NEXT_PUBLIC_PROD_URL: z.string().url(),
   MONGODB_PASSWORD: z.string(),
   VERCEL_GIT_COMMIT_REF: z.string().optional(),
+  STORYBLOK_SPACE_ID: z.string(),
+  STORYBLOK_TOKEN: z.string(),
 })
 
 envSchema.parse(process.env)
