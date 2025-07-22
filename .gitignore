@@ -43,4 +43,5 @@ next-env.d.ts
 
 .env
 
-/media
+/assets
+storyblok-backup.json

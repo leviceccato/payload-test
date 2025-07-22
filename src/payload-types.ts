@@ -518,7 +518,6 @@ export interface TestimonialReviewer {
 export interface Asset {
   id: string;
   alt: string;
-  prefix?: string | null;
   folder?: (string | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
@@ -5712,7 +5711,6 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface AssetsSelect<T extends boolean = true> {
   alt?: T;
-  prefix?: T;
   folder?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -32,7 +32,10 @@ export default buildConfig({
       EXPERIMENTAL_TableFeature(),
     ],
   }),
-  sharp,
+  sharp: (input, options) => sharp(input, {
+    ...options,
+    limitInputPixels: false,
+  }),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
@@ -52,6 +55,7 @@ export default buildConfig({
   },
   plugins: [
     vercelBlobStorage({
+      enabled: false,
       token: process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
         assets: {
