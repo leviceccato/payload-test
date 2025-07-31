@@ -1,10 +1,19 @@
 import { readFile } from 'node:fs/promises'
 import { getPayload } from '@/utils/payload'
 import type { Payload } from 'payload'
-import backupRaw from '@/../storyblok-backup.json'
 
 async function main() {
-   const backup = backupRaw as Backup
+   let backup: Backup
+   try {
+      const backupRaw = await readFile(
+         './storyblok-backup.json',
+         'utf-8'
+      )
+      backup = JSON.parse(backupRaw)
+   } catch (error) {
+      console.error('Error reading backup file', error)
+      throw error
+   }
 
    // const stories = backup.stories.filter((story: any) => !story.is_folder)
 
