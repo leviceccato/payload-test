@@ -59,6 +59,7 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
         assets: {
+          disablePayloadAccessControl: true,
           prefix: getDatabaseName(),
         },
       },
