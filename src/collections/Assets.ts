@@ -6,8 +6,24 @@ export const Assets = {
   folders: true,
   upload: {
     adminThumbnail: ({ doc }) => {
-      return `https://gsti4renzefw2pst.public.blob.vercel-storage.com/${getDatabaseName()}/${doc.filename}`
+      if (typeof doc.filename !== 'string') {
+        return null
+      }
+
+      const filenameSegments = doc.filename.split('.')
+      const extension = filenameSegments.pop()
+      const filename = filenameSegments.join('.')
+    
+      return `https://gsti4renzefw2pst.public.blob.vercel-storage.com/${getDatabaseName()}/${filename}-100x100.${extension}`
     },
+    imageSizes: [
+      {
+        name: 'admin',
+        fit: 'contain',
+        width: 100,
+        height: 100,
+      },
+    ],
   },
   access: {
     read: () => true,
