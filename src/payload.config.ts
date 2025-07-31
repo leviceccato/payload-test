@@ -55,7 +55,7 @@ export default buildConfig({
   },
   plugins: [
     vercelBlobStorage({
-      enabled: false,
+      enabled: true,
       token: process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
         assets: {

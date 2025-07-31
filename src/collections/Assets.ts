@@ -3,7 +3,11 @@ import type { CollectionConfig } from 'payload'
 export const Assets = {
   slug: 'assets',
   folders: true,
-  upload: true,
+  upload: {
+    adminThumbnail: ({ doc }) => {
+      return `https://gsti4renzefw2pst.public.blob.vercel-storage.com/${doc.filename}`
+    }
+  },
   access: {
     read: () => true,
   },
